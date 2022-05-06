@@ -1,16 +1,32 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { createDoctorEntity, DoctorDto, DoctorEntity } from './doctor.model';
+import {
+  DoctorDto,
+  DoctorEntity,
+  DoctorsRepository,
+} from './doctors.repository';
+import { InjectRepository } from '@nestjs/typeorm';
 
 @Injectable()
 export class DoctorsService {
-  private data: DoctorEntity[] = [];
+  constructor(
+    @InjectRepository(DoctorsRepository)
+    private doctorsRepository: DoctorsRepository,
+  ) {}
 
-  getData(): DoctorEntity[] {
-    return this.data;
+  async getData(search: string): Promise<DoctorEntity[]> {
+    return await this.doctorsRepository.getDoctors(search);
   }
 
-  getEntityById(id: string): DoctorEntity {
-    const found = this.data.find((item) => item.id === id);
+  async createEntity(data: DoctorDto): Promise<DoctorEntity> {
+    const entity = this.doctorsRepository.create(data);
+    await this.doctorsRepository.save(entity);
+    return entity;
+  }
+
+  async getEntityById(id: string): Promise<DoctorEntity> {
+    const found = await this.doctorsRepository.findOne({
+      where: { id },
+    });
 
     if (found) {
       return found;
@@ -18,19 +34,18 @@ export class DoctorsService {
     throw new NotFoundException();
   }
 
-  updateDoctorById(id: string, desc: string): DoctorEntity {
-    const found = this.getEntityById(id);
-    found.desc = desc;
-    return found;
-  }
-
-  deleteEntityById(id: string): void {
-    this.data = this.data.filter((item) => item.id !== id);
-  }
-
-  createEntity(data: DoctorDto): DoctorEntity {
-    const entity = createDoctorEntity(data);
-    this.data.push(entity);
+  async updateDoctorById(id: string, desc: string): Promise<DoctorEntity> {
+    const entity = await this.getEntityById(id);
+    entity.desc = desc;
+    await this.doctorsRepository.save(entity);
     return entity;
+  }
+
+  async deleteEntityById(id: string): Promise<void> {
+    const result = await this.doctorsRepository.delete({ id });
+
+    if (result.affected === 0) {
+      throw new NotFoundException();
+    }
   }
 }

@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { DoctorsModule } from './doctors/doctors.module';
+import { DoctorEntity } from './doctors/doctors.repository';
 
 @Module({
   imports: [
@@ -14,6 +15,7 @@ import { DoctorsModule } from './doctors/doctors.module';
       database: 'clients-management',
       autoLoadEntities: true,
       synchronize: true,
+      entities: [DoctorEntity],
     }),
   ],
   controllers: [],
