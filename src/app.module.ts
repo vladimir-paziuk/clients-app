@@ -1,10 +1,14 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
+
+import { AuthModule } from './auth/auth.module';
 import { DoctorsModule } from './doctors/doctors.module';
 import { DoctorEntity } from './doctors/doctors.repository';
+import { UserEntity } from './auth/users.repository';
 
 @Module({
   imports: [
+    AuthModule,
     DoctorsModule,
     TypeOrmModule.forRoot({
       type: 'postgres',
@@ -15,7 +19,7 @@ import { DoctorEntity } from './doctors/doctors.repository';
       database: 'clients-management',
       autoLoadEntities: true,
       synchronize: true,
-      entities: [DoctorEntity],
+      entities: [DoctorEntity, UserEntity],
     }),
   ],
   controllers: [],
