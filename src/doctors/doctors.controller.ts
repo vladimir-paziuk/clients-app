@@ -7,11 +7,14 @@ import {
   Delete,
   Patch,
   Query,
+  UseGuards,
 } from '@nestjs/common';
 import { DoctorsService } from './doctors.service';
 import { DoctorDto, DoctorEntity } from './doctors.repository';
+import { AuthGuard } from '@nestjs/passport';
 
 @Controller('doctors')
+@UseGuards(AuthGuard())
 export class DoctorsController {
   constructor(private doctorsService: DoctorsService) {}
 
