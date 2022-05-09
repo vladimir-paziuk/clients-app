@@ -8,9 +8,11 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
 
-import { AuthCredentialsDto, UsersRepository } from './users.repository';
-import { JwtPayload, JwtToken } from './jwt.strategy';
-import { AuthErrors } from './auth.constants';
+import { JwtPayload, JwtToken } from 'common/strategies/jwt.strategy';
+import { POSTGRESQL_CODES } from 'common/constants/postgresql-codes';
+
+import { UsersRepository } from './users.repository';
+import { AuthCredentialsDto } from './dtos/authCredentialsDto';
 
 @Injectable()
 export class AuthService {
@@ -32,7 +34,7 @@ export class AuthService {
         password: hashedPassword,
       });
     } catch (err) {
-      if (err.code === AuthErrors.userExists) {
+      if (err.code === POSTGRESQL_CODES.userExists) {
         throw new ConflictException('User name already exist');
       } else {
         throw new InternalServerErrorException();
