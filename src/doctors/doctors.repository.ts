@@ -21,7 +21,7 @@ export class DoctorsRepository extends Repository<DoctorEntity> {
 
     if (search) {
       query.andWhere(
-        'LOWER(doctor.name) LIKE LOWER(:search) OR LOWER(doctor.desc) LIKE LOWER(:search)',
+        '(LOWER(doctor.name) LIKE LOWER(:search) OR LOWER(doctor.desc) LIKE LOWER(:search))',
         { search: `%${search}%` },
       );
     }
