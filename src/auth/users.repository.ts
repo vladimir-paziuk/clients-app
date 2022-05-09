@@ -1,21 +1,7 @@
-import { Column, Entity, PrimaryGeneratedColumn, Repository } from 'typeorm';
+import { Repository } from 'typeorm';
 import { CustomRepository } from '../database/typeorm-ex.decorator';
 import { IsString, Matches, MaxLength, MinLength } from 'class-validator';
-import {
-  ConflictException,
-  InternalServerErrorException,
-} from '@nestjs/common';
-import * as bcrypt from 'bcrypt';
-
-@Entity()
-export class UserEntity {
-  @PrimaryGeneratedColumn('uuid')
-  id: string;
-  @Column({ unique: true })
-  username: string;
-  @Column()
-  password: string;
-}
+import { UserEntity } from './user.entity';
 
 export class AuthCredentialsDto {
   @IsString()
@@ -35,22 +21,8 @@ export class AuthCredentialsDto {
 // @EntityRepository is deprecated, see module description
 @CustomRepository(UserEntity)
 export class UsersRepository extends Repository<UserEntity> {
-  async createUser(credentials: AuthCredentialsDto): Promise<void> {
-    const { username, password } = credentials;
-
-    const salt = await bcrypt.genSalt();
-    const hashedPassword = await bcrypt.hash(password, salt);
-
-    const entity = this.create({ username, password: hashedPassword });
-
-    try {
-      await this.save(entity);
-    } catch (err) {
-      if (err.code === '23505') {
-        throw new ConflictException('User name already exist');
-      } else {
-        throw new InternalServerErrorException();
-      }
-    }
+  async createUser(credentials: AuthCredentialsDto): Promise<UserEntity> {
+    const entity = this.create(credentials);
+    return await this.save(entity);
   }
 }

@@ -1,10 +1,16 @@
-import { Injectable, UnauthorizedException } from '@nestjs/common';
+import {
+  Injectable,
+  ConflictException,
+  UnauthorizedException,
+  InternalServerErrorException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
 
 import { AuthCredentialsDto, UsersRepository } from './users.repository';
 import { JwtPayload, JwtToken } from './jwt.strategy';
+import { AuthErrors } from './auth.constants';
 
 @Injectable()
 export class AuthService {
@@ -14,8 +20,24 @@ export class AuthService {
     private jwtService: JwtService,
   ) {}
 
-  signUp(credentials: AuthCredentialsDto): Promise<void> {
-    return this.usersRepository.createUser(credentials);
+  async signUp(credentials: AuthCredentialsDto): Promise<void> {
+    const { username, password } = credentials;
+
+    const salt = await bcrypt.genSalt();
+    const hashedPassword = await bcrypt.hash(password, salt);
+
+    try {
+      await this.usersRepository.createUser({
+        username,
+        password: hashedPassword,
+      });
+    } catch (err) {
+      if (err.code === AuthErrors.userExists) {
+        throw new ConflictException('User name already exist');
+      } else {
+        throw new InternalServerErrorException();
+      }
+    }
   }
 
   async signIn(credentials: AuthCredentialsDto): Promise<JwtToken> {
