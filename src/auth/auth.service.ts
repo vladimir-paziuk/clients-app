@@ -8,7 +8,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
 
-import { JwtPayload, JwtToken } from 'common/strategies/jwt.strategy';
+import { JwtPayload, JwtToken } from 'common/jwt/jwt.strategy';
 import { POSTGRESQL_CODES } from 'common/constants/postgresql-codes';
 
 import { UsersRepository } from './users.repository';

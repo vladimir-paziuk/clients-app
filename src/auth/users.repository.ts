@@ -1,5 +1,5 @@
 import { Repository } from 'typeorm';
-import { CustomRepository } from '../database/typeorm-ex.decorator';
+import { CustomRepository } from 'common/database/typeorm-ex.decorator';
 import { UserEntity } from './user.entity';
 import { AuthCredentialsDto } from './dtos/authCredentialsDto';
 

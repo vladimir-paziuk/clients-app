@@ -1,5 +1,5 @@
 import { Column, Entity, PrimaryGeneratedColumn, Repository } from 'typeorm';
-import { CustomRepository } from '../database/typeorm-ex.decorator';
+import { CustomRepository } from 'common/database/typeorm-ex.decorator';
 
 @Entity()
 export class DoctorEntity {

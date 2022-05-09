@@ -1,6 +1,6 @@
 import { Body, Controller, Post } from '@nestjs/common';
 import { AuthService } from './auth.service';
-import { JwtToken } from 'common/strategies/jwt.strategy';
+import { JwtToken } from 'common/jwt/jwt.strategy';
 import { AuthCredentialsDto } from './dtos/authCredentialsDto';
 
 @Controller('auth')

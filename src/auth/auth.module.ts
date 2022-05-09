@@ -1,11 +1,11 @@
 import { Module } from '@nestjs/common';
 import { AuthController } from './auth.controller';
 import { AuthService } from './auth.service';
-import { TypeOrmExModule } from 'database/typeorm-ex.module';
+import { TypeOrmExModule } from 'common/database/typeorm-ex.module';
 import { UsersRepository } from './users.repository';
 import { PassportModule } from '@nestjs/passport';
 import { JwtModule } from '@nestjs/jwt';
-import { JwtStrategy } from 'common/strategies/jwt.strategy';
+import { JwtStrategy } from 'common/jwt/jwt.strategy';
 
 export const AUTH_SECRET_KEY = 'topSecret51';
 const AUTH_TOKEN_EXPIRE_TIME = 3600;
