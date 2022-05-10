@@ -1,11 +1,6 @@
 import { INestApplication } from '@nestjs/common';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
-export enum SWAGGER_TAGS {
-  auth = 'Auth',
-  doctors = 'Doctors',
-}
-
 export const AUTH_BEARER_DEFAULT = 'BearerAuth';
 
 const options = {
@@ -30,8 +25,6 @@ export const initSwagger = (app: INestApplication) => {
     .setTitle('Clients app')
     .setDescription('API desc')
     .setVersion('1.0')
-    .addTag(SWAGGER_TAGS.auth)
-    .addTag(SWAGGER_TAGS.doctors)
     .addBearerAuth(undefined, AUTH_BEARER_DEFAULT)
     .build();
 

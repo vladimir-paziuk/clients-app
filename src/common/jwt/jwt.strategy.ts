@@ -1,14 +1,16 @@
 import { Injectable } from '@nestjs/common';
 import { PassportStrategy } from '@nestjs/passport';
 import { ExtractJwt, Strategy } from 'passport-jwt';
+import { ApiProperty } from '@nestjs/swagger';
 
 // TODO: Move to config
 import { AUTH_SECRET_KEY } from 'auth/auth.module';
 
-export interface JwtPayload {
+export class JwtPayload {
   username: string;
 }
-export interface JwtToken {
+export class JwtToken {
+  @ApiProperty()
   accessToken: string;
 }
 
