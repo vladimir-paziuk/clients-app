@@ -13,9 +13,14 @@ import { DoctorsService } from './doctors.service';
 import { AuthGuard } from '@nestjs/passport';
 import { DoctorEntity } from './doctor.entity';
 import { DoctorDto } from './dtos/doctorDto';
-import { ApiTags } from '@nestjs/swagger';
-import { SWAGGER_TAGS } from 'common/swagger/swagger.config';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+import {
+  AUTH_BEARER_DEFAULT,
+  SWAGGER_TAGS,
+} from 'common/swagger/swagger.config';
+import { DoctorQueryDto } from './dtos/doctorQueryDto';
 
+@ApiBearerAuth(AUTH_BEARER_DEFAULT)
 @ApiTags(SWAGGER_TAGS.doctors)
 @Controller('doctors')
 @UseGuards(AuthGuard())
@@ -23,8 +28,8 @@ export class DoctorsController {
   constructor(private doctorsService: DoctorsService) {}
 
   @Get()
-  getDoctors(@Query('search') search: string) {
-    return this.doctorsService.getData(search);
+  getDoctors(@Query() query: DoctorQueryDto): Promise<DoctorEntity[]> {
+    return this.doctorsService.getData(query);
   }
 
   @Get('/:id')

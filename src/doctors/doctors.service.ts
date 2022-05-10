@@ -3,6 +3,7 @@ import { DoctorsRepository } from './doctors.repository';
 import { InjectRepository } from '@nestjs/typeorm';
 import { DoctorEntity } from './doctor.entity';
 import { DoctorDto } from './dtos/doctorDto';
+import { DoctorQueryDto } from './dtos/doctorQueryDto';
 
 @Injectable()
 export class DoctorsService {
@@ -11,8 +12,8 @@ export class DoctorsService {
     private doctorsRepository: DoctorsRepository,
   ) {}
 
-  async getData(search: string): Promise<DoctorEntity[]> {
-    return await this.doctorsRepository.getDoctors(search);
+  async getData(query?: DoctorQueryDto): Promise<DoctorEntity[]> {
+    return await this.doctorsRepository.getDoctors(query);
   }
 
   async createEntity(data: DoctorDto): Promise<DoctorEntity> {
