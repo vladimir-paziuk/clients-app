@@ -2,9 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { PassportStrategy } from '@nestjs/passport';
 import { ExtractJwt, Strategy } from 'passport-jwt';
 import { ApiProperty } from '@nestjs/swagger';
-
-// TODO: Move to config
-import { AUTH_SECRET_KEY } from 'auth/auth.module';
+import { ConfigService } from '@nestjs/config';
 
 export class JwtPayload {
   username: string;
@@ -16,9 +14,9 @@ export class JwtToken {
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
-  constructor() {
+  constructor(private config: ConfigService) {
     super({
-      secretOrKey: AUTH_SECRET_KEY,
+      secretOrKey: config.get('AUTH_SECRET_KEY'),
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
     });
   }
