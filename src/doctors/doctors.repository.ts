@@ -1,17 +1,6 @@
-import { Column, Entity, PrimaryGeneratedColumn, Repository } from 'typeorm';
+import { Repository } from 'typeorm';
 import { CustomRepository } from 'common/database/typeorm-ex.decorator';
-
-@Entity()
-export class DoctorEntity {
-  @PrimaryGeneratedColumn('uuid')
-  id: string;
-  @Column()
-  name: string;
-  @Column()
-  desc?: string;
-}
-
-export type DoctorDto = Pick<DoctorEntity, 'name' | 'desc'>;
+import { DoctorEntity } from './doctor.entity';
 
 // @EntityRepository is deprecated, see module description
 @CustomRepository(DoctorEntity)

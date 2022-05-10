@@ -10,9 +10,13 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { DoctorsService } from './doctors.service';
-import { DoctorDto, DoctorEntity } from './doctors.repository';
 import { AuthGuard } from '@nestjs/passport';
+import { DoctorEntity } from './doctor.entity';
+import { DoctorDto } from './dtos/doctorDto';
+import { ApiTags } from '@nestjs/swagger';
+import { SWAGGER_TAGS } from 'common/swagger/swagger.config';
 
+@ApiTags(SWAGGER_TAGS.doctors)
 @Controller('doctors')
 @UseGuards(AuthGuard())
 export class DoctorsController {

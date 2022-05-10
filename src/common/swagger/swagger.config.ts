@@ -3,6 +3,7 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
 export enum SWAGGER_TAGS {
   auth = 'Auth',
+  doctors = 'Doctors',
 }
 
 export const initSwagger = (app: INestApplication) => {
@@ -11,6 +12,7 @@ export const initSwagger = (app: INestApplication) => {
     .setDescription('API desc')
     .setVersion('1.0')
     .addTag(SWAGGER_TAGS.auth)
+    .addTag(SWAGGER_TAGS.doctors)
     .build();
 
   const document = SwaggerModule.createDocument(app, config);
