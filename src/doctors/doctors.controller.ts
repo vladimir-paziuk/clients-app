@@ -13,7 +13,12 @@ import { DoctorsService } from './doctors.service';
 import { AuthGuard } from '@nestjs/passport';
 import { DoctorEntity } from './doctor.entity';
 import { DoctorDto } from './dtos/doctorDto';
-import { ApiBearerAuth, ApiOkResponse, ApiTags } from '@nestjs/swagger';
+import {
+  ApiBearerAuth,
+  ApiOkResponse,
+  ApiOperation,
+  ApiTags,
+} from '@nestjs/swagger';
 import { AUTH_BEARER_DEFAULT } from 'common/swagger/swagger.config';
 import { swaggerApiErrorResponse } from 'common/swagger/swagger-api-error-response';
 import { DoctorQueryDto } from './dtos/doctorQueryDto';
@@ -25,9 +30,12 @@ import { DoctorQueryDto } from './dtos/doctorQueryDto';
 export class DoctorsController {
   constructor(private doctorsService: DoctorsService) {}
 
+  @ApiOperation({
+    summary: 'Get all available doctors.',
+    description: 'Returns doctors data based on search params.',
+  })
   @ApiOkResponse({
     type: [DoctorEntity],
-    description: 'Get all doctors',
   })
   @swaggerApiErrorResponse()
   @Get()
@@ -35,9 +43,12 @@ export class DoctorsController {
     return this.doctorsService.getData(query);
   }
 
+  @ApiOperation({
+    summary: 'Get selected doctor.',
+    description: 'Returns doctor data based on id.',
+  })
   @ApiOkResponse({
     type: DoctorEntity,
-    description: 'Get selected doctor',
   })
   @swaggerApiErrorResponse()
   @Get('/:id')
@@ -45,6 +56,10 @@ export class DoctorsController {
     return this.doctorsService.getEntityById(id);
   }
 
+  @ApiOperation({
+    summary: 'Create new doctor instance.',
+    description: 'Returns and create doctor data based on DoctorDto.',
+  })
   @ApiOkResponse({
     type: DoctorEntity,
     description: 'Create doctor',
@@ -55,6 +70,10 @@ export class DoctorsController {
     return this.doctorsService.createEntity(body);
   }
 
+  @ApiOperation({
+    summary: 'Update doctor data.',
+    description: 'Returns and update doctor description.',
+  })
   @ApiOkResponse({
     type: DoctorEntity,
     description: 'Update doctor',
@@ -68,6 +87,10 @@ export class DoctorsController {
     return this.doctorsService.updateDoctorById(id, desc);
   }
 
+  @ApiOperation({
+    summary: 'Remove doctor instance.',
+    description: 'Remove doctor instance based on id.',
+  })
   @ApiOkResponse({
     description: 'Delete doctor',
   })
