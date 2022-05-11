@@ -20,7 +20,7 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 import { AUTH_BEARER_DEFAULT } from 'common/swagger/swagger.config';
-import { swaggerApiErrorResponse } from 'common/swagger/swagger-api-error-response';
+import { SwaggerApiErrorResponse } from 'common/swagger/swagger-api-error-response';
 import { DoctorQueryDto } from './dtos/doctorQueryDto';
 
 @ApiBearerAuth(AUTH_BEARER_DEFAULT)
@@ -37,7 +37,7 @@ export class DoctorsController {
   @ApiOkResponse({
     type: [DoctorEntity],
   })
-  @swaggerApiErrorResponse()
+  @SwaggerApiErrorResponse()
   @Get()
   getDoctors(@Query() query: DoctorQueryDto): Promise<DoctorEntity[]> {
     return this.doctorsService.getData(query);
@@ -50,7 +50,7 @@ export class DoctorsController {
   @ApiOkResponse({
     type: DoctorEntity,
   })
-  @swaggerApiErrorResponse()
+  @SwaggerApiErrorResponse()
   @Get('/:id')
   getDoctorById(@Param('id') id: string): Promise<DoctorEntity> {
     return this.doctorsService.getEntityById(id);
@@ -64,7 +64,7 @@ export class DoctorsController {
     type: DoctorEntity,
     description: 'Create doctor',
   })
-  @swaggerApiErrorResponse()
+  @SwaggerApiErrorResponse()
   @Post()
   createDoctor(@Body() body: DoctorDto): Promise<DoctorEntity> {
     return this.doctorsService.createEntity(body);
@@ -78,7 +78,7 @@ export class DoctorsController {
     type: DoctorEntity,
     description: 'Update doctor',
   })
-  @swaggerApiErrorResponse()
+  @SwaggerApiErrorResponse()
   @Patch('/:id')
   updateDoctorById(
     @Param('id') id: string,
@@ -94,7 +94,7 @@ export class DoctorsController {
   @ApiOkResponse({
     description: 'Delete doctor',
   })
-  @swaggerApiErrorResponse()
+  @SwaggerApiErrorResponse()
   @Delete('/:id')
   deleteDoctorById(@Param('id') id: string): Promise<void> {
     return this.doctorsService.deleteEntityById(id);

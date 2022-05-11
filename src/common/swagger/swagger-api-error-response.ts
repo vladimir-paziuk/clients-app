@@ -5,7 +5,7 @@ import {
   ApiInternalServerErrorResponse,
 } from '@nestjs/swagger';
 
-export const swaggerApiErrorResponse = () => {
+export const SwaggerApiErrorResponse = () => {
   return applyDecorators(
     ApiUnauthorizedResponse({
       description: 'Unauthorized',

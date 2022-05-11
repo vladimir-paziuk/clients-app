@@ -8,7 +8,7 @@ import {
   ApiOperation,
   ApiTags,
 } from '@nestjs/swagger';
-import { swaggerApiErrorResponse } from 'common/swagger/swagger-api-error-response';
+import { SwaggerApiErrorResponse } from 'common/swagger/swagger-api-error-response';
 
 @ApiTags('Auth')
 @Controller('auth')
@@ -23,7 +23,7 @@ export class AuthController {
   @ApiConflictResponse({
     description: 'User name already exist',
   })
-  @swaggerApiErrorResponse()
+  @SwaggerApiErrorResponse()
   @Post('/sign-up')
   signUp(@Body() credentials: AuthCredentialsDto): Promise<void> {
     return this.authService.signUp(credentials);
@@ -34,7 +34,7 @@ export class AuthController {
     description: 'Return access token based on AuthCredentialsDto credentials.',
   })
   @ApiOkResponse({ type: JwtToken, description: 'User logged in' })
-  @swaggerApiErrorResponse()
+  @SwaggerApiErrorResponse()
   @Post('/sign-in')
   signIn(@Body() authCredentialsDto: AuthCredentialsDto): Promise<JwtToken> {
     return this.authService.signIn(authCredentialsDto);
