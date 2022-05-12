@@ -1,8 +1,9 @@
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 import { ApiProperty } from '@nestjs/swagger';
+import { BaseEntity } from 'common/constants/base.entity';
 
 @Entity()
-export class DoctorEntity {
+export class DoctorEntity extends BaseEntity {
   @ApiProperty()
   @PrimaryGeneratedColumn('uuid')
   id: string;
