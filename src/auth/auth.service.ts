@@ -6,10 +6,13 @@ import {
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { JwtService } from '@nestjs/jwt';
-import * as bcrypt from 'bcrypt';
 
 import { JwtPayload, JwtToken } from 'common/jwt/jwt.strategy';
-import { POSTGRESQL_CODES } from 'common/constants/postgresql-codes';
+import { POSTGRESQL_CODES } from 'common/constants/postgresql.codes';
+import {
+  cryptComparePasswords,
+  cryptHashPassword,
+} from 'common/jwt/crypt.strategy';
 
 import { UsersRepository } from './users.repository';
 import { AuthCredentialsDto } from './dtos/authCredentialsDto';
@@ -27,20 +30,14 @@ export class AuthService {
   async signUp(credentials: AuthCredentialsDto): Promise<void> {
     const { email, password } = credentials;
 
-    const salt = await bcrypt.genSalt();
-    const hashedPassword = await bcrypt.hash(password, salt);
+    const hashedPassword = await cryptHashPassword(password);
 
     try {
       const user = await this.usersRepository.createUser({
         email,
         password: hashedPassword,
       });
-
-      try {
-        this.profilesService.createProfile({ userId: user.id });
-      } catch (err) {
-        console.log(err);
-      }
+      await this.profilesService.createProfile({ userId: user.id });
     } catch (err) {
       if (err.code === POSTGRESQL_CODES.userExists) {
         throw new ConflictException('User name already exist');
@@ -56,7 +53,7 @@ export class AuthService {
       where: { email },
     });
 
-    if (user && (await bcrypt.compare(password, user.password))) {
+    if (user && (await cryptComparePasswords(password, user.password))) {
       const payload: JwtPayload = { email };
       const accessToken: string = await this.jwtService.sign(payload);
       return { accessToken };
