@@ -13,26 +13,34 @@ import { POSTGRESQL_CODES } from 'common/constants/postgresql-codes';
 
 import { UsersRepository } from './users.repository';
 import { AuthCredentialsDto } from './dtos/authCredentialsDto';
+import { ProfilesService } from '../profiles/profiles.service';
 
 @Injectable()
 export class AuthService {
   constructor(
     @InjectRepository(UsersRepository)
     private usersRepository: UsersRepository,
+    private profilesService: ProfilesService,
     private jwtService: JwtService,
   ) {}
 
   async signUp(credentials: AuthCredentialsDto): Promise<void> {
-    const { username, password } = credentials;
+    const { email, password } = credentials;
 
     const salt = await bcrypt.genSalt();
     const hashedPassword = await bcrypt.hash(password, salt);
 
     try {
-      await this.usersRepository.createUser({
-        username,
+      const user = await this.usersRepository.createUser({
+        email,
         password: hashedPassword,
       });
+
+      try {
+        this.profilesService.createProfile({ userId: user.id });
+      } catch (err) {
+        console.log(err);
+      }
     } catch (err) {
       if (err.code === POSTGRESQL_CODES.userExists) {
         throw new ConflictException('User name already exist');
@@ -43,13 +51,13 @@ export class AuthService {
   }
 
   async signIn(credentials: AuthCredentialsDto): Promise<JwtToken> {
-    const { username, password } = credentials;
+    const { email, password } = credentials;
     const user = await this.usersRepository.findOne({
-      where: { username },
+      where: { email },
     });
 
     if (user && (await bcrypt.compare(password, user.password))) {
-      const payload: JwtPayload = { username };
+      const payload: JwtPayload = { email };
       const accessToken: string = await this.jwtService.sign(payload);
       return { accessToken };
     } else {
