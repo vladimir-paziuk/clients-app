@@ -2,7 +2,7 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { ProfilesRepository } from './profiles.repository';
 import { ProfileEntity } from './profile.entity';
-import { ProfileCreateDto } from './dtos/profileDto';
+import { ProfileCreateDto, ProfileDto } from './dtos/profileDto';
 
 @Injectable()
 export class ProfilesService {
@@ -28,5 +28,14 @@ export class ProfilesService {
       return entity;
     }
     throw new NotFoundException();
+  }
+
+  async updateProfile(id: string, dto: ProfileDto): Promise<ProfileEntity> {
+    const entity = await this.getProfileById(id);
+    const updated = { ...entity, ...dto };
+
+    await this.profilesRepository.save(updated);
+
+    return updated;
   }
 }

@@ -16,13 +16,13 @@ export class ProfileDto {
 
   @ApiProperty()
   @IsString()
-  @MinLength(8)
+  @MinLength(3)
   @MaxLength(32)
   firstName: string;
 
   @ApiProperty()
   @IsString()
-  @MinLength(8)
+  @MinLength(3)
   @MaxLength(32)
   lastName: string;
 
