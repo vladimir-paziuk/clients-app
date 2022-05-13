@@ -5,8 +5,8 @@ import {
   PrimaryGeneratedColumn,
   JoinColumn,
 } from 'typeorm';
+import { Exclude } from 'class-transformer';
 import { BaseEntity } from 'common/constants/base.entity';
-
 import { UserEntity } from 'auth/user.entity';
 import { GENDER_ENUM } from 'common/constants/gender.enum';
 
@@ -17,6 +17,7 @@ export class ProfileEntity extends BaseEntity {
 
   @OneToOne(() => UserEntity, { eager: true })
   @JoinColumn({ name: 'user_id' })
+  @Exclude({ toPlainOnly: true })
   user: UserEntity;
   @Column({ name: 'user_id' })
   userId: string;

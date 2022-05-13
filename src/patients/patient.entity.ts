@@ -5,6 +5,7 @@ import {
   JoinColumn,
   PrimaryGeneratedColumn,
 } from 'typeorm';
+import { Exclude } from 'class-transformer';
 import { BaseEntity } from 'common/constants/base.entity';
 import { UserEntity } from 'auth/user.entity';
 import { BLOOD_TYPE_ENUM } from 'common/constants/blood-type.enum';
@@ -16,6 +17,7 @@ export class PatientEntity extends BaseEntity {
 
   @OneToOne(() => UserEntity, { eager: true })
   @JoinColumn({ name: 'user_id' })
+  @Exclude({ toPlainOnly: true })
   user: UserEntity;
   @Column({ name: 'user_id' })
   userId: string;
