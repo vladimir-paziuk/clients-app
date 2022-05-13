@@ -1,11 +1,21 @@
-import { Body, Controller, Get, Param, Patch } from '@nestjs/common';
-import { ApiOkResponse, ApiOperation } from '@nestjs/swagger';
+import { Body, Controller, Get, Param, Patch, UseGuards } from '@nestjs/common';
+import { AuthGuard } from '@nestjs/passport';
+import {
+  ApiBearerAuth,
+  ApiOkResponse,
+  ApiOperation,
+  ApiTags,
+} from '@nestjs/swagger';
 import { SwaggerApiErrorResponse } from 'common/swagger/swagger-api-error-response';
 import { ProfilesService } from './profiles.service';
 import { ProfileEntity } from './profile.entity';
-import { ProfileDto } from './dtos/profileDto';
+import { ProfileDto } from 'profiles/dtos/profile.dto';
+import { AUTH_BEARER_DEFAULT } from 'common/swagger/swagger.config';
 
+@ApiBearerAuth(AUTH_BEARER_DEFAULT)
+@ApiTags('Profiles')
 @Controller('profiles')
+@UseGuards(AuthGuard())
 export class ProfilesController {
   constructor(private profilesService: ProfilesService) {}
   @ApiOperation({

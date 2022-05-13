@@ -15,7 +15,7 @@ import {
 } from 'common/jwt/crypt.strategy';
 
 import { UsersRepository } from './users.repository';
-import { AuthCredentialsDto } from './dtos/authCredentialsDto';
+import { AuthCredentialsDto } from 'auth/dtos/auth-credentials.dto';
 
 import { ProfilesService } from 'profiles/profiles.service';
 import { PatientsService } from 'patients/patients.service';

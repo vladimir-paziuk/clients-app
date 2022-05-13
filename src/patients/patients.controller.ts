@@ -1,11 +1,14 @@
 import { Body, Controller, Get, Param, Patch, UseGuards } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
-import { ApiOkResponse, ApiOperation } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiOkResponse, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { SwaggerApiErrorResponse } from 'common/swagger/swagger-api-error-response';
 import { PatientEntity } from 'patients/patient.entity';
 import { PatientsService } from 'patients/patients.service';
 import { PatientDto } from 'patients/dtos/patient.dto';
+import { AUTH_BEARER_DEFAULT } from 'common/swagger/swagger.config';
 
+@ApiBearerAuth(AUTH_BEARER_DEFAULT)
+@ApiTags('Patients')
 @Controller('patients')
 @UseGuards(AuthGuard())
 export class PatientsController {

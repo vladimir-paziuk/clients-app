@@ -1,4 +1,5 @@
 import { Module } from '@nestjs/common';
+import { AuthModule } from 'auth/auth.module';
 import { TypeOrmExModule } from 'common/database/typeorm-ex.module';
 import { ProfilesController } from './profiles.controller';
 import { ProfilesService } from './profiles.service';
@@ -10,7 +11,10 @@ import { ProfilesRepository } from './profiles.repository';
 // Also install @nestjs/typeorm@next
 
 @Module({
-  imports: [TypeOrmExModule.forCustomRepository([ProfilesRepository])],
+  imports: [
+    TypeOrmExModule.forCustomRepository([ProfilesRepository]),
+    AuthModule,
+  ],
   controllers: [ProfilesController],
   providers: [ProfilesService],
 })
