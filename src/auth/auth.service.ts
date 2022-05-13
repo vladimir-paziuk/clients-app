@@ -59,7 +59,7 @@ export class AuthService {
     });
 
     if (user && (await cryptComparePasswords(password, user.password))) {
-      const payload: JwtPayload = { email };
+      const payload: JwtPayload = { id: user.id };
       const accessToken: string = await this.jwtService.sign(payload);
       return { accessToken };
     } else {
