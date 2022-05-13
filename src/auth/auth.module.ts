@@ -13,6 +13,9 @@ import { UsersRepository } from './users.repository';
 import { ProfilesService } from 'profiles/profiles.service';
 import { ProfilesRepository } from 'profiles/profiles.repository';
 
+import { PatientsRepository } from 'patients/patients.repository';
+import { PatientsService } from 'patients/patients.service';
+
 @Module({
   imports: [
     PassportModule.register({ defaultStrategy: 'jwt' }),
@@ -25,10 +28,14 @@ import { ProfilesRepository } from 'profiles/profiles.repository';
       }),
       inject: [ConfigService],
     }),
-    TypeOrmExModule.forCustomRepository([UsersRepository, ProfilesRepository]),
+    TypeOrmExModule.forCustomRepository([
+      UsersRepository,
+      ProfilesRepository,
+      PatientsRepository,
+    ]),
   ],
   controllers: [AuthController],
-  providers: [AuthService, ProfilesService, JwtStrategy],
+  providers: [JwtStrategy, AuthService, ProfilesService, PatientsService],
   exports: [JwtStrategy, PassportModule],
 })
 export class AuthModule {}

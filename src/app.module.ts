@@ -8,9 +8,11 @@ import { UserEntity } from 'auth/user.entity';
 import { DoctorsModule } from 'doctors/doctors.module';
 import { DoctorEntity } from 'doctors/doctor.entity';
 
+import { PatientsModule } from 'patients/patients.module';
+import { PatientEntity } from 'patients/patient.entity';
+
 import { ProfilesModule } from 'profiles/profiles.module';
 import { ProfileEntity } from 'profiles/profile.entity';
-import { PatientsModule } from 'patients/patients.module';
 
 @Module({
   imports: [
@@ -29,7 +31,7 @@ import { PatientsModule } from 'patients/patients.module';
         database: config.get('DATABASE_NAME'),
         autoLoadEntities: true,
         synchronize: true,
-        entities: [DoctorEntity, UserEntity, ProfileEntity],
+        entities: [UserEntity, ProfileEntity, DoctorEntity, PatientEntity],
       }),
       inject: [ConfigService],
     }),

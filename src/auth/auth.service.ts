@@ -16,7 +16,9 @@ import {
 
 import { UsersRepository } from './users.repository';
 import { AuthCredentialsDto } from './dtos/authCredentialsDto';
+
 import { ProfilesService } from 'profiles/profiles.service';
+import { PatientsService } from 'patients/patients.service';
 
 @Injectable()
 export class AuthService {
@@ -24,6 +26,7 @@ export class AuthService {
     @InjectRepository(UsersRepository)
     private usersRepository: UsersRepository,
     private profilesService: ProfilesService,
+    private patientsService: PatientsService,
     private jwtService: JwtService,
   ) {}
 
@@ -38,6 +41,7 @@ export class AuthService {
         password: hashedPassword,
       });
       await this.profilesService.createProfile({ userId: user.id });
+      await this.patientsService.createPatient({ userId: user.id });
       // TODO: Create user_role instance
     } catch (err) {
       if (err.code === POSTGRESQL_CODES.userExists) {
