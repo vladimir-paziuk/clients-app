@@ -16,7 +16,7 @@ import {
 
 import { UsersRepository } from './users.repository';
 import { AuthCredentialsDto } from './dtos/authCredentialsDto';
-import { ProfilesService } from '../profiles/profiles.service';
+import { ProfilesService } from 'profiles/profiles.service';
 
 @Injectable()
 export class AuthService {
@@ -38,6 +38,7 @@ export class AuthService {
         password: hashedPassword,
       });
       await this.profilesService.createProfile({ userId: user.id });
+      // TODO: Create user_role instance
     } catch (err) {
       if (err.code === POSTGRESQL_CODES.userExists) {
         throw new ConflictException('User name already exist');

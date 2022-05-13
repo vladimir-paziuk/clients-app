@@ -2,20 +2,22 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 
-import { AuthModule } from './auth/auth.module';
-import { UserEntity } from './auth/user.entity';
+import { AuthModule } from 'auth/auth.module';
+import { UserEntity } from 'auth/user.entity';
 
-import { DoctorsModule } from './doctors/doctors.module';
-import { DoctorEntity } from './doctors/doctor.entity';
+import { DoctorsModule } from 'doctors/doctors.module';
+import { DoctorEntity } from 'doctors/doctor.entity';
 
-import { ProfilesModule } from './profiles/profiles.module';
-import { ProfileEntity } from './profiles/profile.entity';
+import { ProfilesModule } from 'profiles/profiles.module';
+import { ProfileEntity } from 'profiles/profile.entity';
+import { PatientsModule } from 'patients/patients.module';
 
 @Module({
   imports: [
     AuthModule,
-    DoctorsModule,
     ProfilesModule,
+    PatientsModule,
+    DoctorsModule,
     ConfigModule.forRoot({ isGlobal: true }),
     TypeOrmModule.forRootAsync({
       useFactory: (config: ConfigService) => ({

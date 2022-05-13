@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
+import { TypeOrmExModule } from 'common/database/typeorm-ex.module';
 import { ProfilesController } from './profiles.controller';
 import { ProfilesService } from './profiles.service';
-import { TypeOrmExModule } from '../common/database/typeorm-ex.module';
 import { ProfilesRepository } from './profiles.repository';
 
 // TypeOrmExModule.forCustomRepository uses instead TypeOrmExModule.forFeature for
