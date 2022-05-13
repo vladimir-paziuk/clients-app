@@ -8,6 +8,10 @@ import { ProfileCreateDto } from 'profiles/dtos/profile.dto';
 export class ProfilesRepository extends Repository<ProfileEntity> {
   async createProfile(profile: ProfileCreateDto): Promise<ProfileEntity> {
     const entity = this.create(profile);
-    return await this.save(entity);
+    return this.save(entity);
   }
+
+  // async getProfileByUser(user: UserEntity): Promise<ProfileEntity> {
+  //   return this.createQueryBuilder('profile').where({ user }).getOne();
+  // }
 }

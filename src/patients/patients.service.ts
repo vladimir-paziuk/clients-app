@@ -3,6 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { PatientsRepository } from 'patients/patients.repository';
 import { PatientEntity } from 'patients/patient.entity';
 import { PatientCreateDto, PatientDto } from 'patients/dtos/patient.dto';
+import { JwtPayload } from 'common/jwt/jwt.strategy';
 
 @Injectable()
 export class PatientsService {
@@ -10,6 +11,17 @@ export class PatientsService {
     @InjectRepository(PatientsRepository)
     private patientsRepository: PatientsRepository,
   ) {}
+  async getPatient(user: JwtPayload): Promise<PatientEntity> {
+    const found = await this.patientsRepository.findOne({
+      where: { userId: user.id },
+    });
+
+    if (found) {
+      return found;
+    }
+    throw new NotFoundException();
+  }
+
   async getPatientById(id: string): Promise<PatientEntity> {
     const found = await this.patientsRepository.findOne({
       where: { id },

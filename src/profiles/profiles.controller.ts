@@ -11,6 +11,8 @@ import { ProfilesService } from './profiles.service';
 import { ProfileEntity } from './profile.entity';
 import { ProfileDto } from 'profiles/dtos/profile.dto';
 import { AUTH_BEARER_DEFAULT } from 'common/swagger/swagger.config';
+import { GetUser } from 'common/jwt/get-user.guard';
+import { JwtPayload } from 'common/jwt/jwt.strategy';
 
 @ApiBearerAuth(AUTH_BEARER_DEFAULT)
 @ApiTags('Profiles')
@@ -18,6 +20,19 @@ import { AUTH_BEARER_DEFAULT } from 'common/swagger/swagger.config';
 @UseGuards(AuthGuard())
 export class ProfilesController {
   constructor(private profilesService: ProfilesService) {}
+  @ApiOperation({
+    summary: 'Get my profile.',
+    description: 'Returns profile data based on logged user credentials.',
+  })
+  @ApiOkResponse({
+    type: ProfileEntity,
+  })
+  @SwaggerApiErrorResponse()
+  @Get('/me')
+  getProfile(@GetUser() user: JwtPayload): Promise<ProfileEntity> {
+    return this.profilesService.getProfile(user);
+  }
+
   @ApiOperation({
     summary: 'Get selected profile.',
     description: 'Returns profile data based on id.',

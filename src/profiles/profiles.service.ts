@@ -3,6 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { ProfilesRepository } from './profiles.repository';
 import { ProfileEntity } from './profile.entity';
 import { ProfileCreateDto, ProfileDto } from 'profiles/dtos/profile.dto';
+import { JwtPayload } from 'common/jwt/jwt.strategy';
 
 @Injectable()
 export class ProfilesService {
@@ -10,6 +11,17 @@ export class ProfilesService {
     @InjectRepository(ProfilesRepository)
     private profilesRepository: ProfilesRepository,
   ) {}
+  async getProfile(user: JwtPayload): Promise<ProfileEntity> {
+    const found = await this.profilesRepository.findOne({
+      where: { userId: user.id },
+    });
+
+    if (found) {
+      return found;
+    }
+    throw new NotFoundException();
+  }
+
   async getProfileById(id: string): Promise<ProfileEntity> {
     const found = await this.profilesRepository.findOne({
       where: { id },
