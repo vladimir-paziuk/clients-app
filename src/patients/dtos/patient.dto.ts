@@ -3,7 +3,7 @@ import { IsEnum, IsUUID } from 'class-validator';
 import { BLOOD_TYPE_ENUM } from 'common/constants/blood-type.enum';
 
 export class PatientDto {
-  @ApiProperty()
+  @ApiProperty({ enum: BLOOD_TYPE_ENUM })
   @IsEnum(BLOOD_TYPE_ENUM)
   bloodType: BLOOD_TYPE_ENUM;
 }

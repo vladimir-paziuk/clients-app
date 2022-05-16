@@ -10,7 +10,7 @@ import {
 import { GENDER_ENUM } from 'common/constants/gender.enum';
 
 export class ProfileDto {
-  @ApiProperty()
+  @ApiProperty({ enum: GENDER_ENUM })
   @IsEnum(GENDER_ENUM)
   gender: GENDER_ENUM;
 

@@ -11,7 +11,6 @@ export class BaseEntity {
   @UpdateDateColumn({
     name: 'updated_at',
     type: 'timestamp',
-    nullable: true,
     onUpdate: 'CURRENT_TIMESTAMP(6)',
     default: () => 'CURRENT_TIMESTAMP(6)',
   })

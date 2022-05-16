@@ -34,12 +34,7 @@ export class ProfilesService {
   }
 
   async createProfile(profile: ProfileCreateDto): Promise<ProfileEntity> {
-    const entity = await this.profilesRepository.createProfile(profile);
-
-    if (entity) {
-      return entity;
-    }
-    throw new NotFoundException();
+    return this.profilesRepository.createProfile(profile);
   }
 
   async updateProfile(id: string, dto: ProfileDto): Promise<ProfileEntity> {
