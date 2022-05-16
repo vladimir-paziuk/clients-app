@@ -34,20 +34,14 @@ export class PatientsService {
   }
 
   async createPatient(profile: PatientCreateDto): Promise<PatientEntity> {
-    const entity = await this.patientsRepository.createPatient(profile);
-
-    if (entity) {
-      return entity;
-    }
-    throw new NotFoundException();
+    return this.patientsRepository.createPatient(profile);
   }
 
-  async updatePatient(id: string, dto: PatientDto): Promise<PatientEntity> {
-    const entity = await this.getPatientById(id);
-    const updated = { ...entity, ...dto };
-
-    await this.patientsRepository.save(updated);
-
-    return updated;
+  async updatePatient(id: string, dto: PatientDto): Promise<void> {
+    try {
+      await this.patientsRepository.update({ id }, dto);
+    } catch (err) {
+      throw new NotFoundException();
+    }
   }
 }

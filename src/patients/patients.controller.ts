@@ -49,18 +49,14 @@ export class PatientsController {
 
   @ApiOperation({
     summary: 'Update selected patient.',
-    description:
-      'Returns and update patient instance based on id and PatientDto.',
-  })
-  @ApiOkResponse({
-    type: PatientEntity,
+    description: 'Update patient instance based on id and PatientDto.',
   })
   @SwaggerApiErrorResponse()
   @Patch('/:id')
   updatePatient(
     @Param('id') id: string,
     @Body() body: PatientDto,
-  ): Promise<PatientEntity> {
+  ): Promise<void> {
     return this.patientsService.updatePatient(id, body);
   }
 }

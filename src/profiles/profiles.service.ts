@@ -37,12 +37,11 @@ export class ProfilesService {
     return this.profilesRepository.createProfile(profile);
   }
 
-  async updateProfile(id: string, dto: ProfileDto): Promise<ProfileEntity> {
-    const entity = await this.getProfileById(id);
-    const updated = { ...entity, ...dto };
-
-    await this.profilesRepository.save(updated);
-
-    return updated;
+  async updateProfile(id: string, dto: ProfileDto): Promise<void> {
+    try {
+      await this.profilesRepository.update({ id }, dto);
+    } catch (ee) {
+      throw new NotFoundException();
+    }
   }
 }

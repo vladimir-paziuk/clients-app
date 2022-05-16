@@ -48,18 +48,14 @@ export class ProfilesController {
 
   @ApiOperation({
     summary: 'Update selected profile.',
-    description:
-      'Returns and update profile instance based on id and ProfileDto.',
-  })
-  @ApiOkResponse({
-    type: ProfileEntity,
+    description: 'Update profile instance based on id and ProfileDto.',
   })
   @SwaggerApiErrorResponse()
   @Patch('/:id')
   updateProfile(
     @Param('id') id: string,
     @Body() body: ProfileDto,
-  ): Promise<ProfileEntity> {
+  ): Promise<void> {
     return this.profilesService.updateProfile(id, body);
   }
 }
