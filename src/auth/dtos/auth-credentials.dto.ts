@@ -4,9 +4,15 @@ import { ApiProperty } from '@nestjs/swagger';
 export class AuthCredentialsDto {
   @ApiProperty()
   @IsString()
-  @MinLength(4)
-  @MaxLength(20)
-  username: string;
+  @MinLength(8)
+  @MaxLength(32)
+  @Matches(
+    /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
+    {
+      message: 'Email not correct',
+    },
+  )
+  email: string;
 
   @ApiProperty()
   @IsString()

@@ -5,7 +5,7 @@ import { ApiProperty } from '@nestjs/swagger';
 import { ConfigService } from '@nestjs/config';
 
 export class JwtPayload {
-  username: string;
+  id: string;
 }
 export class JwtToken {
   @ApiProperty()

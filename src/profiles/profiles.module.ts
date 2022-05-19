@@ -1,9 +1,9 @@
 import { Module } from '@nestjs/common';
-import { TypeOrmExModule } from 'common/database/typeorm-ex.module';
-import { DoctorsService } from './doctors.service';
-import { DoctorsController } from './doctors.controller';
-import { DoctorsRepository } from './doctors.repository';
 import { AuthModule } from 'auth/auth.module';
+import { TypeOrmExModule } from 'common/database/typeorm-ex.module';
+import { ProfilesController } from './profiles.controller';
+import { ProfilesService } from './profiles.service';
+import { ProfilesRepository } from './profiles.repository';
 
 // TypeOrmExModule.forCustomRepository uses instead TypeOrmExModule.forFeature for
 // resolve @EntityRepository deprecated issue, instead use @CustomRepository
@@ -12,10 +12,10 @@ import { AuthModule } from 'auth/auth.module';
 
 @Module({
   imports: [
-    TypeOrmExModule.forCustomRepository([DoctorsRepository]),
+    TypeOrmExModule.forCustomRepository([ProfilesRepository]),
     AuthModule,
   ],
-  providers: [DoctorsService],
-  controllers: [DoctorsController],
+  controllers: [ProfilesController],
+  providers: [ProfilesService],
 })
-export class DoctorsModule {}
+export class ProfilesModule {}
