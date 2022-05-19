@@ -1,20 +1,12 @@
 import { Module } from '@nestjs/common';
-import { ConfigService } from '@nestjs/config';
-import { PassportModule } from '@nestjs/passport';
-import { JwtModule } from '@nestjs/jwt';
-
-import { TypeOrmExModule } from 'common/database/typeorm-ex.module';
-import { JwtStrategy } from 'common/jwt/jwt.strategy';
-
 import { AuthController } from './auth.controller';
 import { AuthService } from './auth.service';
+import { TypeOrmExModule } from 'common/database/typeorm-ex.module';
 import { UsersRepository } from './users.repository';
-
-import { ProfilesService } from 'profiles/profiles.service';
-import { ProfilesRepository } from 'profiles/profiles.repository';
-
-import { PatientsRepository } from 'patients/patients.repository';
-import { PatientsService } from 'patients/patients.service';
+import { PassportModule } from '@nestjs/passport';
+import { JwtModule } from '@nestjs/jwt';
+import { JwtStrategy } from 'common/jwt/jwt.strategy';
+import { ConfigService } from '@nestjs/config';
 
 @Module({
   imports: [
@@ -28,14 +20,10 @@ import { PatientsService } from 'patients/patients.service';
       }),
       inject: [ConfigService],
     }),
-    TypeOrmExModule.forCustomRepository([
-      UsersRepository,
-      ProfilesRepository,
-      PatientsRepository,
-    ]),
+    TypeOrmExModule.forCustomRepository([UsersRepository]),
   ],
   controllers: [AuthController],
-  providers: [JwtStrategy, AuthService, ProfilesService, PatientsService],
+  providers: [AuthService, JwtStrategy],
   exports: [JwtStrategy, PassportModule],
 })
 export class AuthModule {}

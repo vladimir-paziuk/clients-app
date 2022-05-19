@@ -12,7 +12,7 @@ import {
 import { DoctorsService } from './doctors.service';
 import { AuthGuard } from '@nestjs/passport';
 import { DoctorEntity } from './doctor.entity';
-import { DoctorDto } from 'doctors/dtos/doctor.dto';
+import { DoctorDto } from './dtos/doctorDto';
 import {
   ApiBearerAuth,
   ApiOkResponse,
@@ -21,7 +21,7 @@ import {
 } from '@nestjs/swagger';
 import { AUTH_BEARER_DEFAULT } from 'common/swagger/swagger.config';
 import { SwaggerApiErrorResponse } from 'common/swagger/swagger-api-error-response';
-import { DoctorQueryDto } from 'doctors/dtos/doctor-query.dto';
+import { DoctorQueryDto } from './dtos/doctorQueryDto';
 
 @ApiBearerAuth(AUTH_BEARER_DEFAULT)
 @ApiTags('Doctors')

@@ -1,14 +1,15 @@
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
-import { BaseEntity } from 'common/constants/base.entity';
+import { ApiProperty } from '@nestjs/swagger';
 
 @Entity()
-export class DoctorEntity extends BaseEntity {
+export class DoctorEntity {
+  @ApiProperty()
   @PrimaryGeneratedColumn('uuid')
   id: string;
-
+  @ApiProperty()
   @Column()
   name: string;
-
+  @ApiProperty()
   @Column()
   desc?: string;
 }
