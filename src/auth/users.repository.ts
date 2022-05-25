@@ -1,7 +1,7 @@
 import { Repository } from 'typeorm';
-import { CustomRepository } from 'common/database/typeorm-ex.decorator';
+import { CustomRepository } from 'src/common/database/typeorm-ex.decorator';
 import { UserEntity } from './user.entity';
-import { AuthCredentialsDto } from 'auth/dtos/auth-credentials.dto';
+import { AuthCredentialsDto } from 'src/auth/dtos/auth-credentials.dto';
 
 // @EntityRepository is deprecated, see module description
 @CustomRepository(UserEntity)

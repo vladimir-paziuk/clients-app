@@ -6,9 +6,9 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { Exclude } from 'class-transformer';
-import { BaseEntity } from 'common/constants/base.entity';
-import { UserEntity } from 'auth/user.entity';
-import { BLOOD_TYPE_ENUM } from 'common/constants/blood-type.enum';
+import { BaseEntity } from 'src/common/constants/base.entity';
+import { UserEntity } from 'src/auth/user.entity';
+import { BLOOD_TYPE_ENUM } from 'src/common/constants/blood-type.enum';
 
 @Entity()
 export class PatientEntity extends BaseEntity {
