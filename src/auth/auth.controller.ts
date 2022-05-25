@@ -1,14 +1,14 @@
 import { Body, Controller, Post } from '@nestjs/common';
 import { AuthService } from './auth.service';
-import { JwtToken } from 'common/jwt/jwt.strategy';
-import { AuthCredentialsDto } from 'auth/dtos/auth-credentials.dto';
+import { JwtToken } from 'src/common/jwt/jwt.strategy';
+import { AuthCredentialsDto } from 'src/auth/dtos/auth-credentials.dto';
 import {
   ApiConflictResponse,
   ApiOkResponse,
   ApiOperation,
   ApiTags,
 } from '@nestjs/swagger';
-import { SwaggerApiErrorResponse } from 'common/swagger/swagger-api-error-response';
+import { SwaggerApiErrorResponse } from 'src/common/swagger/swagger-api-error-response';
 
 @ApiTags('Auth')
 @Controller('auth')

@@ -2,8 +2,8 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { DoctorsRepository } from './doctors.repository';
 import { InjectRepository } from '@nestjs/typeorm';
 import { DoctorEntity } from './doctor.entity';
-import { DoctorDto } from 'doctors/dtos/doctor.dto';
-import { DoctorQueryDto } from 'doctors/dtos/doctor-query.dto';
+import { DoctorDto } from 'src/doctors/dtos/doctor.dto';
+import { DoctorQueryDto } from 'src/doctors/dtos/doctor-query.dto';
 
 @Injectable()
 export class DoctorsService {

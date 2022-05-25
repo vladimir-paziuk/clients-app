@@ -7,18 +7,18 @@ import {
 import { InjectRepository } from '@nestjs/typeorm';
 import { JwtService } from '@nestjs/jwt';
 
-import { JwtPayload, JwtToken } from 'common/jwt/jwt.strategy';
-import { POSTGRESQL_CODES } from 'common/constants/postgresql.codes';
+import { JwtPayload, JwtToken } from 'src/common/jwt/jwt.strategy';
+import { POSTGRESQL_CODES } from 'src/common/constants/postgresql.codes';
 import {
   cryptComparePasswords,
   cryptHashPassword,
-} from 'common/jwt/crypt.strategy';
+} from 'src/common/jwt/crypt.strategy';
 
 import { UsersRepository } from './users.repository';
-import { AuthCredentialsDto } from 'auth/dtos/auth-credentials.dto';
+import { AuthCredentialsDto } from 'src/auth/dtos/auth-credentials.dto';
 
-import { ProfilesService } from 'profiles/profiles.service';
-import { PatientsService } from 'patients/patients.service';
+import { ProfilesService } from 'src/profiles/profiles.service';
+import { PatientsService } from 'src/patients/patients.service';
 
 @Injectable()
 export class AuthService {

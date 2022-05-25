@@ -1,9 +1,9 @@
 import { Module } from '@nestjs/common';
-import { TypeOrmExModule } from 'common/database/typeorm-ex.module';
+import { TypeOrmExModule } from 'src/common/database/typeorm-ex.module';
 import { DoctorsService } from './doctors.service';
 import { DoctorsController } from './doctors.controller';
 import { DoctorsRepository } from './doctors.repository';
-import { AuthModule } from 'auth/auth.module';
+import { AuthModule } from 'src/auth/auth.module';
 
 // TypeOrmExModule.forCustomRepository uses instead TypeOrmExModule.forFeature for
 // resolve @EntityRepository deprecated issue, instead use @CustomRepository

@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
-import { TypeOrmExModule } from 'common/database/typeorm-ex.module';
+import { TypeOrmExModule } from 'src/common/database/typeorm-ex.module';
 
-import { AuthModule } from 'auth/auth.module';
+import { AuthModule } from 'src/auth/auth.module';
 
 import { PatientsService } from './patients.service';
 import { PatientsController } from './patients.controller';

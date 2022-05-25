@@ -3,18 +3,18 @@ import { ConfigService } from '@nestjs/config';
 import { PassportModule } from '@nestjs/passport';
 import { JwtModule } from '@nestjs/jwt';
 
-import { TypeOrmExModule } from 'common/database/typeorm-ex.module';
-import { JwtStrategy } from 'common/jwt/jwt.strategy';
+import { TypeOrmExModule } from 'src/common/database/typeorm-ex.module';
+import { JwtStrategy } from 'src/common/jwt/jwt.strategy';
 
 import { AuthController } from './auth.controller';
 import { AuthService } from './auth.service';
 import { UsersRepository } from './users.repository';
 
-import { ProfilesService } from 'profiles/profiles.service';
-import { ProfilesRepository } from 'profiles/profiles.repository';
+import { ProfilesService } from 'src/profiles/profiles.service';
+import { ProfilesRepository } from 'src/profiles/profiles.repository';
 
-import { PatientsRepository } from 'patients/patients.repository';
-import { PatientsService } from 'patients/patients.service';
+import { PatientsRepository } from 'src/patients/patients.repository';
+import { PatientsService } from 'src/patients/patients.service';
 
 @Module({
   imports: [

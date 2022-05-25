@@ -2,8 +2,8 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { ProfilesRepository } from './profiles.repository';
 import { ProfileEntity } from './profile.entity';
-import { ProfileCreateDto, ProfileDto } from 'profiles/dtos/profile.dto';
-import { JwtPayload } from 'common/jwt/jwt.strategy';
+import { ProfileCreateDto, ProfileDto } from 'src/profiles/dtos/profile.dto';
+import { JwtPayload } from 'src/common/jwt/jwt.strategy';
 
 @Injectable()
 export class ProfilesService {
