@@ -10,7 +10,7 @@ import { BaseEntity } from 'src/common/constants/base.entity';
 import { UserEntity } from 'src/auth/user.entity';
 import { GENDER_ENUM } from 'src/common/constants/gender.enum';
 
-@Entity()
+@Entity('profiles')
 export class ProfileEntity extends BaseEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;

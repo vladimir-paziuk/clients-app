@@ -33,11 +33,12 @@ export class DoctorsService {
     throw new NotFoundException();
   }
 
-  async updateDoctorById(id: string, desc: string): Promise<DoctorEntity> {
-    const entity = await this.getEntityById(id);
-    entity.desc = desc;
-    await this.doctorsRepository.save(entity);
-    return entity;
+  async updateDoctorById(id: string, dto: DoctorDto): Promise<void> {
+    try {
+      await this.doctorsRepository.update({ id }, dto);
+    } catch (err) {
+      throw new NotFoundException();
+    }
   }
 
   async deleteEntityById(id: string): Promise<void> {

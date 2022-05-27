@@ -10,7 +10,7 @@ import { BaseEntity } from 'src/common/constants/base.entity';
 import { UserEntity } from 'src/auth/user.entity';
 import { BLOOD_TYPE_ENUM } from 'src/common/constants/blood-type.enum';
 
-@Entity()
+@Entity('patients')
 export class PatientEntity extends BaseEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;
