@@ -7,16 +7,27 @@ export class CreateProfilesTable1653649970004 implements MigrationInterface {
     CREATE TABLE profiles
     (
       id uuid DEFAULT uuid_generate_v4(),
-      user_id uuid REFERENCES users(id),   
-      gender gender NOT NULL,
-      first_name character varying NOT NULL,
-      last_name character varying NOT NULL,
-      image character varying DEFAULT 'image.png'
+      user_id uuid REFERENCES users(id),
+      gender gender,
+      first_name character varying,
+      last_name character varying,
+      image character varying DEFAULT 'image.png',
+      created_at timestamp DEFAULT current_timestamp,
+      updated_at timestamp DEFAULT current_timestamp
     );
+    `);
+
+    await queryRunner.query(`
+        CREATE TRIGGER profiles_update_updated_at
+            BEFORE UPDATE
+            ON profiles
+            FOR EACH ROW
+            EXECUTE PROCEDURE trigger_set_timestamp();
     `);
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.query(`    DROP TABLE profiles;    `);
+    await queryRunner.query(`    DROP TRIGGER profiles_update_updated_at;    `);
   }
 }
