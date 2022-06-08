@@ -9,6 +9,7 @@ export class InsertDoctorsRecords1654676976927 implements MigrationInterface {
         (
           'pediatricians@gmail.com', '$2b$10$426wAxxxjWcVhM9JJMEnuOfyuPSuszylMO3mpYzxVK6eWX.z.APU2'
         );
+
       INSERT INTO user_roles (user_id, role_id) WITH
       u AS (
         SELECT 
@@ -32,6 +33,7 @@ export class InsertDoctorsRecords1654676976927 implements MigrationInterface {
       from 
         u, 
         r;
+
       INSERT INTO profiles (user_id) 
       SELECT 
         u.id 
@@ -39,6 +41,7 @@ export class InsertDoctorsRecords1654676976927 implements MigrationInterface {
         users u 
       WHERE 
         u.email = 'pediatricians@gmail.com';
+
       INSERT INTO doctors (user_id, specialization) 
       SELECT 
         u.id, 
@@ -55,6 +58,7 @@ export class InsertDoctorsRecords1654676976927 implements MigrationInterface {
         (
           'neurologists@gmail.com', '$2b$10$Q1Tf/0teU7cmUfNZn391COB/gUph4KwCwYVRKfrEnshVx4vg3g6pm'
         );
+
       INSERT INTO user_roles (user_id, role_id) WITH
       u AS (
         SELECT 
@@ -78,6 +82,7 @@ export class InsertDoctorsRecords1654676976927 implements MigrationInterface {
       from 
         u, 
         r;
+
       INSERT INTO profiles (user_id) 
       SELECT 
         u.id 
@@ -85,6 +90,7 @@ export class InsertDoctorsRecords1654676976927 implements MigrationInterface {
         users u 
       WHERE 
         u.email = 'neurologists@gmail.com';
+
       INSERT INTO doctors (user_id, specialization) 
       SELECT 
         u.id, 
@@ -97,8 +103,72 @@ export class InsertDoctorsRecords1654676976927 implements MigrationInterface {
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    // TODO: Remove records from 3 tables
-    // await queryRunner.query(`DROP TABLE doctors;`);
-    // await queryRunner.query(`DROP TRIGGER doctors_update_updated_at;`);
+    await queryRunner.query(`
+      DELETE FROM user_roles 
+      WHERE user_id IN (
+        SELECT id
+        FROM
+         users
+        where
+         email = 'neurologists@gmail.com'
+      );
+
+      DELETE FROM profiles 
+      WHERE user_id IN (
+        SELECT id
+        FROM
+         users
+        where
+         email = 'neurologists@gmail.com'
+      );
+
+      DELETE FROM doctors 
+      WHERE user_id IN (
+        SELECT id
+        FROM
+         users
+        where
+         email = 'neurologists@gmail.com' 
+      );
+
+      DELETE FROM
+       users
+      WHERE
+       email = 'neurologists@gmail.com';
+    `);
+
+    await queryRunner.query(`
+      DELETE FROM user_roles 
+      WHERE user_id IN (
+        SELECT id
+        FROM
+         users
+        where
+         email = 'pediatricians@gmail.com'
+      );
+
+      DELETE FROM profiles 
+      WHERE user_id IN (
+        SELECT id
+        FROM
+         users
+        where
+         email = 'pediatricians@gmail.com'
+      );
+
+      DELETE FROM doctors 
+      WHERE user_id IN (
+        SELECT id
+        FROM
+         users
+        where
+         email = 'pediatricians@gmail.com' 
+      );
+
+      DELETE FROM
+       users
+      WHERE
+       email = 'pediatricians@gmail.com';
+    `);
   }
 }
