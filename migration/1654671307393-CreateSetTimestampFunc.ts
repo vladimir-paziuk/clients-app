@@ -1,7 +1,7 @@
 import { MigrationInterface, QueryRunner } from 'typeorm';
 
-export class SetTimestampFunction1653649900001 implements MigrationInterface {
-  name = 'SetTimestampFunction1653649900001';
+export class CreateSetTimestampFunc1654671307393 implements MigrationInterface {
+  name = 'CreateSetTimestampFunc1654671307393';
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.query(`
       CREATE 

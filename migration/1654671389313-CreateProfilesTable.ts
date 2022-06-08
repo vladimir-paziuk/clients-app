@@ -1,7 +1,7 @@
 import { MigrationInterface, QueryRunner } from 'typeorm';
 
-export class CreateProfilesTable1653649970004 implements MigrationInterface {
-  name = 'CreateProfilesTable1653649970004';
+export class CreateProfilesTable1654671389313 implements MigrationInterface {
+  name = 'CreateProfilesTable1654671389313';
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.query(`
       CREATE TABLE profiles (
@@ -24,7 +24,7 @@ export class CreateProfilesTable1653649970004 implements MigrationInterface {
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.query(`    DROP TABLE profiles;    `);
-    await queryRunner.query(`    DROP TRIGGER profiles_update_updated_at;    `);
+    await queryRunner.query(`DROP TABLE profiles;`);
+    await queryRunner.query(`DROP TRIGGER profiles_update_updated_at;`);
   }
 }

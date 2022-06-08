@@ -1,27 +1,27 @@
 import { MigrationInterface, QueryRunner } from 'typeorm';
 
-export class CreatePatientsTable1653649970005 implements MigrationInterface {
-  name = 'CreatePatientsTable1653649970005';
+export class CreateDoctorsTable1654671409571 implements MigrationInterface {
+  name = 'CreateDoctorsTable1654671409571';
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.query(`
-      CREATE TABLE patients (
+      CREATE TABLE doctors (
         id uuid DEFAULT uuid_generate_v4(), 
         user_id uuid REFERENCES users(id), 
-        blood_type blood_type, 
+        specialization character varying NOT NULL, 
         created_at timestamp DEFAULT current_timestamp, 
         updated_at timestamp DEFAULT current_timestamp
       );
     `);
 
     await queryRunner.query(`
-      CREATE TRIGGER patients_update_updated_at BEFORE 
+      CREATE TRIGGER doctors_update_updated_at BEFORE 
       UPDATE 
-        ON patients FOR EACH ROW EXECUTE PROCEDURE trigger_set_timestamp();
+        ON doctors FOR EACH ROW EXECUTE PROCEDURE trigger_set_timestamp();
     `);
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.query(`    DROP TABLE patients;    `);
-    await queryRunner.query(`    DROP TRIGGER patients_update_updated_at;    `);
+    await queryRunner.query(`DROP TABLE doctors;`);
+    await queryRunner.query(`DROP TRIGGER doctors_update_updated_at;`);
   }
 }
