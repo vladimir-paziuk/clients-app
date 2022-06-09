@@ -8,13 +8,18 @@ import { JwtStrategy } from 'src/common/jwt/jwt.strategy';
 
 import { AuthController } from './auth.controller';
 import { AuthService } from './auth.service';
+
+import { UsersService } from 'src/auth/users.service';
 import { UsersRepository } from './users.repository';
+
+import { RolesService } from 'src/auth/roles.service';
+import { RolesRepository } from 'src/auth/roles.repository';
 
 import { ProfilesService } from 'src/profiles/profiles.service';
 import { ProfilesRepository } from 'src/profiles/profiles.repository';
 
-import { PatientsRepository } from 'src/patients/patients.repository';
 import { PatientsService } from 'src/patients/patients.service';
+import { PatientsRepository } from 'src/patients/patients.repository';
 
 @Module({
   imports: [
@@ -30,12 +35,20 @@ import { PatientsService } from 'src/patients/patients.service';
     }),
     TypeOrmExModule.forCustomRepository([
       UsersRepository,
+      RolesRepository,
       ProfilesRepository,
       PatientsRepository,
     ]),
   ],
   controllers: [AuthController],
-  providers: [JwtStrategy, AuthService, ProfilesService, PatientsService],
+  providers: [
+    JwtStrategy,
+    AuthService,
+    UsersService,
+    RolesService,
+    ProfilesService,
+    PatientsService,
+  ],
   exports: [JwtStrategy, PassportModule],
 })
 export class AuthModule {}

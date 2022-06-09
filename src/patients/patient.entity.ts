@@ -7,7 +7,7 @@ import {
 } from 'typeorm';
 import { Exclude } from 'class-transformer';
 import { BaseEntity } from 'src/common/constants/base.entity';
-import { UserEntity } from 'src/auth/user.entity';
+import { UserEntity } from 'src/auth/entities/user.entity';
 import { BLOOD_TYPE_ENUM } from 'src/common/constants/blood-type.enum';
 
 @Entity('patients')
