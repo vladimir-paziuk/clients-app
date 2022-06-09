@@ -34,9 +34,9 @@ export class DoctorsService {
   }
 
   async updateDoctorById(id: string, dto: DoctorDto): Promise<void> {
-    try {
-      await this.doctorsRepository.update({ id }, dto);
-    } catch (err) {
+    const result = await this.doctorsRepository.update({ id }, dto);
+
+    if (result.affected === 0) {
       throw new NotFoundException();
     }
   }

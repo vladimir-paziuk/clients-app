@@ -82,7 +82,7 @@ export class DoctorsController {
   @Patch('/:id')
   updateDoctorById(
     @Param('id') id: string,
-    @Body('specialization') body: DoctorDto,
+    @Body() body: DoctorDto,
   ): Promise<void> {
     return this.doctorsService.updateDoctorById(id, body);
   }

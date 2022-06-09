@@ -1,5 +1,12 @@
-import { Injectable } from '@nestjs/common';
+import {
+  ConflictException,
+  Injectable,
+  InternalServerErrorException,
+  NotFoundException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+
+import { POSTGRESQL_CODES } from 'src/common/constants/postgresql.codes';
 
 import { UsersRepository } from './users.repository';
 import { AuthCredentialsDto } from './dtos/auth-credentials.dto';
@@ -18,12 +25,25 @@ export class UsersService {
     credentials: AuthCredentialsDto,
     roles: RoleEntity[],
   ): Promise<UserEntity> {
-    return this.usersRepository.createUser(credentials, roles);
+    try {
+      return await this.usersRepository.createUser(credentials, roles);
+    } catch (err) {
+      if (err.code === POSTGRESQL_CODES.userExists) {
+        throw new ConflictException('User name already exist');
+      } else {
+        throw new InternalServerErrorException();
+      }
+    }
   }
 
   async getUser(credentials: AuthCredentialsDto): Promise<UserEntity> {
-    return this.usersRepository.findOne({
+    const found = this.usersRepository.findOne({
       where: { email: credentials.email },
     });
+
+    if (found) {
+      return found;
+    }
+    throw new NotFoundException();
   }
 }

@@ -1,13 +1,7 @@
-import {
-  Injectable,
-  ConflictException,
-  UnauthorizedException,
-  InternalServerErrorException,
-} from '@nestjs/common';
+import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 
 import { JwtPayload, JwtToken } from 'src/common/jwt/jwt.strategy';
-import { POSTGRESQL_CODES } from 'src/common/constants/postgresql.codes';
 import {
   cryptComparePasswords,
   cryptHashPassword,
@@ -36,27 +30,19 @@ export class AuthService {
 
     const hashedPassword = await cryptHashPassword(password);
 
-    try {
-      // Make user with Patient role by default
-      const role = await this.rolesService.getRole({
-        name: ROLES_ENUM.patient,
-      });
-      const user = await this.usersService.createUser(
-        {
-          email,
-          password: hashedPassword,
-        },
-        [role],
-      );
-      await this.profilesService.createProfile({ userId: user.id });
-      await this.patientsService.createPatient({ userId: user.id });
-    } catch (err) {
-      if (err.code === POSTGRESQL_CODES.userExists) {
-        throw new ConflictException('User name already exist');
-      } else {
-        throw new InternalServerErrorException();
-      }
-    }
+    // Make user with Patient role by default
+    const role = await this.rolesService.getRole({
+      name: ROLES_ENUM.patient,
+    });
+    const user = await this.usersService.createUser(
+      {
+        email,
+        password: hashedPassword,
+      },
+      [role],
+    );
+    await this.profilesService.createProfile({ userId: user.id });
+    await this.patientsService.createPatient({ userId: user.id });
   }
 
   async signIn(credentials: AuthCredentialsDto): Promise<JwtToken> {

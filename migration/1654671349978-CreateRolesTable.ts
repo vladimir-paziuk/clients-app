@@ -10,13 +10,6 @@ export class CreateRolesTable1654671349978 implements MigrationInterface {
         CONSTRAINT PK_role_id PRIMARY KEY (id)
       );
     `);
-
-    await queryRunner.query(`
-      INSERT INTO roles (name)
-      VALUES
-        ('Patient'),
-        ('Doctor');
-    `);
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
