@@ -1,30 +1,25 @@
-import {
-  Injectable,
-  ConflictException,
-  UnauthorizedException,
-  InternalServerErrorException,
-} from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
+import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 
 import { JwtPayload, JwtToken } from 'src/common/jwt/jwt.strategy';
-import { POSTGRESQL_CODES } from 'src/common/constants/postgresql.codes';
 import {
   cryptComparePasswords,
   cryptHashPassword,
 } from 'src/common/jwt/crypt.strategy';
 
-import { UsersRepository } from './users.repository';
 import { AuthCredentialsDto } from 'src/auth/dtos/auth-credentials.dto';
 
 import { ProfilesService } from 'src/profiles/profiles.service';
 import { PatientsService } from 'src/patients/patients.service';
+import { UsersService } from 'src/auth/users.service';
+import { RolesService } from 'src/auth/roles.service';
+import { ROLES_ENUM } from 'src/auth/enums/roles.enum';
 
 @Injectable()
 export class AuthService {
   constructor(
-    @InjectRepository(UsersRepository)
-    private usersRepository: UsersRepository,
+    private usersService: UsersService,
+    private rolesService: RolesService,
     private profilesService: ProfilesService,
     private patientsService: PatientsService,
     private jwtService: JwtService,
@@ -35,30 +30,26 @@ export class AuthService {
 
     const hashedPassword = await cryptHashPassword(password);
 
-    try {
-      const user = await this.usersRepository.createUser({
+    // Make user with Patient role by default
+    const role = await this.rolesService.getRole(ROLES_ENUM.patient);
+    const user = await this.usersService.createUser(
+      {
         email,
         password: hashedPassword,
-      });
-      await this.profilesService.createProfile({ userId: user.id });
-      await this.patientsService.createPatient({ userId: user.id });
-      // TODO: Create user_role instance
-    } catch (err) {
-      if (err.code === POSTGRESQL_CODES.userExists) {
-        throw new ConflictException('User name already exist');
-      } else {
-        throw new InternalServerErrorException();
-      }
-    }
+      },
+      [role],
+    );
+    await this.profilesService.createProfile({ userId: user.id });
+    await this.patientsService.createPatient({ userId: user.id });
   }
 
   async signIn(credentials: AuthCredentialsDto): Promise<JwtToken> {
-    const { email, password } = credentials;
-    const user = await this.usersRepository.findOne({
-      where: { email },
-    });
+    const user = await this.usersService.getUser(credentials);
 
-    if (user && (await cryptComparePasswords(password, user.password))) {
+    if (
+      user &&
+      (await cryptComparePasswords(credentials.password, user.password))
+    ) {
       const payload: JwtPayload = { id: user.id };
       const accessToken: string = await this.jwtService.sign(payload);
       return { accessToken };

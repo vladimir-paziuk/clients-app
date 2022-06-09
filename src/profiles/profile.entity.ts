@@ -7,10 +7,10 @@ import {
 } from 'typeorm';
 import { Exclude } from 'class-transformer';
 import { BaseEntity } from 'src/common/constants/base.entity';
-import { UserEntity } from 'src/auth/user.entity';
+import { UserEntity } from 'src/auth/entities/user.entity';
 import { GENDER_ENUM } from 'src/common/constants/gender.enum';
 
-@Entity()
+@Entity('profiles')
 export class ProfileEntity extends BaseEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;

@@ -71,8 +71,8 @@ export class DoctorsController {
   }
 
   @ApiOperation({
-    summary: 'Update doctor data.',
-    description: 'Returns and update doctor description.',
+    summary: 'Update selected doctor.',
+    description: 'Update doctor instance based on id and DoctorDto.',
   })
   @ApiOkResponse({
     type: DoctorEntity,
@@ -82,9 +82,9 @@ export class DoctorsController {
   @Patch('/:id')
   updateDoctorById(
     @Param('id') id: string,
-    @Body('desc') desc: string,
-  ): Promise<DoctorEntity> {
-    return this.doctorsService.updateDoctorById(id, desc);
+    @Body() body: DoctorDto,
+  ): Promise<void> {
+    return this.doctorsService.updateDoctorById(id, body);
   }
 
   @ApiOperation({

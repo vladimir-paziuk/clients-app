@@ -3,7 +3,8 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 
 import { AuthModule } from './auth/auth.module';
-import { UserEntity } from './auth/user.entity';
+import { UserEntity } from 'src/auth/entities/user.entity';
+import { RoleEntity } from 'src/auth/entities/role.entity';
 
 import { DoctorsModule } from './doctors/doctors.module';
 import { DoctorEntity } from './doctors/doctor.entity';
@@ -30,8 +31,21 @@ import { ProfileEntity } from './profiles/profile.entity';
         password: config.get('DATABASE_PASSWORD'),
         database: config.get('DATABASE_NAME'),
         autoLoadEntities: true,
-        synchronize: true,
-        entities: [UserEntity, ProfileEntity, DoctorEntity, PatientEntity],
+        entities: [
+          UserEntity,
+          RoleEntity,
+          ProfileEntity,
+          PatientEntity,
+          DoctorEntity,
+        ],
+        synchronize: false,
+        migrationsRun: true,
+        logging: true,
+        migrationsTableName: 'migration_table',
+        migrations: ['dist/migration/*.js'],
+        cli: {
+          migrationsDir: 'migration',
+        },
       }),
       inject: [ConfigService],
     }),

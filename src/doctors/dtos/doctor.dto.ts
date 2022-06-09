@@ -5,12 +5,6 @@ export class DoctorDto {
   @ApiProperty()
   @IsString()
   @MinLength(4)
-  @MaxLength(20)
-  name: string;
-
-  @ApiProperty()
-  @IsString()
-  @MinLength(8)
   @MaxLength(32)
-  desc: string;
+  specialization: string;
 }
