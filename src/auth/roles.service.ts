@@ -3,7 +3,6 @@ import { InjectRepository } from '@nestjs/typeorm';
 
 import { RolesRepository } from 'src/auth/roles.repository';
 import { RoleEntity } from 'src/auth/entities/role.entity';
-import { RoleDto } from 'src/auth/dtos/role.dto';
 
 @Injectable()
 export class RolesService {
@@ -12,9 +11,9 @@ export class RolesService {
     private rolesRepository: RolesRepository,
   ) {}
 
-  async getRole(roleDto: RoleDto): Promise<RoleEntity> {
+  async getRole(name: string): Promise<RoleEntity> {
     return this.rolesRepository.findOne({
-      where: roleDto,
+      where: { name },
     });
   }
 }

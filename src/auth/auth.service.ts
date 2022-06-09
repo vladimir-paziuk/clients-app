@@ -31,9 +31,7 @@ export class AuthService {
     const hashedPassword = await cryptHashPassword(password);
 
     // Make user with Patient role by default
-    const role = await this.rolesService.getRole({
-      name: ROLES_ENUM.patient,
-    });
+    const role = await this.rolesService.getRole(ROLES_ENUM.patient);
     const user = await this.usersService.createUser(
       {
         email,
