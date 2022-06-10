@@ -1,0 +1,37 @@
+import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+
+import { JwtPayload } from 'src/common/jwt/jwt.strategy';
+
+import { AppointmentEntity } from 'src/appointments/appointment.entity';
+import { AppointmentDto } from 'src/appointments/dtos/appointment.dto';
+import { AppointmentsRepository } from 'src/appointments/appointments.repository';
+
+import { DoctorsService } from 'src/doctors/doctors.service';
+import { PatientsService } from 'src/patients/patients.service';
+
+@Injectable()
+export class AppointmentsService {
+  constructor(
+    @InjectRepository(AppointmentsRepository)
+    private appointmentsRepository: AppointmentsRepository,
+    private doctorsService: DoctorsService,
+    private patientsService: PatientsService,
+  ) {}
+
+  async createAppointment(
+    dto: AppointmentDto,
+    user: JwtPayload,
+  ): Promise<AppointmentEntity> {
+    const doctor = await this.doctorsService.getEntity({
+      specialization: dto.specialization,
+    });
+    const patient = await this.patientsService.getPatient(user);
+
+    return this.appointmentsRepository.createAppointment(
+      dto,
+      patient.id,
+      doctor.id,
+    );
+  }
+}

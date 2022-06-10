@@ -9,7 +9,8 @@ export class CreateDoctorsTable1654671409571 implements MigrationInterface {
         user_id uuid REFERENCES users(id), 
         specialization character varying NOT NULL, 
         created_at timestamp DEFAULT current_timestamp, 
-        updated_at timestamp DEFAULT current_timestamp
+        updated_at timestamp DEFAULT current_timestamp,
+        CONSTRAINT PK_doctor_id PRIMARY KEY (id)
       );
     `);
 

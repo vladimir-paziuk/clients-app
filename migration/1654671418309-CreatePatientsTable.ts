@@ -9,7 +9,8 @@ export class CreatePatientsTable1654671418309 implements MigrationInterface {
         user_id uuid REFERENCES users(id), 
         blood_type blood_type, 
         created_at timestamp DEFAULT current_timestamp, 
-        updated_at timestamp DEFAULT current_timestamp
+        updated_at timestamp DEFAULT current_timestamp,
+        CONSTRAINT PK_patient_id PRIMARY KEY (id)
       );
     `);
 
