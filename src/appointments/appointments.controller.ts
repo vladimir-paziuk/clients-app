@@ -1,4 +1,4 @@
-import { Body, Controller, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Post, UseGuards } from '@nestjs/common';
 import {
   ApiBearerAuth,
   ApiOkResponse,
@@ -40,5 +40,20 @@ export class AppointmentsController {
     @GetUser() user: JwtPayload,
   ): Promise<AppointmentEntity> {
     return this.appointmentsService.createAppointment(body, user);
+  }
+
+  @ApiOperation({
+    summary: 'Get all my appointments. Available only for doctors.',
+    description: 'Returns all appointments related my user reference.',
+  })
+  @ApiOkResponse({
+    type: AppointmentEntity,
+    isArray: true,
+    description: 'Return appointments',
+  })
+  @SwaggerApiErrorResponse()
+  @Get('/me')
+  getAppointments(@GetUser() user: JwtPayload): Promise<AppointmentEntity[]> {
+    return this.appointmentsService.getAppointments(user);
   }
 }

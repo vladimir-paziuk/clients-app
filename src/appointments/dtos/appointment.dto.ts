@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsString, MaxLength, MinLength } from 'class-validator';
+import { IsString, IsUUID, MaxLength, MinLength } from 'class-validator';
 
 export class AppointmentDto {
   @ApiProperty()
@@ -13,6 +13,6 @@ export class AppointmentDto {
   reservedAt: string;
 
   @ApiProperty()
-  @IsString()
-  specialization: string;
+  @IsUUID()
+  doctorId: string;
 }

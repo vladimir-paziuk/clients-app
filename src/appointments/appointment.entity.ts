@@ -5,6 +5,7 @@ import {
   ManyToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
+import { Exclude } from 'class-transformer';
 
 import { BaseEntity } from 'src/common/constants/base.entity';
 import { DoctorEntity } from 'src/doctors/doctor.entity';
@@ -17,15 +18,21 @@ export class AppointmentEntity extends BaseEntity {
 
   @ManyToOne(() => PatientEntity)
   @JoinColumn({ name: 'patient_id' })
-  patientId?: string;
+  @Exclude({ toPlainOnly: true })
+  patient: PatientEntity;
+  @Column({ name: 'patient_id' })
+  patientId: string;
 
   @ManyToOne(() => DoctorEntity)
   @JoinColumn({ name: 'doctor_id' })
-  doctorId?: string;
+  @Exclude({ toPlainOnly: true })
+  doctor: DoctorEntity;
+  @Column({ name: 'doctor_id' })
+  doctorId: string;
 
   @Column()
-  reason?: string;
+  reason: string;
 
   @Column({ name: 'reserved_at' })
-  reservedAt?: string;
+  reservedAt: string;
 }

@@ -22,19 +22,26 @@ export class DoctorsService {
     return entity;
   }
 
-  async getEntity(dto: Partial<DoctorEntity>): Promise<DoctorEntity> {
+  async getEntityById(id: string): Promise<DoctorEntity> {
     const found = await this.doctorsRepository.findOne({
-      where: dto,
+      where: { id },
     });
 
-    if (found) {
-      return found;
+    if (!found) {
+      throw new NotFoundException();
     }
-    throw new NotFoundException();
+    return found;
   }
 
-  async getEntityById(id: string): Promise<DoctorEntity> {
-    return this.getEntity({ id });
+  async getEntityByUserId(userId: string): Promise<DoctorEntity> {
+    const found = await this.doctorsRepository.findOne({
+      where: { userId },
+    });
+
+    if (!found) {
+      throw new NotFoundException();
+    }
+    return found;
   }
 
   async updateDoctorById(id: string, dto: DoctorDto): Promise<void> {

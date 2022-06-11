@@ -23,15 +23,15 @@ export class AppointmentsService {
     dto: AppointmentDto,
     user: JwtPayload,
   ): Promise<AppointmentEntity> {
-    const doctor = await this.doctorsService.getEntity({
-      specialization: dto.specialization,
-    });
     const patient = await this.patientsService.getPatient(user);
+    return this.appointmentsRepository.createAppointment(dto, patient.id);
+  }
 
-    return this.appointmentsRepository.createAppointment(
-      dto,
-      patient.id,
-      doctor.id,
-    );
+  async getAppointments(user: JwtPayload): Promise<AppointmentEntity[]> {
+    const doctor = await this.doctorsService.getEntityByUserId(user.id);
+
+    return this.appointmentsRepository.find({
+      where: { doctorId: doctor.id },
+    });
   }
 }
