@@ -13,7 +13,8 @@ export class CreateAppointmentsTable1654785979930
         reason character varying,  
         reserved_at timestamp NOT NULL, 
         created_at timestamp DEFAULT current_timestamp, 
-        updated_at timestamp DEFAULT current_timestamp
+        updated_at timestamp DEFAULT current_timestamp,
+        CONSTRAINT PK_appointment_id PRIMARY KEY (id)
       );
     `);
 

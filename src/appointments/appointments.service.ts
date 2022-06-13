@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 
 import { JwtPayload } from 'src/common/jwt/jwt.strategy';
@@ -33,5 +33,16 @@ export class AppointmentsService {
     return this.appointmentsRepository.find({
       where: { doctorId: doctor.id },
     });
+  }
+
+  async getAppointmentById(id: string): Promise<AppointmentEntity> {
+    const found = this.appointmentsRepository.findOne({
+      where: { id },
+    });
+
+    if (!found) {
+      throw new NotFoundException();
+    }
+    return found;
   }
 }
