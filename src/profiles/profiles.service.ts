@@ -16,10 +16,10 @@ export class ProfilesService {
       where: { userId: user.id },
     });
 
-    if (found) {
-      return found;
+    if (!found) {
+      throw new NotFoundException();
     }
-    throw new NotFoundException();
+    return found;
   }
 
   async getProfileById(id: string): Promise<ProfileEntity> {
@@ -27,10 +27,10 @@ export class ProfilesService {
       where: { id },
     });
 
-    if (found) {
-      return found;
+    if (!found) {
+      throw new NotFoundException();
     }
-    throw new NotFoundException();
+    return found;
   }
 
   async createProfile(profile: ProfileCreateDto): Promise<ProfileEntity> {

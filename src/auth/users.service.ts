@@ -41,9 +41,9 @@ export class UsersService {
       where: { email: credentials.email },
     });
 
-    if (found) {
-      return found;
+    if (!found) {
+      throw new NotFoundException();
     }
-    throw new NotFoundException();
+    return found;
   }
 }

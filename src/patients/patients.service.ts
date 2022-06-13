@@ -16,10 +16,10 @@ export class PatientsService {
       where: { userId: user.id },
     });
 
-    if (found) {
-      return found;
+    if (!found) {
+      throw new NotFoundException();
     }
-    throw new NotFoundException();
+    return found;
   }
 
   async getPatientById(id: string): Promise<PatientEntity> {
@@ -27,10 +27,10 @@ export class PatientsService {
       where: { id },
     });
 
-    if (found) {
-      return found;
+    if (!found) {
+      throw new NotFoundException();
     }
-    throw new NotFoundException();
+    return found;
   }
 
   async createPatient(profile: PatientCreateDto): Promise<PatientEntity> {
