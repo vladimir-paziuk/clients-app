@@ -15,12 +15,20 @@ import { PatientEntity } from './patients/patient.entity';
 import { ProfilesModule } from './profiles/profiles.module';
 import { ProfileEntity } from './profiles/profile.entity';
 
+import { AppointmentsModule } from './appointments/appointments.module';
+import { AppointmentEntity } from 'src/appointments/appointment.entity';
+
+import { ResolutionsModule } from './resolutions/resolutions.module';
+import { ResolutionEntity } from './resolutions/resolution.entity';
+
 @Module({
   imports: [
     AuthModule,
     ProfilesModule,
     PatientsModule,
     DoctorsModule,
+    AppointmentsModule,
+    ResolutionsModule,
     ConfigModule.forRoot({ isGlobal: true }),
     TypeOrmModule.forRootAsync({
       useFactory: (config: ConfigService) => ({
@@ -37,6 +45,8 @@ import { ProfileEntity } from './profiles/profile.entity';
           ProfileEntity,
           PatientEntity,
           DoctorEntity,
+          AppointmentEntity,
+          ResolutionEntity,
         ],
         synchronize: false,
         migrationsRun: true,

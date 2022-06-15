@@ -1,3 +1,7 @@
+## Migrations diagram
+- https://drawsql.app/own-23/diagrams/clients-app
+
+
 ## Installation
 
 ```bash

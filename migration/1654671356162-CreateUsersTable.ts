@@ -23,7 +23,7 @@ export class CreateUsersTable1654671356162 implements MigrationInterface {
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.query(`    DROP TABLE users;    `);
-    await queryRunner.query(`    DROP TRIGGER users_update_updated_at;    `);
+    await queryRunner.query(`DROP TABLE users;`);
+    await queryRunner.query(`DROP TRIGGER users_update_updated_at;`);
   }
 }

@@ -27,10 +27,21 @@ export class DoctorsService {
       where: { id },
     });
 
-    if (found) {
-      return found;
+    if (!found) {
+      throw new NotFoundException();
     }
-    throw new NotFoundException();
+    return found;
+  }
+
+  async getEntityByUserId(userId: string): Promise<DoctorEntity> {
+    const found = await this.doctorsRepository.findOne({
+      where: { userId },
+    });
+
+    if (!found) {
+      throw new NotFoundException();
+    }
+    return found;
   }
 
   async updateDoctorById(id: string, dto: DoctorDto): Promise<void> {

@@ -36,14 +36,18 @@ export class UsersService {
     }
   }
 
-  async getUser(credentials: AuthCredentialsDto): Promise<UserEntity> {
+  async getUser(
+    credentials: AuthCredentialsDto,
+    relations: string[] = [],
+  ): Promise<UserEntity> {
     const found = this.usersRepository.findOne({
+      relations,
       where: { email: credentials.email },
     });
 
-    if (found) {
-      return found;
+    if (!found) {
+      throw new NotFoundException();
     }
-    throw new NotFoundException();
+    return found;
   }
 }

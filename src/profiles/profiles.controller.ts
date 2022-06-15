@@ -11,7 +11,7 @@ import { ProfilesService } from './profiles.service';
 import { ProfileEntity } from './profile.entity';
 import { ProfileDto } from 'src/profiles/dtos/profile.dto';
 import { AUTH_BEARER_DEFAULT } from 'src/common/swagger/swagger.config';
-import { GetUser } from 'src/common/jwt/get-user.guard';
+import { GetUser } from 'src/common/jwt/get-user.decorator';
 import { JwtPayload } from 'src/common/jwt/jwt.strategy';
 
 @ApiBearerAuth(AUTH_BEARER_DEFAULT)
