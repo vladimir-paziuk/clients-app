@@ -10,8 +10,13 @@ export class AppointmentsRepository extends Repository<AppointmentEntity> {
     dto: AppointmentDto,
     patientId: string,
   ): Promise<AppointmentEntity> {
-    const { reason, reservedAt, doctorId } = dto;
-    const entity = this.create({ reason, reservedAt, doctorId, patientId });
+    const { reason, reservationDate, doctorId } = dto;
+    const entity = this.create({
+      reason,
+      doctorId,
+      patientId,
+      reservationDate,
+    });
     return this.save(entity);
   }
 }

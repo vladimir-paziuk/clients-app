@@ -33,6 +33,6 @@ export class AppointmentEntity extends BaseEntity {
   @Column()
   reason: string;
 
-  @Column({ name: 'reserved_at' })
-  reservedAt: string;
+  @Column({ name: 'reservation_date' })
+  reservationDate: string;
 }

@@ -11,7 +11,7 @@ export class CreateAppointmentsTable1654785979930
         patient_id uuid REFERENCES patients(id),
         doctor_id uuid REFERENCES doctors(id),
         reason character varying,  
-        reserved_at timestamp NOT NULL, 
+        reservation_date timestamp NOT NULL, 
         created_at timestamp DEFAULT current_timestamp, 
         updated_at timestamp DEFAULT current_timestamp,
         CONSTRAINT PK_appointment_id PRIMARY KEY (id)

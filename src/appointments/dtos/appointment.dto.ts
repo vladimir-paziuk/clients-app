@@ -10,7 +10,7 @@ export class AppointmentDto {
 
   @ApiProperty()
   @IsString()
-  reservedAt: string;
+  reservationDate: string;
 
   @ApiProperty()
   @IsUUID()
