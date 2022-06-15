@@ -12,8 +12,10 @@ import { AuthCredentialsDto } from 'src/auth/dtos/auth-credentials.dto';
 import { ProfilesService } from 'src/profiles/profiles.service';
 import { PatientsService } from 'src/patients/patients.service';
 import { UsersService } from 'src/auth/users.service';
+
 import { RolesService } from 'src/auth/roles.service';
 import { ROLES_ENUM } from 'src/auth/enums/roles.enum';
+import { ROLES_KEY } from 'src/auth/roles.guard';
 
 @Injectable()
 export class AuthService {
@@ -44,14 +46,18 @@ export class AuthService {
   }
 
   async signIn(credentials: AuthCredentialsDto): Promise<JwtToken> {
-    const user = await this.usersService.getUser(credentials);
+    const user = await this.usersService.getUser(credentials, [ROLES_KEY]);
 
     if (
       user &&
       (await cryptComparePasswords(credentials.password, user.password))
     ) {
-      const payload: JwtPayload = { id: user.id };
+      const payload: JwtPayload = {
+        id: user.id,
+        roles: user.roles.map(({ name }) => name),
+      };
       const accessToken: string = await this.jwtService.sign(payload);
+
       return { accessToken };
     } else {
       throw new UnauthorizedException('Unauthorized');

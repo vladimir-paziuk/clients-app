@@ -6,6 +6,7 @@ import { ConfigService } from '@nestjs/config';
 
 export class JwtPayload {
   id: string;
+  roles: string[];
 }
 export class JwtToken {
   @ApiProperty()

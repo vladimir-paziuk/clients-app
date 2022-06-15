@@ -11,8 +11,11 @@ import { SwaggerApiErrorResponse } from 'src/common/swagger/swagger-api-error-re
 import { AUTH_BEARER_DEFAULT } from 'src/common/swagger/swagger.config';
 import { AuthGuard } from '@nestjs/passport';
 
-import { GetUser } from 'src/common/jwt/get-user.guard';
 import { JwtPayload } from 'src/common/jwt/jwt.strategy';
+import { GetUser } from 'src/common/jwt/get-user.decorator';
+
+import { ROLES_ENUM } from 'src/auth/enums/roles.enum';
+import { RolesGuard } from 'src/auth/roles.guard';
 
 import { AppointmentsService } from 'src/appointments/appointments.service';
 import { AppointmentDto } from 'src/appointments/dtos/appointment.dto';
@@ -52,6 +55,7 @@ export class AppointmentsController {
     description: 'Return appointments',
   })
   @SwaggerApiErrorResponse()
+  @RolesGuard(ROLES_ENUM.doctor)
   @Get('/me')
   getAppointments(@GetUser() user: JwtPayload): Promise<AppointmentEntity[]> {
     return this.appointmentsService.getAppointments(user);

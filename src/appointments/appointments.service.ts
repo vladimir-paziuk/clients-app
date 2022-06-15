@@ -28,6 +28,7 @@ export class AppointmentsService {
   }
 
   async getAppointments(user: JwtPayload): Promise<AppointmentEntity[]> {
+    // TODO: Handle not found doctor error
     const doctor = await this.doctorsService.getEntityByUserId(user.id);
 
     return this.appointmentsRepository.find({

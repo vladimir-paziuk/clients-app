@@ -12,7 +12,7 @@ import { PatientsService } from 'src/patients/patients.service';
 import { PatientDto } from 'src/patients/dtos/patient.dto';
 import { AUTH_BEARER_DEFAULT } from 'src/common/swagger/swagger.config';
 import { ProfileEntity } from 'src/profiles/profile.entity';
-import { GetUser } from 'src/common/jwt/get-user.guard';
+import { GetUser } from 'src/common/jwt/get-user.decorator';
 import { JwtPayload } from 'src/common/jwt/jwt.strategy';
 
 @ApiBearerAuth(AUTH_BEARER_DEFAULT)

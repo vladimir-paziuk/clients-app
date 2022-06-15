@@ -9,8 +9,11 @@ import { AuthGuard } from '@nestjs/passport';
 
 import { SwaggerApiErrorResponse } from 'src/common/swagger/swagger-api-error-response';
 
+import { RolesGuard } from 'src/auth/roles.guard';
+import { ROLES_ENUM } from 'src/auth/enums/roles.enum';
+
 import { AUTH_BEARER_DEFAULT } from 'src/common/swagger/swagger.config';
-import { GetUser } from 'src/common/jwt/get-user.guard';
+import { GetUser } from 'src/common/jwt/get-user.decorator';
 import { JwtPayload } from 'src/common/jwt/jwt.strategy';
 
 import { ResolutionEntity } from 'src/resolutions/resolution.entity';
@@ -19,7 +22,6 @@ import { ResolutionDto } from 'src/resolutions/dtos/resolution.dto';
 
 @ApiBearerAuth(AUTH_BEARER_DEFAULT)
 @ApiTags('Resolutions')
-@Controller('resolutions')
 @UseGuards(AuthGuard())
 @Controller('resolutions')
 export class ResolutionsController {
@@ -34,6 +36,7 @@ export class ResolutionsController {
     description: 'Create resolution',
   })
   @SwaggerApiErrorResponse()
+  @RolesGuard(ROLES_ENUM.doctor)
   @Post()
   createResolution(
     @Body() body: ResolutionDto,
