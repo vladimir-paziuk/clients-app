@@ -16,7 +16,7 @@ export class AuthController {
   constructor(private authService: AuthService) {}
 
   @ApiOperation({
-    summary: 'Create user.',
+    summary: 'Create user and sign in',
     description: 'Returns and create user data based on AuthCredentialsDto.',
   })
   @ApiOkResponse({ description: 'User created' })
@@ -25,7 +25,7 @@ export class AuthController {
   })
   @SwaggerApiErrorResponse()
   @Post('/sign-up')
-  signUp(@Body() credentials: AuthCredentialsDto): Promise<void> {
+  signUp(@Body() credentials: AuthCredentialsDto): Promise<JwtToken> {
     return this.authService.signUp(credentials);
   }
 

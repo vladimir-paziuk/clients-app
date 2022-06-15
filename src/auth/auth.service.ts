@@ -7,6 +7,7 @@ import {
   cryptHashPassword,
 } from 'src/common/jwt/crypt.strategy';
 
+import { UserEntity } from 'src/auth/entities/user.entity';
 import { AuthCredentialsDto } from 'src/auth/dtos/auth-credentials.dto';
 
 import { ProfilesService } from 'src/profiles/profiles.service';
@@ -27,7 +28,17 @@ export class AuthService {
     private jwtService: JwtService,
   ) {}
 
-  async signUp(credentials: AuthCredentialsDto): Promise<void> {
+  async getAccess(user: UserEntity): Promise<JwtToken> {
+    const payload: JwtPayload = {
+      id: user.id,
+      roles: user.roles.map(({ name }) => name),
+    };
+    const accessToken: string = await this.jwtService.sign(payload);
+
+    return { accessToken };
+  }
+
+  async signUp(credentials: AuthCredentialsDto): Promise<JwtToken> {
     const { email, password } = credentials;
 
     const hashedPassword = await cryptHashPassword(password);
@@ -43,6 +54,8 @@ export class AuthService {
     );
     await this.profilesService.createProfile({ userId: user.id });
     await this.patientsService.createPatient({ userId: user.id });
+
+    return this.getAccess(user);
   }
 
   async signIn(credentials: AuthCredentialsDto): Promise<JwtToken> {
@@ -52,13 +65,7 @@ export class AuthService {
       user &&
       (await cryptComparePasswords(credentials.password, user.password))
     ) {
-      const payload: JwtPayload = {
-        id: user.id,
-        roles: user.roles.map(({ name }) => name),
-      };
-      const accessToken: string = await this.jwtService.sign(payload);
-
-      return { accessToken };
+      return this.getAccess(user);
     } else {
       throw new UnauthorizedException('Unauthorized');
     }
