@@ -1,7 +1,9 @@
 import { Repository } from 'typeorm';
-import { CustomRepository } from 'src/common/database/typeorm-ex.decorator';
+
+import { CustomRepository } from '../common/database/typeorm-ex.decorator';
+
 import { ProfileEntity } from './profile.entity';
-import { ProfileCreateDto } from 'src/profiles/dtos/profile.dto';
+import { ProfileCreateDto } from './dtos/profile.dto';
 
 // @EntityRepository is deprecated, see module description
 @CustomRepository(ProfileEntity)

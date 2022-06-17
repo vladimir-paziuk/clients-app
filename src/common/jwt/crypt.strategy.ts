@@ -1,13 +1,14 @@
 import * as bcrypt from 'bcrypt';
+import { Injectable } from '@nestjs/common';
 
-export const cryptHashPassword = async (password: string): Promise<string> => {
-  const salt = await bcrypt.genSalt();
-  return await bcrypt.hash(password, salt);
-};
+@Injectable()
+export class CryptStrategy {
+  async hashPassword(password: string): Promise<string> {
+    const salt = await bcrypt.genSalt();
+    return await bcrypt.hash(password, salt);
+  }
 
-export const cryptComparePasswords = async (
-  pass1: string,
-  pass2: string,
-): Promise<boolean> => {
-  return await bcrypt.compare(pass1, pass2);
-};
+  async comparePasswords(pass1: string, pass2: string): Promise<boolean> {
+    return await bcrypt.compare(pass1, pass2);
+  }
+}

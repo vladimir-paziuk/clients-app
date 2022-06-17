@@ -6,9 +6,10 @@ import {
   JoinColumn,
 } from 'typeorm';
 import { Exclude } from 'class-transformer';
-import { BaseEntity } from 'src/common/constants/base.entity';
-import { UserEntity } from 'src/auth/entities/user.entity';
-import { GENDER_ENUM } from 'src/common/constants/gender.enum';
+
+import { BaseEntity } from '../common/constants/base.entity';
+import { UserEntity } from '../auth/entities/user.entity';
+import { GENDER_ENUM } from '../common/constants/gender.enum';
 
 @Entity('profiles')
 export class ProfileEntity extends BaseEntity {

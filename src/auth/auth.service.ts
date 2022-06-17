@@ -1,22 +1,19 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 
-import { JwtPayload, JwtToken } from 'src/common/jwt/jwt.strategy';
-import {
-  cryptComparePasswords,
-  cryptHashPassword,
-} from 'src/common/jwt/crypt.strategy';
+import { JwtPayload, JwtToken } from '../common/jwt/jwt.strategy';
+import { CryptStrategy } from '../common/jwt/crypt.strategy';
 
-import { UserEntity } from 'src/auth/entities/user.entity';
-import { AuthCredentialsDto } from 'src/auth/dtos/auth-credentials.dto';
+import { UserEntity } from './entities/user.entity';
+import { AuthCredentialsDto } from './dtos/auth-credentials.dto';
 
-import { ProfilesService } from 'src/profiles/profiles.service';
-import { PatientsService } from 'src/patients/patients.service';
-import { UsersService } from 'src/auth/users.service';
+import { ProfilesService } from '../profiles/profiles.service';
+import { PatientsService } from '../patients/patients.service';
+import { UsersService } from './users.service';
 
-import { RolesService } from 'src/auth/roles.service';
-import { ROLES_ENUM } from 'src/auth/enums/roles.enum';
-import { ROLES_KEY } from 'src/auth/roles.guard';
+import { RolesService } from './roles.service';
+import { ROLES_ENUM } from './enums/roles.enum';
+import { ROLES_KEY } from './roles.guard';
 
 @Injectable()
 export class AuthService {
@@ -26,6 +23,7 @@ export class AuthService {
     private profilesService: ProfilesService,
     private patientsService: PatientsService,
     private jwtService: JwtService,
+    private cryptStrategy: CryptStrategy,
   ) {}
 
   async getAccess(user: UserEntity): Promise<JwtToken> {
@@ -41,7 +39,7 @@ export class AuthService {
   async signUp(credentials: AuthCredentialsDto): Promise<JwtToken> {
     const { email, password } = credentials;
 
-    const hashedPassword = await cryptHashPassword(password);
+    const hashedPassword = await this.cryptStrategy.hashPassword(password);
 
     // Make user with Patient role by default
     const role = await this.rolesService.getRole(ROLES_ENUM.patient);
@@ -63,7 +61,10 @@ export class AuthService {
 
     if (
       user &&
-      (await cryptComparePasswords(credentials.password, user.password))
+      (await this.cryptStrategy.comparePasswords(
+        credentials.password,
+        user.password,
+      ))
     ) {
       return this.getAccess(user);
     } else {

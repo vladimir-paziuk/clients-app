@@ -6,13 +6,13 @@ import {
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 
-import { POSTGRESQL_CODES } from 'src/common/constants/postgresql.codes';
+import { POSTGRESQL_CODES } from '../common/constants/postgresql.codes';
+
+import { UserEntity } from '../auth/entities/user.entity';
+import { RoleEntity } from '../auth/entities/role.entity';
 
 import { UsersRepository } from './users.repository';
 import { AuthCredentialsDto } from './dtos/auth-credentials.dto';
-
-import { UserEntity } from 'src/auth/entities/user.entity';
-import { RoleEntity } from 'src/auth/entities/role.entity';
 
 @Injectable()
 export class UsersService {
