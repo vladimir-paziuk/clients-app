@@ -2,7 +2,7 @@ import { Test } from '@nestjs/testing';
 import { UnauthorizedException } from '@nestjs/common';
 
 import { JwtService } from '@nestjs/jwt';
-import { CryptStrategy } from '../common/jwt/crypt.strategy';
+import { CryptService } from '../common/jwt/crypt.service';
 import { JwtToken } from '../common/jwt/jwt.strategy';
 
 import { AuthService } from './auth.service';
@@ -38,7 +38,7 @@ const mockProfilesRepository = () => ({
 const mockJwtStrategy = () => ({
   sign: jest.fn(),
 });
-const mockCryptStrategy = () => ({
+const mockCryptService = () => ({
   hashPassword: jest.fn(),
   comparePasswords: jest.fn(),
 });
@@ -62,7 +62,7 @@ describe('AuthService', () => {
   let profilesRepository;
 
   let jwtService;
-  let cryptStrategy;
+  let cryptService;
 
   beforeEach(async () => {
     const module = await Test.createTestingModule({
@@ -78,8 +78,8 @@ describe('AuthService', () => {
         { provide: ProfilesRepository, useFactory: mockProfilesRepository },
         { provide: JwtService, useFactory: mockJwtStrategy },
         {
-          provide: CryptStrategy,
-          useFactory: mockCryptStrategy,
+          provide: CryptService,
+          useFactory: mockCryptService,
         },
       ],
     }).compile();
@@ -92,7 +92,7 @@ describe('AuthService', () => {
     profilesRepository = module.get(ProfilesRepository);
 
     jwtService = module.get(JwtService);
-    cryptStrategy = module.get(CryptStrategy);
+    cryptService = module.get(CryptService);
   });
 
   describe('signUp', () => {
@@ -102,7 +102,8 @@ describe('AuthService', () => {
       profilesRepository.createProfile.mockResolvedValue(mockUser);
       patientsRepository.createPatient.mockResolvedValue(mockUser);
 
-      cryptStrategy.hashPassword.mockResolvedValue('1123');
+      // TODO: create separate test for check getAccess and mock it here
+      cryptService.hashPassword.mockResolvedValue('1123');
       jwtService.sign.mockResolvedValue(mockAccessToken);
 
       const result = await authService.signUp(mockAuthCredentials);
@@ -114,7 +115,7 @@ describe('AuthService', () => {
     it('calls AuthRepository.signIn and returns the result', async () => {
       usersRepository.findOne.mockResolvedValue(mockUser);
       jwtService.sign.mockResolvedValue(mockAccessToken);
-      cryptStrategy.comparePasswords.mockResolvedValue(true);
+      cryptService.comparePasswords.mockResolvedValue(true);
 
       const result = await authService.signIn(mockAuthCredentials);
       expect(result).toEqual(mockAccessTokenPayload);

@@ -5,7 +5,7 @@ import { JwtModule } from '@nestjs/jwt';
 
 import { TypeOrmExModule } from 'src/common/database/typeorm-ex.module';
 import { JwtStrategy } from 'src/common/jwt/jwt.strategy';
-import { CryptStrategy } from 'src/common/jwt/crypt.strategy';
+import { CryptService } from 'src/common/jwt/crypt.service';
 
 import { AuthController } from './auth.controller';
 import { AuthService } from './auth.service';
@@ -49,7 +49,7 @@ import { PatientsRepository } from 'src/patients/patients.repository';
     RolesService,
     ProfilesService,
     PatientsService,
-    CryptStrategy,
+    CryptService,
   ],
   exports: [JwtStrategy, PassportModule],
 })

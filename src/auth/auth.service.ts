@@ -2,7 +2,7 @@ import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 
 import { JwtPayload, JwtToken } from '../common/jwt/jwt.strategy';
-import { CryptStrategy } from '../common/jwt/crypt.strategy';
+import { CryptService } from 'src/common/jwt/crypt.service';
 
 import { UserEntity } from './entities/user.entity';
 import { AuthCredentialsDto } from './dtos/auth-credentials.dto';
@@ -23,7 +23,7 @@ export class AuthService {
     private profilesService: ProfilesService,
     private patientsService: PatientsService,
     private jwtService: JwtService,
-    private cryptStrategy: CryptStrategy,
+    private cryptService: CryptService,
   ) {}
 
   async getAccess(user: UserEntity): Promise<JwtToken> {
@@ -39,7 +39,7 @@ export class AuthService {
   async signUp(credentials: AuthCredentialsDto): Promise<JwtToken> {
     const { email, password } = credentials;
 
-    const hashedPassword = await this.cryptStrategy.hashPassword(password);
+    const hashedPassword = await this.cryptService.hashPassword(password);
 
     // Make user with Patient role by default
     const role = await this.rolesService.getRole(ROLES_ENUM.patient);
@@ -61,7 +61,7 @@ export class AuthService {
 
     if (
       user &&
-      (await this.cryptStrategy.comparePasswords(
+      (await this.cryptService.comparePasswords(
         credentials.password,
         user.password,
       ))
