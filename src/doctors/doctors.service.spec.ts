@@ -72,7 +72,7 @@ describe('DoctorsService', () => {
       expect.assertions(1);
 
       doctorsRepository.findOne.mockResolvedValue(null);
-      expect(doctorsService.getDoctorById(mockDoctorId)).rejects.toThrow(
+      await expect(doctorsService.getDoctorById(mockDoctorId)).rejects.toThrow(
         NotFoundException,
       );
     });
@@ -83,7 +83,7 @@ describe('DoctorsService', () => {
       expect.assertions(1);
 
       doctorsRepository.update.mockResolvedValue({ affected: 0 });
-      expect(
+      await expect(
         doctorsService.updateDoctorById(mockDoctorId, mockDoctorDto),
       ).rejects.toThrow(NotFoundException);
     });
@@ -94,9 +94,9 @@ describe('DoctorsService', () => {
       expect.assertions(1);
 
       doctorsRepository.delete.mockResolvedValue({ affected: 0 });
-      expect(doctorsService.deleteDoctorById(mockDoctorId)).rejects.toThrow(
-        NotFoundException,
-      );
+      await expect(
+        doctorsService.deleteDoctorById(mockDoctorId),
+      ).rejects.toThrow(NotFoundException);
     });
   });
 });

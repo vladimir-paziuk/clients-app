@@ -1,4 +1,4 @@
-import { Injectable, UnauthorizedException } from '@nestjs/common';
+import { Injectable, UnauthorizedException, HttpStatus } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 
 import { JwtPayload, JwtToken } from '../common/jwt/jwt.strategy';
@@ -57,7 +57,15 @@ export class AuthService {
   }
 
   async signIn(credentials: AuthCredentialsDto): Promise<JwtToken> {
-    const user = await this.usersService.getUser(credentials, [ROLES_KEY]);
+    let user: UserEntity;
+
+    try {
+      user = await this.usersService.getUser(credentials, [ROLES_KEY]);
+    } catch (err) {
+      if (err.status === HttpStatus.NOT_FOUND) {
+        throw new UnauthorizedException('Unauthorized');
+      }
+    }
 
     if (
       user &&
@@ -67,8 +75,6 @@ export class AuthService {
       ))
     ) {
       return this.getAccess(user);
-    } else {
-      throw new UnauthorizedException('Unauthorized');
     }
   }
 }

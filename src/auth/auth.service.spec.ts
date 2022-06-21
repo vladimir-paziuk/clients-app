@@ -1,5 +1,5 @@
 import { Test } from '@nestjs/testing';
-import { UnauthorizedException } from '@nestjs/common';
+import { HttpStatus, UnauthorizedException } from '@nestjs/common';
 
 import { JwtService } from '@nestjs/jwt';
 import { CryptService } from '../common/jwt/crypt.service';
@@ -113,7 +113,7 @@ describe('AuthService', () => {
       rolesService.getRole.mockResolvedValue(mockRole);
       usersService.createUser.mockResolvedValue(mockUser);
       cryptService.hashPassword.mockResolvedValue(mockAccessTokenHashed);
-      (authService.getAccess as jest.Mock) = jest.fn();
+      authService.getAccess = jest.fn();
 
       await authService.signUp(mockAuthCredentials);
 
@@ -136,24 +136,22 @@ describe('AuthService', () => {
 
   describe('signIn', () => {
     it('calls AuthRepository.signIn and returns the result', async () => {
-      expect.assertions(2);
+      expect.assertions(1);
 
       usersService.getUser.mockResolvedValue(mockUser);
-      jwtService.sign.mockResolvedValue(mockAccessToken);
       cryptService.comparePasswords.mockResolvedValue(true);
 
-      const result = await authService.signIn(mockAuthCredentials);
+      await authService.signIn(mockAuthCredentials);
 
       expect(usersService.getUser).toBeCalledWith(mockAuthCredentials, [
         ROLES_KEY,
       ]);
-      expect(result).toEqual(mockAccessTokenPayload);
     });
 
-    it('calls AuthRepository.signIn and returns not found exception', async () => {
+    it('calls AuthRepository.signIn and returns not unauthorized exception', async () => {
       expect.assertions(1);
 
-      usersService.getUser.mockResolvedValue(null);
+      usersService.getUser.mockRejectedValue({ status: HttpStatus.NOT_FOUND });
 
       await expect(authService.signIn(mockAuthCredentials)).rejects.toThrow(
         UnauthorizedException,

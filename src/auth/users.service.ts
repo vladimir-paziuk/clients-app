@@ -40,7 +40,7 @@ export class UsersService {
     credentials: AuthCredentialsDto,
     relations: string[] = [],
   ): Promise<UserEntity> {
-    const found = this.usersRepository.findOne({
+    const found = await this.usersRepository.findOne({
       relations,
       where: { email: credentials.email },
     });
