@@ -49,9 +49,9 @@ describe('DoctorsService', () => {
 
   describe('getDoctors', () => {
     it('calls DoctorsRepository.getDoctors and returns the result', async () => {
-      doctorsRepository.getDoctors.mockResolvedValue(mockDoctor);
+      doctorsRepository.getDoctors.mockResolvedValue([mockDoctor]);
       const result = await doctorsService.getDoctors();
-      expect(result).toEqual(mockDoctor);
+      expect(result).toEqual([mockDoctor]);
     });
   });
 
@@ -71,8 +71,6 @@ describe('DoctorsService', () => {
   });
 
   describe('updateDoctorById', () => {
-    // What if method doesn't return anything, how should test it ?
-
     it('calls DoctorsRepository.update and returns not found exception', async () => {
       doctorsRepository.update.mockResolvedValue({ affected: 0 });
       expect(
@@ -82,8 +80,6 @@ describe('DoctorsService', () => {
   });
 
   describe('deleteDoctorById', () => {
-    // What if method doesn't return anything, how should test it ?
-
     it('calls DoctorsRepository.delete and returns not found exception', async () => {
       doctorsRepository.delete.mockResolvedValue({ affected: 0 });
       expect(doctorsService.deleteDoctorById(mockDoctorId)).rejects.toThrow(
