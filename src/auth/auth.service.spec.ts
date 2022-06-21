@@ -9,6 +9,7 @@ import { AuthService } from './auth.service';
 import { AuthCredentialsDto } from '../auth/dtos/auth-credentials.dto';
 import { RoleEntity } from '../auth/entities/role.entity';
 import { UserEntity } from '../auth/entities/user.entity';
+import { ROLES_KEY } from '../auth/roles.guard';
 
 import { UsersService } from './users.service';
 import { RolesService } from './roles.service';
@@ -135,13 +136,17 @@ describe('AuthService', () => {
 
   describe('signIn', () => {
     it('calls AuthRepository.signIn and returns the result', async () => {
-      expect.assertions(1);
+      expect.assertions(2);
 
       usersService.getUser.mockResolvedValue(mockUser);
       jwtService.sign.mockResolvedValue(mockAccessToken);
       cryptService.comparePasswords.mockResolvedValue(true);
 
       const result = await authService.signIn(mockAuthCredentials);
+
+      expect(usersService.getUser).toBeCalledWith(mockAuthCredentials, [
+        ROLES_KEY,
+      ]);
       expect(result).toEqual(mockAccessTokenPayload);
     });
 

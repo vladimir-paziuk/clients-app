@@ -41,6 +41,8 @@ describe('DoctorsService', () => {
 
   describe('createDoctor', () => {
     it('calls DoctorsRepository.createDoctor and returns the result', async () => {
+      expect.assertions(1);
+
       doctorsRepository.createDoctor.mockResolvedValue(mockDoctor);
       const result = await doctorsService.createDoctor(mockDoctorDto);
       expect(result).toEqual(mockDoctor);
@@ -49,6 +51,8 @@ describe('DoctorsService', () => {
 
   describe('getDoctors', () => {
     it('calls DoctorsRepository.getDoctors and returns the result', async () => {
+      expect.assertions(1);
+
       doctorsRepository.getDoctors.mockResolvedValue([mockDoctor]);
       const result = await doctorsService.getDoctors();
       expect(result).toEqual([mockDoctor]);
@@ -57,12 +61,16 @@ describe('DoctorsService', () => {
 
   describe('getDoctorById', () => {
     it('calls DoctorsRepository.findOne and returns the result', async () => {
+      expect.assertions(1);
+
       doctorsRepository.findOne.mockResolvedValue(mockDoctor);
       const result = await doctorsService.getDoctorById(mockDoctorId);
       expect(result).toEqual(mockDoctor);
     });
 
     it('calls DoctorsRepository.findOne and returns not found exception', async () => {
+      expect.assertions(1);
+
       doctorsRepository.findOne.mockResolvedValue(null);
       expect(doctorsService.getDoctorById(mockDoctorId)).rejects.toThrow(
         NotFoundException,
@@ -72,6 +80,8 @@ describe('DoctorsService', () => {
 
   describe('updateDoctorById', () => {
     it('calls DoctorsRepository.update and returns not found exception', async () => {
+      expect.assertions(1);
+
       doctorsRepository.update.mockResolvedValue({ affected: 0 });
       expect(
         doctorsService.updateDoctorById(mockDoctorId, mockDoctorDto),
@@ -81,6 +91,8 @@ describe('DoctorsService', () => {
 
   describe('deleteDoctorById', () => {
     it('calls DoctorsRepository.delete and returns not found exception', async () => {
+      expect.assertions(1);
+
       doctorsRepository.delete.mockResolvedValue({ affected: 0 });
       expect(doctorsService.deleteDoctorById(mockDoctorId)).rejects.toThrow(
         NotFoundException,
