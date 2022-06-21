@@ -6,8 +6,8 @@ import {
   JoinTable,
 } from 'typeorm';
 
-import { BaseEntity } from 'src/common/constants/base.entity';
-import { RoleEntity } from 'src/auth/entities/role.entity';
+import { BaseEntity } from '../../common/constants/base.entity';
+import { RoleEntity } from './role.entity';
 
 @Entity('users')
 export class UserEntity extends BaseEntity {

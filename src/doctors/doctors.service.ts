@@ -12,17 +12,15 @@ export class DoctorsService {
     private doctorsRepository: DoctorsRepository,
   ) {}
 
-  async getData(query?: DoctorQueryDto): Promise<DoctorEntity[]> {
+  async createDoctor(data: DoctorDto): Promise<DoctorEntity> {
+    return this.doctorsRepository.createDoctor(data);
+  }
+
+  async getDoctors(query?: DoctorQueryDto): Promise<DoctorEntity[]> {
     return await this.doctorsRepository.getDoctors(query);
   }
 
-  async createEntity(data: DoctorDto): Promise<DoctorEntity> {
-    const entity = this.doctorsRepository.create(data);
-    await this.doctorsRepository.save(entity);
-    return entity;
-  }
-
-  async getEntityById(id: string): Promise<DoctorEntity> {
+  async getDoctorById(id: string): Promise<DoctorEntity> {
     const found = await this.doctorsRepository.findOne({
       where: { id },
     });
@@ -33,7 +31,7 @@ export class DoctorsService {
     return found;
   }
 
-  async getEntityByUserId(userId: string): Promise<DoctorEntity> {
+  async getDoctorByUserId(userId: string): Promise<DoctorEntity> {
     const found = await this.doctorsRepository.findOne({
       where: { userId },
     });
@@ -52,7 +50,7 @@ export class DoctorsService {
     }
   }
 
-  async deleteEntityById(id: string): Promise<void> {
+  async deleteDoctorById(id: string): Promise<void> {
     const result = await this.doctorsRepository.delete({ id });
 
     if (result.affected === 0) {

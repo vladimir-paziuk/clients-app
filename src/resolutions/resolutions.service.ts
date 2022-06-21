@@ -23,7 +23,7 @@ export class ResolutionsService {
     dto: ResolutionDto,
     user: JwtPayload,
   ): Promise<ResolutionEntity> {
-    const doctor = await this.doctorsService.getEntityByUserId(user.id);
+    const doctor = await this.doctorsService.getDoctorByUserId(user.id);
     const appointment = await this.appointmentsService.getAppointmentById(
       dto.appointmentId,
     );

@@ -1,7 +1,8 @@
 import { Repository } from 'typeorm';
-import { CustomRepository } from 'src/common/database/typeorm-ex.decorator';
-import { PatientEntity } from 'src/patients/patient.entity';
-import { PatientCreateDto } from 'src/patients/dtos/patient.dto';
+import { CustomRepository } from '../common/database/typeorm-ex.decorator';
+
+import { PatientEntity } from './patient.entity';
+import { PatientCreateDto } from './dtos/patient.dto';
 
 // @EntityRepository is deprecated, see module description
 @CustomRepository(PatientEntity)

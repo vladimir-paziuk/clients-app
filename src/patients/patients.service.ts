@@ -1,9 +1,11 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { PatientsRepository } from 'src/patients/patients.repository';
-import { PatientEntity } from 'src/patients/patient.entity';
-import { PatientCreateDto, PatientDto } from 'src/patients/dtos/patient.dto';
+
 import { JwtPayload } from 'src/common/jwt/jwt.strategy';
+
+import { PatientsRepository } from './patients.repository';
+import { PatientEntity } from './patient.entity';
+import { PatientCreateDto, PatientDto } from './dtos/patient.dto';
 
 @Injectable()
 export class PatientsService {

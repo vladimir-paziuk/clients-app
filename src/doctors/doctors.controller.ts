@@ -12,7 +12,7 @@ import {
 import { DoctorsService } from './doctors.service';
 import { AuthGuard } from '@nestjs/passport';
 import { DoctorEntity } from './doctor.entity';
-import { DoctorDto } from 'src/doctors/dtos/doctor.dto';
+import { DoctorDto } from './dtos/doctor.dto';
 import {
   ApiBearerAuth,
   ApiOkResponse,
@@ -40,7 +40,7 @@ export class DoctorsController {
   @SwaggerApiErrorResponse()
   @Get()
   getDoctors(@Query() query: DoctorQueryDto): Promise<DoctorEntity[]> {
-    return this.doctorsService.getData(query);
+    return this.doctorsService.getDoctors(query);
   }
 
   @ApiOperation({
@@ -53,7 +53,7 @@ export class DoctorsController {
   @SwaggerApiErrorResponse()
   @Get('/:id')
   getDoctorById(@Param('id') id: string): Promise<DoctorEntity> {
-    return this.doctorsService.getEntityById(id);
+    return this.doctorsService.getDoctorById(id);
   }
 
   @ApiOperation({
@@ -67,7 +67,7 @@ export class DoctorsController {
   @SwaggerApiErrorResponse()
   @Post()
   createDoctor(@Body() body: DoctorDto): Promise<DoctorEntity> {
-    return this.doctorsService.createEntity(body);
+    return this.doctorsService.createDoctor(body);
   }
 
   @ApiOperation({
@@ -97,6 +97,6 @@ export class DoctorsController {
   @SwaggerApiErrorResponse()
   @Delete('/:id')
   deleteDoctorById(@Param('id') id: string): Promise<void> {
-    return this.doctorsService.deleteEntityById(id);
+    return this.doctorsService.deleteDoctorById(id);
   }
 }

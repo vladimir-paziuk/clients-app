@@ -5,9 +5,10 @@ import {
   OneToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { BaseEntity } from 'src/common/constants/base.entity';
-import { UserEntity } from 'src/auth/entities/user.entity';
 import { Exclude } from 'class-transformer';
+
+import { BaseEntity } from '../common/constants/base.entity';
+import { UserEntity } from '../auth/entities/user.entity';
 
 @Entity('doctors')
 export class DoctorEntity extends BaseEntity {

@@ -1,6 +1,8 @@
 import { Module } from '@nestjs/common';
-import { AuthModule } from 'src/auth/auth.module';
-import { TypeOrmExModule } from 'src/common/database/typeorm-ex.module';
+
+import { AuthModule } from '../auth/auth.module';
+import { TypeOrmExModule } from '../common/database/typeorm-ex.module';
+
 import { ProfilesController } from './profiles.controller';
 import { ProfilesService } from './profiles.service';
 import { ProfilesRepository } from './profiles.repository';
