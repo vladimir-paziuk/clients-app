@@ -40,7 +40,7 @@ describe('DoctorsService', () => {
   });
 
   describe('createDoctor', () => {
-    it('calls DoctorsRepository.createDoctor and returns the result', async () => {
+    it('calls DoctorsService.createDoctor and returns the result', async () => {
       expect.assertions(1);
 
       doctorsRepository.createDoctor.mockResolvedValue(mockDoctor);
@@ -50,7 +50,7 @@ describe('DoctorsService', () => {
   });
 
   describe('getDoctors', () => {
-    it('calls DoctorsRepository.getDoctors and returns the result', async () => {
+    it('calls DoctorsService.getDoctors and returns the result', async () => {
       expect.assertions(1);
 
       doctorsRepository.getDoctors.mockResolvedValue([mockDoctor]);
@@ -60,7 +60,7 @@ describe('DoctorsService', () => {
   });
 
   describe('getDoctorById', () => {
-    it('calls DoctorsRepository.findOne and returns the result', async () => {
+    it('calls DoctorsService.getDoctorById and returns the result', async () => {
       expect.assertions(1);
 
       doctorsRepository.findOne.mockResolvedValue(mockDoctor);
@@ -68,7 +68,7 @@ describe('DoctorsService', () => {
       expect(result).toEqual(mockDoctor);
     });
 
-    it('calls DoctorsRepository.findOne and returns not found exception', async () => {
+    it('calls DoctorsService.getDoctorById and returns not found exception', async () => {
       expect.assertions(1);
 
       doctorsRepository.findOne.mockResolvedValue(null);
@@ -79,7 +79,20 @@ describe('DoctorsService', () => {
   });
 
   describe('updateDoctorById', () => {
-    it('calls DoctorsRepository.update and returns not found exception', async () => {
+    it('calls DoctorsService.updateDoctorById', async () => {
+      expect.assertions(1);
+
+      doctorsRepository.update.mockResolvedValue({ affected: 1 });
+
+      await doctorsService.updateDoctorById(mockDoctorId, mockDoctorDto);
+
+      expect(doctorsRepository.update).toBeCalledWith(
+        { id: mockDoctorId },
+        mockDoctorDto,
+      );
+    });
+
+    it('calls DoctorsService.update and returns not found exception', async () => {
       expect.assertions(1);
 
       doctorsRepository.update.mockResolvedValue({ affected: 0 });
@@ -90,7 +103,17 @@ describe('DoctorsService', () => {
   });
 
   describe('deleteDoctorById', () => {
-    it('calls DoctorsRepository.delete and returns not found exception', async () => {
+    it('calls DoctorsService.deleteDoctorById', async () => {
+      expect.assertions(1);
+
+      doctorsRepository.delete.mockResolvedValue({ affected: 1 });
+
+      await doctorsService.deleteDoctorById(mockDoctorId);
+
+      expect(doctorsRepository.delete).toBeCalledWith({ id: mockDoctorId });
+    });
+
+    it('calls DoctorsService.deleteDoctorById and returns not found exception', async () => {
       expect.assertions(1);
 
       doctorsRepository.delete.mockResolvedValue({ affected: 0 });
