@@ -2,7 +2,7 @@ import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 
 import { JwtPayload, JwtToken } from '../common/jwt/jwt.strategy';
-import { CryptService } from 'src/common/jwt/crypt.service';
+import { CryptService } from '../common/jwt/crypt.service';
 
 import { UserEntity } from './entities/user.entity';
 import { AuthCredentialsDto } from './dtos/auth-credentials.dto';

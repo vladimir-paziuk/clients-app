@@ -10,32 +10,25 @@ import { AuthCredentialsDto } from '../auth/dtos/auth-credentials.dto';
 import { RoleEntity } from '../auth/entities/role.entity';
 import { UserEntity } from '../auth/entities/user.entity';
 
-import { UsersRepository } from './users.repository';
 import { UsersService } from './users.service';
-
-import { RolesRepository } from './roles.repository';
 import { RolesService } from './roles.service';
-
-import { PatientsRepository } from '../patients/patients.repository';
 import { PatientsService } from '../patients/patients.service';
-
-import { ProfilesRepository } from '../profiles/profiles.repository';
 import { ProfilesService } from '../profiles/profiles.service';
 
-const mockUsersRepository = () => ({
-  findOne: jest.fn(),
+const mockRolesService = () => ({
+  getRole: jest.fn(),
+});
+const mockUsersService = () => ({
+  getUser: jest.fn(),
   createUser: jest.fn(),
 });
-const mockRolesRepository = () => ({
-  findOne: jest.fn(),
-});
-const mockPatientsRepository = () => ({
+const mockPatientsService = () => ({
   createPatient: jest.fn(),
 });
-const mockProfilesRepository = () => ({
+const mockProfilesService = () => ({
   createProfile: jest.fn(),
 });
-const mockJwtStrategy = () => ({
+const mockJwtService = () => ({
   sign: jest.fn(),
 });
 const mockCryptService = () => ({
@@ -44,22 +37,32 @@ const mockCryptService = () => ({
 });
 
 const mockAccessToken = 'accessToken';
+const mockAccessTokenHashed = 'accessTokenHashed';
 const mockAccessTokenPayload = new JwtToken();
 mockAccessTokenPayload.accessToken = mockAccessToken;
 
-const mockAuthCredentials = new AuthCredentialsDto();
+const mockAuthCredentials: AuthCredentialsDto = {
+  email: 'user@email.com',
+  password: 'Passw0rd',
+};
+const mockRole: RoleEntity = {
+  id: 'uuid2',
+  name: 'Patient',
+};
 
-const mockRole = new RoleEntity(); // Should be DTO
-const mockUser = new UserEntity(); // Should be DTO
+const mockUser = new UserEntity();
+mockUser.id = 'uuid';
+mockUser.email = mockAuthCredentials.email;
+mockUser.password = mockAuthCredentials.password;
 mockUser.roles = [mockRole];
 
 describe('AuthService', () => {
   let authService: AuthService;
 
-  let usersRepository;
-  let rolesRepository;
-  let patientsRepository;
-  let profilesRepository;
+  let rolesService;
+  let usersService;
+  let patientsService;
+  let profilesService;
 
   let jwtService;
   let cryptService;
@@ -68,15 +71,11 @@ describe('AuthService', () => {
     const module = await Test.createTestingModule({
       providers: [
         AuthService,
-        UsersService,
-        RolesService,
-        PatientsService,
-        ProfilesService,
-        { provide: UsersRepository, useFactory: mockUsersRepository },
-        { provide: PatientsRepository, useFactory: mockPatientsRepository },
-        { provide: RolesRepository, useFactory: mockRolesRepository },
-        { provide: ProfilesRepository, useFactory: mockProfilesRepository },
-        { provide: JwtService, useFactory: mockJwtStrategy },
+        { provide: RolesService, useFactory: mockRolesService },
+        { provide: UsersService, useFactory: mockUsersService },
+        { provide: PatientsService, useFactory: mockPatientsService },
+        { provide: ProfilesService, useFactory: mockProfilesService },
+        { provide: JwtService, useFactory: mockJwtService },
         {
           provide: CryptService,
           useFactory: mockCryptService,
@@ -86,34 +85,59 @@ describe('AuthService', () => {
 
     authService = module.get(AuthService);
 
-    usersRepository = module.get(UsersRepository);
-    rolesRepository = module.get(RolesRepository);
-    patientsRepository = module.get(PatientsRepository);
-    profilesRepository = module.get(ProfilesRepository);
+    rolesService = module.get(RolesService);
+    usersService = module.get(UsersService);
+    patientsService = module.get(PatientsService);
+    profilesService = module.get(ProfilesService);
 
     jwtService = module.get(JwtService);
     cryptService = module.get(CryptService);
   });
 
-  describe('signUp', () => {
-    it('calls AuthRepository.signUp and returns the result', async () => {
-      usersRepository.createUser.mockResolvedValue(mockUser);
-      rolesRepository.findOne.mockResolvedValue(mockRole);
-      profilesRepository.createProfile.mockResolvedValue(mockUser);
-      patientsRepository.createPatient.mockResolvedValue(mockUser);
+  describe('getAccess', () => {
+    it('calls AuthRepository.getAccess and returns the result', async () => {
+      expect.assertions(1);
 
-      // TODO: create separate test for check getAccess and mock it here
-      cryptService.hashPassword.mockResolvedValue('1123');
       jwtService.sign.mockResolvedValue(mockAccessToken);
 
-      const result = await authService.signUp(mockAuthCredentials);
+      const result = await authService.getAccess(mockUser);
       expect(result).toEqual(mockAccessTokenPayload);
+    });
+  });
+
+  describe('signUp', () => {
+    it('calls AuthRepository.signUp and returns the result', async () => {
+      expect.assertions(4);
+
+      rolesService.getRole.mockResolvedValue(mockRole);
+      usersService.createUser.mockResolvedValue(mockUser);
+      cryptService.hashPassword.mockResolvedValue(mockAccessTokenHashed);
+      (authService.getAccess as jest.Mock) = jest.fn();
+
+      await authService.signUp(mockAuthCredentials);
+
+      expect(authService.getAccess).toBeCalledWith(mockUser);
+      expect(usersService.createUser).toBeCalledWith(
+        {
+          ...mockAuthCredentials,
+          password: mockAccessTokenHashed,
+        },
+        [mockRole],
+      );
+      expect(profilesService.createProfile).toBeCalledWith({
+        userId: mockUser.id,
+      });
+      expect(patientsService.createPatient).toBeCalledWith({
+        userId: mockUser.id,
+      });
     });
   });
 
   describe('signIn', () => {
     it('calls AuthRepository.signIn and returns the result', async () => {
-      usersRepository.findOne.mockResolvedValue(mockUser);
+      expect.assertions(1);
+
+      usersService.getUser.mockResolvedValue(mockUser);
       jwtService.sign.mockResolvedValue(mockAccessToken);
       cryptService.comparePasswords.mockResolvedValue(true);
 
@@ -122,9 +146,11 @@ describe('AuthService', () => {
     });
 
     it('calls AuthRepository.signIn and returns not found exception', async () => {
-      usersRepository.findOne.mockResolvedValue(null);
+      expect.assertions(1);
 
-      expect(authService.signIn(mockAuthCredentials)).rejects.toThrow(
+      usersService.getUser.mockResolvedValue(null);
+
+      await expect(authService.signIn(mockAuthCredentials)).rejects.toThrow(
         UnauthorizedException,
       );
     });
