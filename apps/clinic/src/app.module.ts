@@ -2,29 +2,33 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 
-import { AuthModule } from 'apps/auth/src/auth/auth.module';
-import { UserEntity } from 'apps/auth/src/users/user.entity';
-import { RoleEntity } from 'apps/auth/src/roles/role.entity';
+import { PassportModule } from '@nestjs/passport';
+import { JwtModule } from '@nestjs/jwt';
 
-import { DoctorsModule } from 'apps/clinic/doctors/doctors.module';
-import { DoctorEntity } from 'apps/clinic/doctors/doctor.entity';
+import { ResolutionsModule } from 'src/resolutions/resolutions.module';
+import { ResolutionEntity } from 'src/resolutions/resolution.entity';
 
-import { PatientsModule } from 'apps/clinic/patients/patients.module';
-import { PatientEntity } from 'apps/clinic/patients/patient.entity';
+import { DoctorsModule } from 'src/doctors/doctors.module';
+import { DoctorEntity } from 'src/doctors/doctor.entity';
 
-import { ProfilesModule } from 'apps/profiles/profiles.module';
-import { ProfileEntity } from 'apps/profiles/profile.entity';
+import { PatientsModule } from 'src/patients/patients.module';
+import { PatientEntity } from 'src/patients/patient.entity';
 
-import { AppointmentsModule } from 'apps/clinic/appointments/appointments.module';
-import { AppointmentEntity } from 'apps/clinic/appointments/appointment.entity';
-
-import { ResolutionsModule } from 'apps/clinic/resolutions/resolutions.module';
-import { ResolutionEntity } from 'apps/clinic/resolutions/resolution.entity';
+import { AppointmentsModule } from 'src/appointments/appointments.module';
+import { AppointmentEntity } from 'src/appointments/appointment.entity';
 
 @Module({
   imports: [
-    AuthModule,
-    ProfilesModule,
+    // PassportModule.register({ defaultStrategy: 'jwt' }),
+    // JwtModule.registerAsync({
+    //   useFactory: (config: ConfigService) => ({
+    //     secret: config.get('AUTH_SECRET_KEY'),
+    //     signOptions: {
+    //       expiresIn: +config.get('AUTH_TOKEN_EXPIRE_TIME'),
+    //     },
+    //   }),
+    //   inject: [ConfigService],
+    // }),
     PatientsModule,
     DoctorsModule,
     AppointmentsModule,
@@ -40,9 +44,6 @@ import { ResolutionEntity } from 'apps/clinic/resolutions/resolution.entity';
         database: config.get('DATABASE_NAME'),
         autoLoadEntities: true,
         entities: [
-          UserEntity,
-          RoleEntity,
-          ProfileEntity,
           PatientEntity,
           DoctorEntity,
           AppointmentEntity,

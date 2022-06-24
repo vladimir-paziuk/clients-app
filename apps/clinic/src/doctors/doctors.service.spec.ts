@@ -1,8 +1,8 @@
 import { Test } from '@nestjs/testing';
 import { NotFoundException } from '@nestjs/common';
 
-import { DoctorsRepository } from 'apps/clinic/doctors/doctors.repository';
-import { DoctorsService } from 'apps/clinic/doctors/doctors.service';
+import { DoctorsRepository } from 'src/doctors/doctors.repository';
+import { DoctorsService } from 'src/doctors/doctors.service';
 
 const mockDoctorsRepository = () => ({
   getDoctors: jest.fn(),

@@ -4,19 +4,20 @@ import { PassportModule } from '@nestjs/passport';
 import { JwtModule } from '@nestjs/jwt';
 import { ConfigService } from '@nestjs/config';
 
-import { TypeOrmExModule } from '@vp-clients-app/common-pkg';
+import { JwtStrategy, TypeOrmExModule } from '@vp-clients-app/common-pkg';
 
-import { ResolutionsService } from 'apps/clinic/resolutions/resolutions.service';
-import { ResolutionsController } from 'apps/clinic/resolutions/resolutions.controller';
-import { ResolutionsRepository } from 'apps/clinic/resolutions/resolutions.repository';
+import { ResolutionsService } from 'src/resolutions/resolutions.service';
+import { ResolutionsRepository } from 'src/resolutions/resolutions.repository';
+import { ResolutionsController } from 'src/resolutions/resolutions.controller';
 
-import { DoctorsService } from 'apps/clinic/doctors/doctors.service';
-import { DoctorsRepository } from 'apps/clinic/doctors/doctors.repository';
+import { AppointmentsService } from 'src/appointments/appointments.service';
+import { AppointmentsRepository } from 'src/appointments/appointments.repository';
 
-import { AppointmentsService } from 'apps/clinic/appointments/appointments.service';
-import { AppointmentsRepository } from 'apps/clinic/appointments/appointments.repository';
-import { PatientsService } from 'apps/clinic/patients/patients.service';
-import { PatientsRepository } from 'apps/clinic/patients/patients.repository';
+import { PatientsService } from 'src/patients/patients.service';
+import { PatientsRepository } from 'src/patients/patients.repository';
+
+import { DoctorsService } from 'src/doctors/doctors.service';
+import { DoctorsRepository } from 'src/doctors/doctors.repository';
 
 @Module({
   imports: [
@@ -37,12 +38,14 @@ import { PatientsRepository } from 'apps/clinic/patients/patients.repository';
       PatientsRepository,
     ]),
   ],
+  controllers: [ResolutionsController],
   providers: [
+    JwtStrategy,
     ResolutionsService,
     AppointmentsService,
     DoctorsService,
     PatientsService,
   ],
-  controllers: [ResolutionsController],
+  exports: [JwtStrategy, PassportModule],
 })
 export class ResolutionsModule {}

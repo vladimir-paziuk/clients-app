@@ -7,11 +7,10 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 import { SwaggerApiErrorResponse } from '@vp-clients-app/common-pkg';
-import { PatientEntity } from 'apps/clinic/patients/patient.entity';
-import { PatientsService } from 'apps/clinic/patients/patients.service';
-import { PatientDto } from 'apps/clinic/patients/dtos/patient.dto';
+import { PatientEntity } from 'src/patients/patient.entity';
+import { PatientsService } from 'src/patients/patients.service';
+import { PatientDto } from 'src/patients/dtos/patient.dto';
 import { AUTH_BEARER_DEFAULT } from '@vp-clients-app/common-pkg';
-import { ProfileEntity } from 'apps/profiles/profile.entity';
 import { GetUser } from '@vp-clients-app/common-pkg';
 import { JwtPayload } from '@vp-clients-app/common-pkg';
 
@@ -26,11 +25,11 @@ export class PatientsController {
     description: 'Returns patient data based on logged user credentials.',
   })
   @ApiOkResponse({
-    type: ProfileEntity,
+    type: PatientEntity,
   })
   @SwaggerApiErrorResponse()
   @Get('/me')
-  getProfileByUser(@GetUser() user: JwtPayload): Promise<PatientEntity> {
+  getPatientByUser(@GetUser() user: JwtPayload): Promise<PatientEntity> {
     return this.patientsService.getPatient(user);
   }
 

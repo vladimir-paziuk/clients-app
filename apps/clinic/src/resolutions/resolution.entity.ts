@@ -7,9 +7,9 @@ import {
 } from 'typeorm';
 import { Exclude } from 'class-transformer';
 
-import { PatientEntity } from 'apps/clinic/patients/patient.entity';
-import { DoctorEntity } from 'apps/clinic/doctors/doctor.entity';
-import { AppointmentEntity } from 'apps/clinic/appointments/appointment.entity';
+import { PatientEntity } from 'src/patients/patient.entity';
+import { DoctorEntity } from 'src/doctors/doctor.entity';
+import { AppointmentEntity } from 'src/appointments/appointment.entity';
 import { BaseEntity } from '@vp-clients-app/common-pkg';
 
 @Entity('resolutions')

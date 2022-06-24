@@ -17,9 +17,9 @@ import { GetUser } from '@vp-clients-app/common-pkg';
 import { ROLES_ENUM } from '@vp-clients-app/common-pkg';
 import { RolesGuard } from '@vp-clients-app/common-pkg';
 
-import { AppointmentsService } from 'apps/clinic/appointments/appointments.service';
-import { AppointmentDto } from 'apps/clinic/appointments/dtos/appointment.dto';
-import { AppointmentEntity } from 'apps/clinic/appointments/appointment.entity';
+import { AppointmentsService } from 'src/appointments/appointments.service';
+import { AppointmentDto } from 'src/appointments/dtos/appointment.dto';
+import { AppointmentEntity } from 'src/appointments/appointment.entity';
 
 @ApiBearerAuth(AUTH_BEARER_DEFAULT)
 @UseGuards(AuthGuard())

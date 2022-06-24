@@ -4,10 +4,10 @@ import { PassportModule } from '@nestjs/passport';
 import { JwtModule } from '@nestjs/jwt';
 import { ConfigService } from '@nestjs/config';
 
-import { TypeOrmExModule } from '@vp-clients-app/common-pkg';
-import { DoctorsService } from 'apps/clinic/doctors/doctors.service';
-import { DoctorsController } from 'apps/clinic/doctors/doctors.controller';
-import { DoctorsRepository } from 'apps/clinic/doctors/doctors.repository';
+import { JwtStrategy, TypeOrmExModule } from '@vp-clients-app/common-pkg';
+import { DoctorsService } from 'src/doctors/doctors.service';
+import { DoctorsController } from 'src/doctors/doctors.controller';
+import { DoctorsRepository } from 'src/doctors/doctors.repository';
 
 // TypeOrmExModule.forCustomRepository uses instead TypeOrmExModule.forFeature for
 // resolve @EntityRepository deprecated issue, instead use @CustomRepository
@@ -28,7 +28,8 @@ import { DoctorsRepository } from 'apps/clinic/doctors/doctors.repository';
     }),
     TypeOrmExModule.forCustomRepository([DoctorsRepository]),
   ],
-  providers: [DoctorsService],
   controllers: [DoctorsController],
+  providers: [JwtStrategy, DoctorsService],
+  exports: [JwtStrategy, PassportModule],
 })
 export class DoctorsModule {}

@@ -4,11 +4,11 @@ import { PassportModule } from '@nestjs/passport';
 import { JwtModule } from '@nestjs/jwt';
 import { ConfigService } from '@nestjs/config';
 
-import { TypeOrmExModule } from '@vp-clients-app/common-pkg';
+import { JwtStrategy, TypeOrmExModule } from '@vp-clients-app/common-pkg';
 
-import { PatientsService } from 'apps/clinic/patients/patients.service';
-import { PatientsController } from 'apps/clinic/patients/patients.controller';
-import { PatientsRepository } from 'apps/clinic/patients/patients.repository';
+import { PatientsService } from 'src/patients/patients.service';
+import { PatientsController } from 'src/patients/patients.controller';
+import { PatientsRepository } from 'src/patients/patients.repository';
 
 @Module({
   imports: [
@@ -24,7 +24,8 @@ import { PatientsRepository } from 'apps/clinic/patients/patients.repository';
     }),
     TypeOrmExModule.forCustomRepository([PatientsRepository]),
   ],
-  providers: [PatientsService],
   controllers: [PatientsController],
+  providers: [JwtStrategy, PatientsService],
+  exports: [JwtStrategy, PassportModule],
 })
 export class PatientsModule {}

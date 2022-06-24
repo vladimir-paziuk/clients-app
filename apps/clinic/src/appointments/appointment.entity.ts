@@ -8,8 +8,8 @@ import {
 import { Exclude } from 'class-transformer';
 
 import { BaseEntity } from '@vp-clients-app/common-pkg';
-import { DoctorEntity } from 'apps/clinic/doctors/doctor.entity';
-import { PatientEntity } from 'apps/clinic/patients/patient.entity';
+import { DoctorEntity } from 'src/doctors/doctor.entity';
+import { PatientEntity } from 'src/patients/patient.entity';
 
 @Entity('appointments')
 export class AppointmentEntity extends BaseEntity {

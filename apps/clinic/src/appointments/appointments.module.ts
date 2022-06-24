@@ -4,17 +4,17 @@ import { PassportModule } from '@nestjs/passport';
 import { JwtModule } from '@nestjs/jwt';
 import { ConfigService } from '@nestjs/config';
 
-import { TypeOrmExModule } from '@vp-clients-app/common-pkg';
-import { AppointmentsRepository } from 'apps/clinic/appointments/appointments.repository';
+import { JwtStrategy, TypeOrmExModule } from '@vp-clients-app/common-pkg';
+import { AppointmentsRepository } from 'src/appointments/appointments.repository';
 
-import { AppointmentsController } from 'apps/clinic/appointments/appointments.controller';
-import { AppointmentsService } from 'apps/clinic/appointments/appointments.service';
+import { AppointmentsController } from 'src/appointments/appointments.controller';
+import { AppointmentsService } from 'src/appointments/appointments.service';
 
-import { DoctorsService } from 'apps/clinic/doctors/doctors.service';
-import { DoctorsRepository } from 'apps/clinic/doctors/doctors.repository';
+import { DoctorsService } from 'src/doctors/doctors.service';
+import { DoctorsRepository } from 'src/doctors/doctors.repository';
 
-import { PatientsService } from 'apps/clinic/patients/patients.service';
-import { PatientsRepository } from 'apps/clinic/patients/patients.repository';
+import { PatientsService } from 'src/patients/patients.service';
+import { PatientsRepository } from 'src/patients/patients.repository';
 
 // TypeOrmExModule.forCustomRepository uses instead TypeOrmExModule.forFeature for
 // resolve @EntityRepository deprecated issue, instead use @CustomRepository
@@ -40,6 +40,12 @@ import { PatientsRepository } from 'apps/clinic/patients/patients.repository';
     ]),
   ],
   controllers: [AppointmentsController],
-  providers: [AppointmentsService, DoctorsService, PatientsService],
+  providers: [
+    JwtStrategy,
+    AppointmentsService,
+    DoctorsService,
+    PatientsService,
+  ],
+  exports: [JwtStrategy, PassportModule],
 })
 export class AppointmentsModule {}

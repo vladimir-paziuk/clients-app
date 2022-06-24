@@ -16,9 +16,9 @@ import { AUTH_BEARER_DEFAULT } from '@vp-clients-app/common-pkg';
 import { GetUser } from '@vp-clients-app/common-pkg';
 import { JwtPayload } from '@vp-clients-app/common-pkg';
 
-import { ResolutionEntity } from 'apps/clinic/resolutions/resolution.entity';
-import { ResolutionsService } from 'apps/clinic/resolutions/resolutions.service';
-import { ResolutionDto } from 'apps/clinic/resolutions/dtos/resolution.dto';
+import { ResolutionEntity } from 'src/resolutions/resolution.entity';
+import { ResolutionsService } from 'src/resolutions/resolutions.service';
+import { ResolutionDto } from 'src/resolutions/dtos/resolution.dto';
 
 @ApiBearerAuth(AUTH_BEARER_DEFAULT)
 @ApiTags('Resolutions')

@@ -1,8 +1,8 @@
 import { Repository } from 'typeorm';
 import { CustomRepository } from '@vp-clients-app/common-pkg';
 
-import { PatientEntity } from 'apps/clinic/patients/patient.entity';
-import { PatientCreateDto } from 'apps/clinic/patients/dtos/patient.dto';
+import { PatientEntity } from 'src/patients/patient.entity';
+import { PatientCreateDto } from 'src/patients/dtos/patient.dto';
 
 // @EntityRepository is deprecated, see module description
 @CustomRepository(PatientEntity)
