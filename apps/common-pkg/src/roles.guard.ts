@@ -8,7 +8,7 @@ import {
 } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
 
-import { ROLES_ENUM } from 'apps/auth/enums/roles.enum';
+import { ROLES_ENUM } from './constants/roles.enum';
 
 export const ROLES_KEY = 'roles';
 

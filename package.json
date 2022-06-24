@@ -19,7 +19,8 @@
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
-    "typeorm": "node --require ./node_modules/ts-node/register ./node_modules/typeorm/cli.js"
+    "typeorm": "node --require ./node_modules/ts-node/register ./node_modules/typeorm/cli.js",
+    "updade-common": "npm i @vp-clients-app/common-pkg"
   },
   "dependencies": {
     "@nestjs/common": "^8.0.0",
@@ -31,7 +32,7 @@
     "@nestjs/swagger": "^5.2.1",
     "@nestjs/typeorm": "^9.0.0-next.2",
     "@types/passport-jwt": "^3.0.6",
-    "@vp-clients-app/common-pkg": "^1.0.29",
+    "@vp-clients-app/common-pkg": "^1.0.31",
     "bcrypt": "^5.0.1",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.13.2",

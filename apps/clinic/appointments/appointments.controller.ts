@@ -14,8 +14,8 @@ import { AuthGuard } from '@nestjs/passport';
 import { JwtPayload } from '@vp-clients-app/common-pkg';
 import { GetUser } from '@vp-clients-app/common-pkg';
 
-import { ROLES_ENUM } from 'apps/auth/enums/roles.enum';
-import { RolesGuard } from 'apps/auth/roles.guard';
+import { ROLES_ENUM } from '@vp-clients-app/common-pkg';
+import { RolesGuard } from '@vp-clients-app/common-pkg';
 
 import { AppointmentsService } from 'apps/clinic/appointments/appointments.service';
 import { AppointmentDto } from 'apps/clinic/appointments/dtos/appointment.dto';

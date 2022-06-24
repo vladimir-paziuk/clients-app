@@ -3,6 +3,7 @@ export * from './constants/base.entity';
 export * from './constants/blood-type.enum';
 export * from './constants/gender.enum';
 export * from './constants/postgresql.codes';
+export * from './constants/roles.enum';
 
 // Database
 export * from './database/typeorm-ex.decorator';
@@ -17,5 +18,5 @@ export * from './jwt/jwt.strategy';
 export * from './swagger/swagger.config';
 export * from './swagger/swagger-api-error-response';
 
-// Interceptors
 export * from './transform.interceptor';
+export * from './roles.guard';

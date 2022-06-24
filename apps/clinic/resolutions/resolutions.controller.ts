@@ -9,8 +9,8 @@ import { AuthGuard } from '@nestjs/passport';
 
 import { SwaggerApiErrorResponse } from '@vp-clients-app/common-pkg';
 
-import { RolesGuard } from 'apps/auth/roles.guard';
-import { ROLES_ENUM } from 'apps/auth/enums/roles.enum';
+import { RolesGuard } from '@vp-clients-app/common-pkg';
+import { ROLES_ENUM } from '@vp-clients-app/common-pkg';
 
 import { AUTH_BEARER_DEFAULT } from '@vp-clients-app/common-pkg';
 import { GetUser } from '@vp-clients-app/common-pkg';
