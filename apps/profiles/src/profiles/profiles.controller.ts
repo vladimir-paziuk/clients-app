@@ -7,9 +7,9 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 import { SwaggerApiErrorResponse } from '@vp-clients-app/common-pkg';
-import { ProfilesService } from 'apps/profiles/profiles.service';
-import { ProfileEntity } from 'apps/profiles/profile.entity';
-import { ProfileDto } from 'apps/profiles/dtos/profile.dto';
+import { ProfilesService } from 'src/profiles/profiles.service';
+import { ProfileEntity } from 'src/profiles/profile.entity';
+import { ProfileDto } from 'src/profiles/dtos/profile.dto';
 import { AUTH_BEARER_DEFAULT } from '@vp-clients-app/common-pkg';
 import { GetUser } from '@vp-clients-app/common-pkg';
 import { JwtPayload } from '@vp-clients-app/common-pkg';

@@ -2,8 +2,8 @@ import { Repository } from 'typeorm';
 
 import { CustomRepository } from '@vp-clients-app/common-pkg';
 
-import { ProfileEntity } from 'apps/profiles/profile.entity';
-import { ProfileCreateDto } from 'apps/profiles/dtos/profile.dto';
+import { ProfileEntity } from 'src/profiles/profile.entity';
+import { ProfileCreateDto } from 'src/profiles/dtos/profile.dto';
 
 // @EntityRepository is deprecated, see module description
 @CustomRepository(ProfileEntity)

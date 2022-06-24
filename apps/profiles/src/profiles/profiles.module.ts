@@ -7,9 +7,9 @@ import { ConfigService } from '@nestjs/config';
 import { TypeOrmExModule } from '@vp-clients-app/common-pkg';
 import { JwtStrategy } from '@vp-clients-app/common-pkg';
 
-import { ProfilesController } from 'apps/profiles/profiles.controller';
-import { ProfilesService } from 'apps/profiles/profiles.service';
-import { ProfilesRepository } from 'apps/profiles/profiles.repository';
+import { ProfilesController } from 'src/profiles/profiles.controller';
+import { ProfilesService } from 'src/profiles/profiles.service';
+import { ProfilesRepository } from 'src/profiles/profiles.repository';
 
 // TypeOrmExModule.forCustomRepository uses instead TypeOrmExModule.forFeature for
 // resolve @EntityRepository deprecated issue, instead use @CustomRepository
@@ -32,5 +32,6 @@ import { ProfilesRepository } from 'apps/profiles/profiles.repository';
   ],
   controllers: [ProfilesController],
   providers: [JwtStrategy, ProfilesService],
+  exports: [JwtStrategy, PassportModule],
 })
 export class ProfilesModule {}
