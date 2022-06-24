@@ -2,24 +2,24 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 
-import { AuthModule } from './auth/auth.module';
-import { UserEntity } from 'src/auth/entities/user.entity';
-import { RoleEntity } from 'src/auth/entities/role.entity';
+import { AuthModule } from 'apps/auth/auth.module';
+import { UserEntity } from 'apps/auth/entities/user.entity';
+import { RoleEntity } from 'apps/auth/entities/role.entity';
 
-import { DoctorsModule } from './doctors/doctors.module';
-import { DoctorEntity } from './doctors/doctor.entity';
+import { DoctorsModule } from 'apps/clinic/doctors/doctors.module';
+import { DoctorEntity } from 'apps/clinic/doctors/doctor.entity';
 
-import { PatientsModule } from './patients/patients.module';
-import { PatientEntity } from './patients/patient.entity';
+import { PatientsModule } from 'apps/clinic/patients/patients.module';
+import { PatientEntity } from 'apps/clinic/patients/patient.entity';
 
-import { ProfilesModule } from './profiles/profiles.module';
-import { ProfileEntity } from './profiles/profile.entity';
+import { ProfilesModule } from 'apps/profiles/profiles.module';
+import { ProfileEntity } from 'apps/profiles/profile.entity';
 
-import { AppointmentsModule } from './appointments/appointments.module';
-import { AppointmentEntity } from 'src/appointments/appointment.entity';
+import { AppointmentsModule } from 'apps/clinic/appointments/appointments.module';
+import { AppointmentEntity } from 'apps/clinic/appointments/appointment.entity';
 
-import { ResolutionsModule } from './resolutions/resolutions.module';
-import { ResolutionEntity } from './resolutions/resolution.entity';
+import { ResolutionsModule } from 'apps/clinic/resolutions/resolutions.module';
+import { ResolutionEntity } from 'apps/clinic/resolutions/resolution.entity';
 
 @Module({
   imports: [

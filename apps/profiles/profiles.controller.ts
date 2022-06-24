@@ -1,0 +1,61 @@
+import { Body, Controller, Get, Param, Patch, UseGuards } from '@nestjs/common';
+import { AuthGuard } from '@nestjs/passport';
+import {
+  ApiBearerAuth,
+  ApiOkResponse,
+  ApiOperation,
+  ApiTags,
+} from '@nestjs/swagger';
+import { SwaggerApiErrorResponse } from 'apps/common/swagger/swagger-api-error-response';
+import { ProfilesService } from 'apps/profiles/profiles.service';
+import { ProfileEntity } from 'apps/profiles/profile.entity';
+import { ProfileDto } from 'apps/profiles/dtos/profile.dto';
+import { AUTH_BEARER_DEFAULT } from 'apps/common/swagger/swagger.config';
+import { GetUser } from 'apps/common/jwt/get-user.decorator';
+import { JwtPayload } from 'apps/common/jwt/jwt.strategy';
+
+@ApiBearerAuth(AUTH_BEARER_DEFAULT)
+@ApiTags('Profiles')
+@Controller('profiles')
+@UseGuards(AuthGuard())
+export class ProfilesController {
+  constructor(private profilesService: ProfilesService) {}
+  @ApiOperation({
+    summary: 'Get my profile.',
+    description: 'Returns profile data based on logged user credentials.',
+  })
+  @ApiOkResponse({
+    type: ProfileEntity,
+  })
+  @SwaggerApiErrorResponse()
+  @Get('/me')
+  getProfile(@GetUser() user: JwtPayload): Promise<ProfileEntity> {
+    return this.profilesService.getProfile(user);
+  }
+
+  @ApiOperation({
+    summary: 'Get selected profile.',
+    description: 'Returns profile data based on id.',
+  })
+  @ApiOkResponse({
+    type: ProfileEntity,
+  })
+  @SwaggerApiErrorResponse()
+  @Get('/:id')
+  getProfileById(@Param('id') id: string): Promise<ProfileEntity> {
+    return this.profilesService.getProfileById(id);
+  }
+
+  @ApiOperation({
+    summary: 'Update selected profile.',
+    description: 'Update profile instance based on id and ProfileDto.',
+  })
+  @SwaggerApiErrorResponse()
+  @Patch('/:id')
+  updateProfile(
+    @Param('id') id: string,
+    @Body() body: ProfileDto,
+  ): Promise<void> {
+    return this.profilesService.updateProfile(id, body);
+  }
+}
