@@ -7,20 +7,14 @@ import { TypeOrmExModule } from '@vp-clients-app/common-pkg';
 import { JwtStrategy } from '@vp-clients-app/common-pkg';
 import { CryptService } from '@vp-clients-app/common-pkg';
 
-import { AuthController } from 'apps/auth/src/auth.controller';
-import { AuthService } from 'apps/auth/src/auth.service';
+import { AuthController } from 'src/auth/auth.controller';
+import { AuthService } from 'src/auth/auth.service';
 
-import { UsersService } from 'apps/auth/src/users.service';
-import { UsersRepository } from 'apps/auth/src/users.repository';
+import { UsersService } from 'src/users/users.service';
+import { UsersRepository } from 'src/users/users.repository';
 
-import { RolesService } from 'apps/auth/src/roles.service';
-import { RolesRepository } from 'apps/auth/src/roles.repository';
-
-import { ProfilesService } from 'apps/profiles/profiles.service';
-import { ProfilesRepository } from 'apps/profiles/profiles.repository';
-
-import { PatientsService } from 'apps/clinic/patients/patients.service';
-import { PatientsRepository } from 'apps/clinic/patients/patients.repository';
+import { RolesService } from 'src/roles/roles.service';
+import { RolesRepository } from 'src/roles/roles.repository';
 
 @Module({
   imports: [
@@ -37,8 +31,8 @@ import { PatientsRepository } from 'apps/clinic/patients/patients.repository';
     TypeOrmExModule.forCustomRepository([
       UsersRepository,
       RolesRepository,
-      ProfilesRepository,
-      PatientsRepository,
+      // ProfilesRepository,
+      // PatientsRepository,
     ]),
   ],
   controllers: [AuthController],
@@ -47,8 +41,8 @@ import { PatientsRepository } from 'apps/clinic/patients/patients.repository';
     AuthService,
     UsersService,
     RolesService,
-    ProfilesService,
-    PatientsService,
+    // ProfilesService,
+    // PatientsService,
     CryptService,
   ],
   exports: [JwtStrategy, PassportModule],

@@ -7,7 +7,7 @@ import {
 } from 'typeorm';
 
 import { BaseEntity } from '@vp-clients-app/common-pkg';
-import { RoleEntity } from 'apps/auth/src/entities/role.entity';
+import { RoleEntity } from 'src/roles/role.entity';
 
 @Entity('users')
 export class UserEntity extends BaseEntity {

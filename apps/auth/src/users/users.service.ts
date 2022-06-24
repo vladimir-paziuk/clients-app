@@ -8,11 +8,11 @@ import { InjectRepository } from '@nestjs/typeorm';
 
 import { POSTGRESQL_CODES } from '@vp-clients-app/common-pkg';
 
-import { UserEntity } from 'apps/auth/src/entities/user.entity';
-import { RoleEntity } from 'apps/auth/src/entities/role.entity';
+import { UserEntity } from 'src/users/user.entity';
+import { RoleEntity } from 'src/roles/role.entity';
 
-import { UsersRepository } from 'apps/auth/src/users.repository';
-import { AuthCredentialsDto } from 'apps/auth/src/dtos/auth-credentials.dto';
+import { UsersRepository } from 'src/users/users.repository';
+import { AuthCredentialsDto } from 'src/auth/dtos/auth-credentials.dto';
 
 @Injectable()
 export class UsersService {

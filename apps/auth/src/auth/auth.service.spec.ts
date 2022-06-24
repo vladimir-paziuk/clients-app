@@ -5,16 +5,16 @@ import { JwtService } from '@nestjs/jwt';
 import { CryptService } from '@vp-clients-app/common-pkg';
 import { JwtToken } from '@vp-clients-app/common-pkg';
 
-import { AuthService } from 'apps/auth/src/auth.service';
-import { AuthCredentialsDto } from 'apps/auth/src/dtos/auth-credentials.dto';
-import { RoleEntity } from 'apps/auth/src/entities/role.entity';
-import { UserEntity } from 'apps/auth/src/entities/user.entity';
+import { AuthService } from 'src/auth/auth.service';
+import { AuthCredentialsDto } from 'src/auth/dtos/auth-credentials.dto';
+import { RoleEntity } from 'src/roles/role.entity';
+import { UserEntity } from 'src/users/user.entity';
 import { ROLES_KEY } from '@vp-clients-app/common-pkg';
 
-import { UsersService } from 'apps/auth/src/users.service';
-import { RolesService } from 'apps/auth/src/roles.service';
-import { PatientsService } from 'apps/clinic/patients/patients.service';
-import { ProfilesService } from 'apps/profiles/profiles.service';
+import { UsersService } from 'src/users/users.service';
+import { RolesService } from 'src/roles/roles.service';
+// import { PatientsService } from '../clinic/patients/patients.service';
+// import { ProfilesService } from '../profiles/profiles.service';
 
 const mockRolesService = () => ({
   getRole: jest.fn(),
@@ -23,12 +23,12 @@ const mockUsersService = () => ({
   getUser: jest.fn(),
   createUser: jest.fn(),
 });
-const mockPatientsService = () => ({
-  createPatient: jest.fn(),
-});
-const mockProfilesService = () => ({
-  createProfile: jest.fn(),
-});
+// const mockPatientsService = () => ({
+//   createPatient: jest.fn(),
+// });
+// const mockProfilesService = () => ({
+//   createProfile: jest.fn(),
+// });
 const mockJwtService = () => ({
   sign: jest.fn(),
 });
@@ -62,8 +62,8 @@ describe('AuthService', () => {
 
   let rolesService;
   let usersService;
-  let patientsService;
-  let profilesService;
+  // let patientsService;
+  // let profilesService;
 
   let jwtService;
   let cryptService;
@@ -74,8 +74,8 @@ describe('AuthService', () => {
         AuthService,
         { provide: RolesService, useFactory: mockRolesService },
         { provide: UsersService, useFactory: mockUsersService },
-        { provide: PatientsService, useFactory: mockPatientsService },
-        { provide: ProfilesService, useFactory: mockProfilesService },
+        // { provide: PatientsService, useFactory: mockPatientsService },
+        // { provide: ProfilesService, useFactory: mockProfilesService },
         { provide: JwtService, useFactory: mockJwtService },
         {
           provide: CryptService,
@@ -88,8 +88,8 @@ describe('AuthService', () => {
 
     rolesService = module.get(RolesService);
     usersService = module.get(UsersService);
-    patientsService = module.get(PatientsService);
-    profilesService = module.get(ProfilesService);
+    // patientsService = module.get(PatientsService);
+    // profilesService = module.get(ProfilesService);
 
     jwtService = module.get(JwtService);
     cryptService = module.get(CryptService);
@@ -108,7 +108,7 @@ describe('AuthService', () => {
 
   describe('signUp', () => {
     it('calls AuthRepository.signUp and returns the result', async () => {
-      expect.assertions(4);
+      expect.assertions(2);
 
       rolesService.getRole.mockResolvedValue(mockRole);
       usersService.createUser.mockResolvedValue(mockUser);
@@ -125,12 +125,12 @@ describe('AuthService', () => {
         },
         [mockRole],
       );
-      expect(profilesService.createProfile).toBeCalledWith({
-        userId: mockUser.id,
-      });
-      expect(patientsService.createPatient).toBeCalledWith({
-        userId: mockUser.id,
-      });
+      // expect(profilesService.createProfile).toBeCalledWith({
+      //   userId: mockUser.id,
+      // });
+      // expect(patientsService.createPatient).toBeCalledWith({
+      //   userId: mockUser.id,
+      // });
     });
   });
 

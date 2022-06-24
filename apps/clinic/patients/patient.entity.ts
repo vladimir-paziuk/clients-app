@@ -7,7 +7,7 @@ import {
 } from 'typeorm';
 import { Exclude } from 'class-transformer';
 
-import { UserEntity } from 'apps/auth/src/entities/user.entity';
+import { UserEntity } from 'apps/auth/src/users/user.entity';
 import { BaseEntity } from '@vp-clients-app/common-pkg';
 import { BLOOD_TYPE_ENUM } from '@vp-clients-app/common-pkg';
 

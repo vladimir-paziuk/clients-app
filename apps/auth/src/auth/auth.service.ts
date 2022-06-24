@@ -4,14 +4,14 @@ import { JwtService } from '@nestjs/jwt';
 import { JwtPayload, JwtToken } from '@vp-clients-app/common-pkg';
 import { CryptService } from '@vp-clients-app/common-pkg';
 
-import { UserEntity } from 'apps/auth/src/entities/user.entity';
-import { AuthCredentialsDto } from 'apps/auth/src/dtos/auth-credentials.dto';
+import { UserEntity } from 'src/users/user.entity';
+import { AuthCredentialsDto } from 'src/auth/dtos/auth-credentials.dto';
 
-import { ProfilesService } from 'apps/profiles/profiles.service';
-import { PatientsService } from 'apps/clinic/patients/patients.service';
-import { UsersService } from 'apps/auth/src/users.service';
+// import { ProfilesService } from '../profiles/profiles.service';
+// import { PatientsService } from '../clinic/patients/patients.service';
+import { UsersService } from 'src/users/users.service';
 
-import { RolesService } from 'apps/auth/src/roles.service';
+import { RolesService } from 'src/roles/roles.service';
 import { ROLES_ENUM } from '@vp-clients-app/common-pkg';
 import { ROLES_KEY } from '@vp-clients-app/common-pkg';
 
@@ -20,8 +20,8 @@ export class AuthService {
   constructor(
     private usersService: UsersService,
     private rolesService: RolesService,
-    private profilesService: ProfilesService,
-    private patientsService: PatientsService,
+    // private profilesService: ProfilesService,
+    // private patientsService: PatientsService,
     private jwtService: JwtService,
     private cryptService: CryptService,
   ) {}
@@ -50,8 +50,8 @@ export class AuthService {
       },
       [role],
     );
-    await this.profilesService.createProfile({ userId: user.id });
-    await this.patientsService.createPatient({ userId: user.id });
+    // await this.profilesService.createProfile({ userId: user.id });
+    // await this.patientsService.createPatient({ userId: user.id });
 
     return this.getAccess(user);
   }

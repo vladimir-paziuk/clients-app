@@ -8,7 +8,7 @@ import {
 import { Exclude } from 'class-transformer';
 
 import { BaseEntity } from '@vp-clients-app/common-pkg';
-import { UserEntity } from 'apps/auth/src/entities/user.entity';
+import { UserEntity } from 'apps/auth/src/users/user.entity';
 import { GENDER_ENUM } from '@vp-clients-app/common-pkg';
 
 @Entity('profiles')
