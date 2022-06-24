@@ -5,14 +5,14 @@ import { JwtService } from '@nestjs/jwt';
 import { CryptService } from '@vp-clients-app/common-pkg';
 import { JwtToken } from '@vp-clients-app/common-pkg';
 
-import { AuthService } from 'apps/auth/auth.service';
-import { AuthCredentialsDto } from 'apps/auth/dtos/auth-credentials.dto';
-import { RoleEntity } from 'apps/auth/entities/role.entity';
-import { UserEntity } from 'apps/auth/entities/user.entity';
-import { ROLES_KEY } from 'apps/auth/roles.guard';
+import { AuthService } from 'apps/auth/src/auth.service';
+import { AuthCredentialsDto } from 'apps/auth/src/dtos/auth-credentials.dto';
+import { RoleEntity } from 'apps/auth/src/entities/role.entity';
+import { UserEntity } from 'apps/auth/src/entities/user.entity';
+import { ROLES_KEY } from '@vp-clients-app/common-pkg';
 
-import { UsersService } from 'apps/auth/users.service';
-import { RolesService } from 'apps/auth/roles.service';
+import { UsersService } from 'apps/auth/src/users.service';
+import { RolesService } from 'apps/auth/src/roles.service';
 import { PatientsService } from 'apps/clinic/patients/patients.service';
 import { ProfilesService } from 'apps/profiles/profiles.service';
 

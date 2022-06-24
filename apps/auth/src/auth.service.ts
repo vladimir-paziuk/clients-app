@@ -4,16 +4,16 @@ import { JwtService } from '@nestjs/jwt';
 import { JwtPayload, JwtToken } from '@vp-clients-app/common-pkg';
 import { CryptService } from '@vp-clients-app/common-pkg';
 
-import { UserEntity } from 'apps/auth/entities/user.entity';
-import { AuthCredentialsDto } from 'apps/auth/dtos/auth-credentials.dto';
+import { UserEntity } from 'apps/auth/src/entities/user.entity';
+import { AuthCredentialsDto } from 'apps/auth/src/dtos/auth-credentials.dto';
 
 import { ProfilesService } from 'apps/profiles/profiles.service';
 import { PatientsService } from 'apps/clinic/patients/patients.service';
-import { UsersService } from 'apps/auth/users.service';
+import { UsersService } from 'apps/auth/src/users.service';
 
-import { RolesService } from 'apps/auth/roles.service';
-import { ROLES_ENUM } from 'apps/auth/enums/roles.enum';
-import { ROLES_KEY } from 'apps/auth/roles.guard';
+import { RolesService } from 'apps/auth/src/roles.service';
+import { ROLES_ENUM } from '@vp-clients-app/common-pkg';
+import { ROLES_KEY } from '@vp-clients-app/common-pkg';
 
 @Injectable()
 export class AuthService {

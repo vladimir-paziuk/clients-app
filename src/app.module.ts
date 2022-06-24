@@ -2,9 +2,9 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 
-import { AuthModule } from 'apps/auth/auth.module';
-import { UserEntity } from 'apps/auth/entities/user.entity';
-import { RoleEntity } from 'apps/auth/entities/role.entity';
+import { AuthModule } from 'apps/auth/src/auth.module';
+import { UserEntity } from 'apps/auth/src/entities/user.entity';
+import { RoleEntity } from 'apps/auth/src/entities/role.entity';
 
 import { DoctorsModule } from 'apps/clinic/doctors/doctors.module';
 import { DoctorEntity } from 'apps/clinic/doctors/doctor.entity';

@@ -1,9 +1,11 @@
 import { Module } from '@nestjs/common';
 
+import { PassportModule } from '@nestjs/passport';
+import { JwtModule } from '@nestjs/jwt';
+import { ConfigService } from '@nestjs/config';
+
 import { TypeOrmExModule } from '@vp-clients-app/common-pkg';
 import { AppointmentsRepository } from 'apps/clinic/appointments/appointments.repository';
-
-import { AuthModule } from 'apps/auth/auth.module';
 
 import { AppointmentsController } from 'apps/clinic/appointments/appointments.controller';
 import { AppointmentsService } from 'apps/clinic/appointments/appointments.service';
@@ -21,7 +23,16 @@ import { PatientsRepository } from 'apps/clinic/patients/patients.repository';
 
 @Module({
   imports: [
-    AuthModule,
+    PassportModule.register({ defaultStrategy: 'jwt' }),
+    JwtModule.registerAsync({
+      useFactory: (config: ConfigService) => ({
+        secret: config.get('AUTH_SECRET_KEY'),
+        signOptions: {
+          expiresIn: +config.get('AUTH_TOKEN_EXPIRE_TIME'),
+        },
+      }),
+      inject: [ConfigService],
+    }),
     TypeOrmExModule.forCustomRepository([
       AppointmentsRepository,
       DoctorsRepository,

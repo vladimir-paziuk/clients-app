@@ -8,7 +8,7 @@ import {
 import { Exclude } from 'class-transformer';
 
 import { BaseEntity } from '@vp-clients-app/common-pkg';
-import { UserEntity } from 'apps/auth/entities/user.entity';
+import { UserEntity } from 'apps/auth/src/entities/user.entity';
 
 @Entity('doctors')
 export class DoctorEntity extends BaseEntity {

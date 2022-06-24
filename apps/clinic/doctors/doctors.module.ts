@@ -1,9 +1,13 @@
 import { Module } from '@nestjs/common';
+
+import { PassportModule } from '@nestjs/passport';
+import { JwtModule } from '@nestjs/jwt';
+import { ConfigService } from '@nestjs/config';
+
 import { TypeOrmExModule } from '@vp-clients-app/common-pkg';
 import { DoctorsService } from 'apps/clinic/doctors/doctors.service';
 import { DoctorsController } from 'apps/clinic/doctors/doctors.controller';
 import { DoctorsRepository } from 'apps/clinic/doctors/doctors.repository';
-import { AuthModule } from 'apps/auth/auth.module';
 
 // TypeOrmExModule.forCustomRepository uses instead TypeOrmExModule.forFeature for
 // resolve @EntityRepository deprecated issue, instead use @CustomRepository
@@ -12,8 +16,17 @@ import { AuthModule } from 'apps/auth/auth.module';
 
 @Module({
   imports: [
+    PassportModule.register({ defaultStrategy: 'jwt' }),
+    JwtModule.registerAsync({
+      useFactory: (config: ConfigService) => ({
+        secret: config.get('AUTH_SECRET_KEY'),
+        signOptions: {
+          expiresIn: +config.get('AUTH_TOKEN_EXPIRE_TIME'),
+        },
+      }),
+      inject: [ConfigService],
+    }),
     TypeOrmExModule.forCustomRepository([DoctorsRepository]),
-    AuthModule,
   ],
   providers: [DoctorsService],
   controllers: [DoctorsController],

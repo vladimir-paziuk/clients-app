@@ -7,14 +7,14 @@ import { TypeOrmExModule } from '@vp-clients-app/common-pkg';
 import { JwtStrategy } from '@vp-clients-app/common-pkg';
 import { CryptService } from '@vp-clients-app/common-pkg';
 
-import { AuthController } from 'apps/auth/auth.controller';
-import { AuthService } from 'apps/auth/auth.service';
+import { AuthController } from 'apps/auth/src/auth.controller';
+import { AuthService } from 'apps/auth/src/auth.service';
 
-import { UsersService } from 'apps/auth/users.service';
-import { UsersRepository } from 'apps/auth/users.repository';
+import { UsersService } from 'apps/auth/src/users.service';
+import { UsersRepository } from 'apps/auth/src/users.repository';
 
-import { RolesService } from 'apps/auth/roles.service';
-import { RolesRepository } from 'apps/auth/roles.repository';
+import { RolesService } from 'apps/auth/src/roles.service';
+import { RolesRepository } from 'apps/auth/src/roles.repository';
 
 import { ProfilesService } from 'apps/profiles/profiles.service';
 import { ProfilesRepository } from 'apps/profiles/profiles.repository';

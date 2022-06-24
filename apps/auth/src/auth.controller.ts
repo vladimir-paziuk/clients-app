@@ -1,7 +1,7 @@
 import { Body, Controller, Post } from '@nestjs/common';
-import { AuthService } from 'apps/auth/auth.service';
+import { AuthService } from 'apps/auth/src/auth.service';
 import { JwtToken } from '@vp-clients-app/common-pkg';
-import { AuthCredentialsDto } from 'apps/auth/dtos/auth-credentials.dto';
+import { AuthCredentialsDto } from 'apps/auth/src/dtos/auth-credentials.dto';
 import {
   ApiConflictResponse,
   ApiOkResponse,
