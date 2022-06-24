@@ -1,7 +1,7 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 
-import { JwtPayload } from 'apps/common/jwt/jwt.strategy';
+import { JwtPayload } from '@vp-clients-app/common-pkg';
 
 import { AppointmentEntity } from 'apps/clinic/appointments/appointment.entity';
 import { AppointmentDto } from 'apps/clinic/appointments/dtos/appointment.dto';

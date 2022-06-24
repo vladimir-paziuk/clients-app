@@ -6,13 +6,13 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 
-import { SwaggerApiErrorResponse } from 'apps/common/swagger/swagger-api-error-response';
+import { SwaggerApiErrorResponse } from '@vp-clients-app/common-pkg';
 
-import { AUTH_BEARER_DEFAULT } from 'apps/common/swagger/swagger.config';
+import { AUTH_BEARER_DEFAULT } from '@vp-clients-app/common-pkg';
 import { AuthGuard } from '@nestjs/passport';
 
-import { JwtPayload } from 'apps/common/jwt/jwt.strategy';
-import { GetUser } from 'apps/common/jwt/get-user.decorator';
+import { JwtPayload } from '@vp-clients-app/common-pkg';
+import { GetUser } from '@vp-clients-app/common-pkg';
 
 import { ROLES_ENUM } from 'apps/auth/enums/roles.enum';
 import { RolesGuard } from 'apps/auth/roles.guard';

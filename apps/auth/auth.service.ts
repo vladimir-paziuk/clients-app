@@ -1,8 +1,8 @@
 import { Injectable, UnauthorizedException, HttpStatus } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 
-import { JwtPayload, JwtToken } from 'apps/common/jwt/jwt.strategy';
-import { CryptService } from 'apps/common/jwt/crypt.service';
+import { JwtPayload, JwtToken } from '@vp-clients-app/common-pkg';
+import { CryptService } from '@vp-clients-app/common-pkg';
 
 import { UserEntity } from 'apps/auth/entities/user.entity';
 import { AuthCredentialsDto } from 'apps/auth/dtos/auth-credentials.dto';

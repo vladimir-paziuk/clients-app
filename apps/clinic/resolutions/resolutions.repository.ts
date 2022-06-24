@@ -1,5 +1,5 @@
 import { Repository } from 'typeorm';
-import { CustomRepository } from 'apps/common/database/typeorm-ex.decorator';
+import { CustomRepository } from '@vp-clients-app/common-pkg';
 
 import { ResolutionEntity } from 'apps/clinic/resolutions/resolution.entity';
 import { ResolutionDto } from 'apps/clinic/resolutions/dtos/resolution.dto';

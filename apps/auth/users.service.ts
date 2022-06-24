@@ -6,7 +6,7 @@ import {
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 
-import { POSTGRESQL_CODES } from 'apps/common/constants/postgresql.codes';
+import { POSTGRESQL_CODES } from '@vp-clients-app/common-pkg';
 
 import { UserEntity } from 'apps/auth/entities/user.entity';
 import { RoleEntity } from 'apps/auth/entities/role.entity';

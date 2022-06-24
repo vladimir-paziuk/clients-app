@@ -2,8 +2,8 @@ import { Test } from '@nestjs/testing';
 import { HttpStatus, UnauthorizedException } from '@nestjs/common';
 
 import { JwtService } from '@nestjs/jwt';
-import { CryptService } from 'apps/common/jwt/crypt.service';
-import { JwtToken } from 'apps/common/jwt/jwt.strategy';
+import { CryptService } from '@vp-clients-app/common-pkg';
+import { JwtToken } from '@vp-clients-app/common-pkg';
 
 import { AuthService } from 'apps/auth/auth.service';
 import { AuthCredentialsDto } from 'apps/auth/dtos/auth-credentials.dto';

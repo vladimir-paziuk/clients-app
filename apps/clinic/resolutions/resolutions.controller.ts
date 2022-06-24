@@ -7,14 +7,14 @@ import {
 } from '@nestjs/swagger';
 import { AuthGuard } from '@nestjs/passport';
 
-import { SwaggerApiErrorResponse } from 'apps/common/swagger/swagger-api-error-response';
+import { SwaggerApiErrorResponse } from '@vp-clients-app/common-pkg';
 
 import { RolesGuard } from 'apps/auth/roles.guard';
 import { ROLES_ENUM } from 'apps/auth/enums/roles.enum';
 
-import { AUTH_BEARER_DEFAULT } from 'apps/common/swagger/swagger.config';
-import { GetUser } from 'apps/common/jwt/get-user.decorator';
-import { JwtPayload } from 'apps/common/jwt/jwt.strategy';
+import { AUTH_BEARER_DEFAULT } from '@vp-clients-app/common-pkg';
+import { GetUser } from '@vp-clients-app/common-pkg';
+import { JwtPayload } from '@vp-clients-app/common-pkg';
 
 import { ResolutionEntity } from 'apps/clinic/resolutions/resolution.entity';
 import { ResolutionsService } from 'apps/clinic/resolutions/resolutions.service';

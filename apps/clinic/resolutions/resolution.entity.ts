@@ -10,7 +10,7 @@ import { Exclude } from 'class-transformer';
 import { PatientEntity } from 'apps/clinic/patients/patient.entity';
 import { DoctorEntity } from 'apps/clinic/doctors/doctor.entity';
 import { AppointmentEntity } from 'apps/clinic/appointments/appointment.entity';
-import { BaseEntity } from 'apps/common/constants/base.entity';
+import { BaseEntity } from '@vp-clients-app/common-pkg';
 
 @Entity('resolutions')
 export class ResolutionEntity extends BaseEntity {

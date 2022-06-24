@@ -3,9 +3,9 @@ import { ConfigService } from '@nestjs/config';
 import { PassportModule } from '@nestjs/passport';
 import { JwtModule } from '@nestjs/jwt';
 
-import { TypeOrmExModule } from 'apps/common/database/typeorm-ex.module';
-import { JwtStrategy } from 'apps/common/jwt/jwt.strategy';
-import { CryptService } from 'apps/common/jwt/crypt.service';
+import { TypeOrmExModule } from '@vp-clients-app/common-pkg';
+import { JwtStrategy } from '@vp-clients-app/common-pkg';
+import { CryptService } from '@vp-clients-app/common-pkg';
 
 import { AuthController } from 'apps/auth/auth.controller';
 import { AuthService } from 'apps/auth/auth.service';

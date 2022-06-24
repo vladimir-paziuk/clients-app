@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 
-import { JwtPayload } from 'apps/common/jwt/jwt.strategy';
+import { JwtPayload } from '@vp-clients-app/common-pkg';
 
 import { ResolutionEntity } from 'apps/clinic/resolutions/resolution.entity';
 import { ResolutionDto } from 'apps/clinic/resolutions/dtos/resolution.dto';

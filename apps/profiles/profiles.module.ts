@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 
 import { AuthModule } from 'apps/auth/auth.module';
-import { TypeOrmExModule } from 'apps/common/database/typeorm-ex.module';
+import { TypeOrmExModule } from '@vp-clients-app/common-pkg';
 
 import { ProfilesController } from 'apps/profiles/profiles.controller';
 import { ProfilesService } from 'apps/profiles/profiles.service';

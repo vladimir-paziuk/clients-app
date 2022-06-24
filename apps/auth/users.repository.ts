@@ -1,6 +1,6 @@
 import { Repository } from 'typeorm';
 
-import { CustomRepository } from 'apps/common/database/typeorm-ex.decorator';
+import { CustomRepository } from '@vp-clients-app/common-pkg';
 import { UserEntity } from 'apps/auth/entities/user.entity';
 import { AuthCredentialsDto } from 'apps/auth/dtos/auth-credentials.dto';
 import { RoleEntity } from 'apps/auth/entities/role.entity';

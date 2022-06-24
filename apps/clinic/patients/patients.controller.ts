@@ -6,14 +6,14 @@ import {
   ApiOperation,
   ApiTags,
 } from '@nestjs/swagger';
-import { SwaggerApiErrorResponse } from 'apps/common/swagger/swagger-api-error-response';
+import { SwaggerApiErrorResponse } from '@vp-clients-app/common-pkg';
 import { PatientEntity } from 'apps/clinic/patients/patient.entity';
 import { PatientsService } from 'apps/clinic/patients/patients.service';
 import { PatientDto } from 'apps/clinic/patients/dtos/patient.dto';
-import { AUTH_BEARER_DEFAULT } from 'apps/common/swagger/swagger.config';
+import { AUTH_BEARER_DEFAULT } from '@vp-clients-app/common-pkg';
 import { ProfileEntity } from 'apps/profiles/profile.entity';
-import { GetUser } from 'apps/common/jwt/get-user.decorator';
-import { JwtPayload } from 'apps/common/jwt/jwt.strategy';
+import { GetUser } from '@vp-clients-app/common-pkg';
+import { JwtPayload } from '@vp-clients-app/common-pkg';
 
 @ApiBearerAuth(AUTH_BEARER_DEFAULT)
 @ApiTags('Patients')

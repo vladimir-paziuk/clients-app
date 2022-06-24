@@ -6,13 +6,13 @@ import {
   ApiOperation,
   ApiTags,
 } from '@nestjs/swagger';
-import { SwaggerApiErrorResponse } from 'apps/common/swagger/swagger-api-error-response';
+import { SwaggerApiErrorResponse } from '@vp-clients-app/common-pkg';
 import { ProfilesService } from 'apps/profiles/profiles.service';
 import { ProfileEntity } from 'apps/profiles/profile.entity';
 import { ProfileDto } from 'apps/profiles/dtos/profile.dto';
-import { AUTH_BEARER_DEFAULT } from 'apps/common/swagger/swagger.config';
-import { GetUser } from 'apps/common/jwt/get-user.decorator';
-import { JwtPayload } from 'apps/common/jwt/jwt.strategy';
+import { AUTH_BEARER_DEFAULT } from '@vp-clients-app/common-pkg';
+import { GetUser } from '@vp-clients-app/common-pkg';
+import { JwtPayload } from '@vp-clients-app/common-pkg';
 
 @ApiBearerAuth(AUTH_BEARER_DEFAULT)
 @ApiTags('Profiles')

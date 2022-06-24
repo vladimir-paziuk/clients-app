@@ -7,7 +7,7 @@ import {
 } from 'typeorm';
 import { Exclude } from 'class-transformer';
 
-import { BaseEntity } from 'apps/common/constants/base.entity';
+import { BaseEntity } from '@vp-clients-app/common-pkg';
 import { UserEntity } from 'apps/auth/entities/user.entity';
 
 @Entity('doctors')

@@ -7,9 +7,9 @@ import {
 } from 'typeorm';
 import { Exclude } from 'class-transformer';
 
-import { BaseEntity } from 'apps/common/constants/base.entity';
+import { BaseEntity } from '@vp-clients-app/common-pkg';
 import { UserEntity } from 'apps/auth/entities/user.entity';
-import { GENDER_ENUM } from 'apps/common/constants/gender.enum';
+import { GENDER_ENUM } from '@vp-clients-app/common-pkg';
 
 @Entity('profiles')
 export class ProfileEntity extends BaseEntity {

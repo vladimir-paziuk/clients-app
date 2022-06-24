@@ -1,26 +1,15 @@
 {
-  "name": "clients-app",
-  "version": "0.0.1",
-  "description": "",
-  "author": "",
-  "private": true,
-  "license": "UNLICENSED",
+  "name": "@vp-clients-app/common-pkg",
+  "version": "1.0.29",
+  "description": "Common repository published to npm and use as package. vp-clients-app-common",
+  "main": "dist/index.js",
   "scripts": {
     "prebuild": "rimraf dist",
-    "build": "nest build",
-    "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
-    "start": "nest start",
-    "start:dev": "nest start --watch",
-    "start:debug": "nest start --debug --watch",
-    "start:prod": "node dist/main",
-    "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
-    "test": "jest",
-    "test:watch": "jest --watch",
-    "test:cov": "jest --coverage",
-    "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
-    "test:e2e": "jest --config ./test/jest-e2e.json",
-    "typeorm": "node --require ./node_modules/ts-node/register ./node_modules/typeorm/cli.js"
+    "build": "npm run prebuild && tsc",
+    "pub": "npm version patch && npm run build && npm publish"
   },
+  "author": "vladimir.paziuk",
+  "license": "ISC",
   "dependencies": {
     "@nestjs/common": "^8.0.0",
     "@nestjs/config": "^2.0.0",
@@ -31,7 +20,6 @@
     "@nestjs/swagger": "^5.2.1",
     "@nestjs/typeorm": "^9.0.0-next.2",
     "@types/passport-jwt": "^3.0.6",
-    "@vp-clients-app/common-pkg": "^1.0.29",
     "bcrypt": "^5.0.1",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.13.2",
@@ -66,25 +54,5 @@
     "ts-node": "^10.7.0",
     "tsconfig-paths": "^3.10.1",
     "typescript": "^4.3.5"
-  },
-  "jest": {
-    "moduleFileExtensions": [
-      "js",
-      "json",
-      "ts"
-    ],
-    "rootDir": "./",
-    "modulePaths": [
-      "<rootDir>"
-    ],
-    "testRegex": ".*\\.spec\\.ts$",
-    "transform": {
-      "^.+\\.(t|j)s$": "ts-jest"
-    },
-    "collectCoverageFrom": [
-      "**/*.(t|j)s"
-    ],
-    "coverageDirectory": "../coverage",
-    "testEnvironment": "node"
   }
 }

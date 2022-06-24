@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 
 import { AuthModule } from 'apps/auth/auth.module';
-import { TypeOrmExModule } from 'apps/common/database/typeorm-ex.module';
+import { TypeOrmExModule } from '@vp-clients-app/common-pkg';
 
 import { ResolutionsService } from 'apps/clinic/resolutions/resolutions.service';
 import { ResolutionsController } from 'apps/clinic/resolutions/resolutions.controller';

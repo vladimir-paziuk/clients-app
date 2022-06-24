@@ -8,8 +8,8 @@ import {
 import { Exclude } from 'class-transformer';
 
 import { UserEntity } from 'apps/auth/entities/user.entity';
-import { BaseEntity } from 'apps/common/constants/base.entity';
-import { BLOOD_TYPE_ENUM } from 'apps/common/constants/blood-type.enum';
+import { BaseEntity } from '@vp-clients-app/common-pkg';
+import { BLOOD_TYPE_ENUM } from '@vp-clients-app/common-pkg';
 
 @Entity('patients')
 export class PatientEntity extends BaseEntity {

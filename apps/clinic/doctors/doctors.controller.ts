@@ -19,8 +19,8 @@ import {
   ApiOperation,
   ApiTags,
 } from '@nestjs/swagger';
-import { AUTH_BEARER_DEFAULT } from 'apps/common/swagger/swagger.config';
-import { SwaggerApiErrorResponse } from 'apps/common/swagger/swagger-api-error-response';
+import { AUTH_BEARER_DEFAULT } from '@vp-clients-app/common-pkg';
+import { SwaggerApiErrorResponse } from '@vp-clients-app/common-pkg';
 import { DoctorQueryDto } from 'apps/clinic/doctors/dtos/doctor-query.dto';
 
 @ApiBearerAuth(AUTH_BEARER_DEFAULT)

@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 
-import { TypeOrmExModule } from 'apps/common/database/typeorm-ex.module';
+import { TypeOrmExModule } from '@vp-clients-app/common-pkg';
 import { AppointmentsRepository } from 'apps/clinic/appointments/appointments.repository';
 
 import { AuthModule } from 'apps/auth/auth.module';

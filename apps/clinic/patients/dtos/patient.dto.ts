@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsEnum, IsUUID } from 'class-validator';
-import { BLOOD_TYPE_ENUM } from 'apps/common/constants/blood-type.enum';
+import { BLOOD_TYPE_ENUM } from '@vp-clients-app/common-pkg';
 
 export class PatientDto {
   @ApiProperty({ enum: BLOOD_TYPE_ENUM })

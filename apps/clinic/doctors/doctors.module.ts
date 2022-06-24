@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import { TypeOrmExModule } from 'apps/common/database/typeorm-ex.module';
+import { TypeOrmExModule } from '@vp-clients-app/common-pkg';
 import { DoctorsService } from 'apps/clinic/doctors/doctors.service';
 import { DoctorsController } from 'apps/clinic/doctors/doctors.controller';
 import { DoctorsRepository } from 'apps/clinic/doctors/doctors.repository';

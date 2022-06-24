@@ -36,7 +36,3 @@ lerna-debug.log*
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json
-
-# published npm package
-/apps/common-pkg/node_modules
-/apps/common-pkg/dist

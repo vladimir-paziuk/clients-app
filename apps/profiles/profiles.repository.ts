@@ -1,6 +1,6 @@
 import { Repository } from 'typeorm';
 
-import { CustomRepository } from 'apps/common/database/typeorm-ex.decorator';
+import { CustomRepository } from '@vp-clients-app/common-pkg';
 
 import { ProfileEntity } from 'apps/profiles/profile.entity';
 import { ProfileCreateDto } from 'apps/profiles/dtos/profile.dto';

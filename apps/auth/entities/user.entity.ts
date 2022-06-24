@@ -6,7 +6,7 @@ import {
   JoinTable,
 } from 'typeorm';
 
-import { BaseEntity } from 'apps/common/constants/base.entity';
+import { BaseEntity } from '@vp-clients-app/common-pkg';
 import { RoleEntity } from 'apps/auth/entities/role.entity';
 
 @Entity('users')

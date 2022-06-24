@@ -1,5 +1,5 @@
 import { Repository } from 'typeorm';
-import { CustomRepository } from 'apps/common/database/typeorm-ex.decorator';
+import { CustomRepository } from '@vp-clients-app/common-pkg';
 
 import { PatientEntity } from 'apps/clinic/patients/patient.entity';
 import { PatientCreateDto } from 'apps/clinic/patients/dtos/patient.dto';

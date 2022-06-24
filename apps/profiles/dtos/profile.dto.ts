@@ -7,7 +7,7 @@ import {
   MaxLength,
   MinLength,
 } from 'class-validator';
-import { GENDER_ENUM } from 'apps/common/constants/gender.enum';
+import { GENDER_ENUM } from '@vp-clients-app/common-pkg';
 
 export class ProfileDto {
   @ApiProperty({ enum: GENDER_ENUM })

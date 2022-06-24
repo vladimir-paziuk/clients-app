@@ -3,7 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { ProfilesRepository } from 'apps/profiles/profiles.repository';
 import { ProfileEntity } from 'apps/profiles/profile.entity';
 import { ProfileCreateDto, ProfileDto } from 'apps/profiles/dtos/profile.dto';
-import { JwtPayload } from 'apps/common/jwt/jwt.strategy';
+import { JwtPayload } from '@vp-clients-app/common-pkg';
 
 @Injectable()
 export class ProfilesService {
