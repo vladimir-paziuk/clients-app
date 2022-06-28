@@ -10,7 +10,7 @@ import { Exclude } from 'class-transformer';
 import { BaseEntity } from '@vp-clients-app/common-pkg';
 import { GENDER_ENUM } from '@vp-clients-app/common-pkg';
 
-@Entity('profiles')
+@Entity('profiles', { schema: 'profile' })
 export class ProfileEntity extends BaseEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;

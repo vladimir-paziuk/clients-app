@@ -2,9 +2,6 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 
-import { PassportModule } from '@nestjs/passport';
-import { JwtModule } from '@nestjs/jwt';
-
 import { ResolutionsModule } from 'src/resolutions/resolutions.module';
 import { ResolutionEntity } from 'src/resolutions/resolution.entity';
 
@@ -19,16 +16,6 @@ import { AppointmentEntity } from 'src/appointments/appointment.entity';
 
 @Module({
   imports: [
-    // PassportModule.register({ defaultStrategy: 'jwt' }),
-    // JwtModule.registerAsync({
-    //   useFactory: (config: ConfigService) => ({
-    //     secret: config.get('AUTH_SECRET_KEY'),
-    //     signOptions: {
-    //       expiresIn: +config.get('AUTH_TOKEN_EXPIRE_TIME'),
-    //     },
-    //   }),
-    //   inject: [ConfigService],
-    // }),
     PatientsModule,
     DoctorsModule,
     AppointmentsModule,
@@ -53,7 +40,7 @@ import { AppointmentEntity } from 'src/appointments/appointment.entity';
         migrationsRun: true,
         logging: true,
         migrationsTableName: 'migration_table',
-        migrations: ['dist/migration/*.js'],
+        migrations: [__dirname + './../migrations/*.{js,ts}'],
         cli: {
           migrationsDir: 'migration',
         },

@@ -11,6 +11,8 @@ async function bootstrap() {
   app.useGlobalInterceptors(new TransformInterceptor());
   initSwagger(app);
 
+  // TODO: Move to .env
+  // Should port be different for each microservice
   await app.listen(3000);
 }
 bootstrap();

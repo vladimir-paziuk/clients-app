@@ -10,7 +10,7 @@ import { Exclude } from 'class-transformer';
 import { BaseEntity } from '@vp-clients-app/common-pkg';
 import { BLOOD_TYPE_ENUM } from '@vp-clients-app/common-pkg';
 
-@Entity('patients')
+@Entity('patients', { schema: 'clinic' })
 export class PatientEntity extends BaseEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;

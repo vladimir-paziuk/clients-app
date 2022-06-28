@@ -9,7 +9,7 @@ import {
 import { BaseEntity } from '@vp-clients-app/common-pkg';
 import { RoleEntity } from 'src/roles/role.entity';
 
-@Entity('users')
+@Entity('users', { schema: 'auth' })
 export class UserEntity extends BaseEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;

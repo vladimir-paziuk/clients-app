@@ -24,7 +24,7 @@ import { RoleEntity } from 'src/roles/role.entity';
         migrationsRun: true,
         logging: true,
         migrationsTableName: 'migration_table',
-        migrations: ['dist/migration/*.js'],
+        migrations: [__dirname + './../migrations/*.{js,ts}'],
         cli: {
           migrationsDir: 'migration',
         },

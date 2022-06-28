@@ -9,7 +9,7 @@ import { Exclude } from 'class-transformer';
 
 import { BaseEntity } from '@vp-clients-app/common-pkg';
 
-@Entity('doctors')
+@Entity('doctors', { schema: 'clinic' })
 export class DoctorEntity extends BaseEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;

@@ -12,7 +12,7 @@ import { DoctorEntity } from 'src/doctors/doctor.entity';
 import { AppointmentEntity } from 'src/appointments/appointment.entity';
 import { BaseEntity } from '@vp-clients-app/common-pkg';
 
-@Entity('resolutions')
+@Entity('resolutions', { schema: 'clinic' })
 export class ResolutionEntity extends BaseEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;
