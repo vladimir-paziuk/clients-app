@@ -2,6 +2,8 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 
+import { getValidationSchema } from './env.validation.schema';
+
 import { ResolutionsModule } from 'src/modules/resolutions/resolutions.module';
 import { ResolutionEntity } from 'src/modules/resolutions/resolution.entity';
 
@@ -20,7 +22,10 @@ import { AppointmentEntity } from 'src/modules/appointments/appointment.entity';
     DoctorsModule,
     AppointmentsModule,
     ResolutionsModule,
-    ConfigModule.forRoot({ isGlobal: true }),
+    ConfigModule.forRoot({
+      isGlobal: true,
+      validationSchema: getValidationSchema(),
+    }),
     TypeOrmModule.forRootAsync({
       useFactory: (config: ConfigService) => ({
         type: 'postgres',

@@ -2,6 +2,8 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 
+import { getValidationSchema } from 'src/env.validation.schema';
+
 import { AuthModule } from 'src/auth/auth.module';
 import { UserEntity } from 'src/users/user.entity';
 import { RoleEntity } from 'src/roles/role.entity';
@@ -9,7 +11,10 @@ import { RoleEntity } from 'src/roles/role.entity';
 @Module({
   imports: [
     AuthModule,
-    ConfigModule.forRoot({ isGlobal: true }),
+    ConfigModule.forRoot({
+      isGlobal: true,
+      validationSchema: getValidationSchema(),
+    }),
     TypeOrmModule.forRootAsync({
       useFactory: (config: ConfigService) => ({
         type: 'postgres',

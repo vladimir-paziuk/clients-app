@@ -2,13 +2,18 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 
+import { getValidationSchema } from './env.validation.schema';
+
 import { ProfilesModule } from 'src/profiles/profiles.module';
 import { ProfileEntity } from 'src/profiles/profile.entity';
 
 @Module({
   imports: [
     ProfilesModule,
-    ConfigModule.forRoot({ isGlobal: true }),
+    ConfigModule.forRoot({
+      isGlobal: true,
+      validationSchema: getValidationSchema(),
+    }),
     TypeOrmModule.forRootAsync({
       useFactory: (config: ConfigService) => ({
         type: 'postgres',
