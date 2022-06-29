@@ -6,7 +6,7 @@ export class CreateDoctorsTable1654671409571 implements MigrationInterface {
     await queryRunner.query(`
       CREATE TABLE clinic.doctors (
         id uuid DEFAULT uuid_generate_v4(), 
-        user_id uuid DEFAULT uuid_generate_v4(), 
+        user_id uuid NOT NULL, 
         specialization character varying NOT NULL, 
         created_at timestamp DEFAULT current_timestamp, 
         updated_at timestamp DEFAULT current_timestamp,

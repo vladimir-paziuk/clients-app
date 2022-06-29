@@ -172,10 +172,10 @@ export class InsertDoctorsRecords1654676976927 implements MigrationInterface {
 
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.query(`
-      INSERT INTO clinic.doctors (specialization) 
+      INSERT INTO clinic.doctors (user_id, specialization) 
       VALUES
-        ('Pediatricians'),
-        ('Neurologists')
+        (uuid_generate_v4(), 'Pediatricians'),
+        (uuid_generate_v4(), 'Neurologists')
     `);
   }
 
