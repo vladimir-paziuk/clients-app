@@ -7,9 +7,9 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 import { SwaggerApiErrorResponse } from '@vp-clients-app/common-pkg';
-import { PatientEntity } from 'src/patients/patient.entity';
-import { PatientsService } from 'src/patients/patients.service';
-import { PatientDto } from 'src/patients/dtos/patient.dto';
+import { PatientEntity } from 'src/modules/patients/patient.entity';
+import { PatientsService } from 'src/modules/patients/patients.service';
+import { PatientDto } from 'src/modules/patients/dtos/patient.dto';
 import { AUTH_BEARER_DEFAULT } from '@vp-clients-app/common-pkg';
 import { GetUser } from '@vp-clients-app/common-pkg';
 import { JwtPayload } from '@vp-clients-app/common-pkg';

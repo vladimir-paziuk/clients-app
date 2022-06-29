@@ -1,8 +1,8 @@
 import { Repository } from 'typeorm';
 import { CustomRepository } from '@vp-clients-app/common-pkg';
-import { DoctorEntity } from 'src/doctors/doctor.entity';
-import { DoctorQueryDto } from 'src/doctors/dtos/doctor-query.dto';
-import { DoctorDto } from 'src/doctors/dtos/doctor.dto';
+import { DoctorEntity } from 'src/modules/doctors/doctor.entity';
+import { DoctorQueryDto } from 'src/modules/doctors/dtos/doctor-query.dto';
+import { DoctorDto } from 'src/modules/doctors/dtos/doctor.dto';
 
 // @EntityRepository is deprecated, see module description
 @CustomRepository(DoctorEntity)

@@ -7,13 +7,12 @@ import {
 } from 'typeorm';
 import { Exclude } from 'class-transformer';
 
-import { PatientEntity } from 'src/patients/patient.entity';
-import { DoctorEntity } from 'src/doctors/doctor.entity';
-import { AppointmentEntity } from 'src/appointments/appointment.entity';
 import { BaseEntity } from '@vp-clients-app/common-pkg';
+import { DoctorEntity } from 'src/modules/doctors/doctor.entity';
+import { PatientEntity } from 'src/modules/patients/patient.entity';
 
-@Entity('resolutions', { schema: 'clinic' })
-export class ResolutionEntity extends BaseEntity {
+@Entity('appointments', { schema: 'clinic' })
+export class AppointmentEntity extends BaseEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
@@ -31,13 +30,9 @@ export class ResolutionEntity extends BaseEntity {
   @Column({ name: 'doctor_id' })
   doctorId: string;
 
-  @ManyToOne(() => AppointmentEntity)
-  @JoinColumn({ name: 'appointment_id' })
-  @Exclude({ toPlainOnly: true })
-  appointment: AppointmentEntity;
-  @Column({ name: 'appointment_id' })
-  appointmentId: string;
-
   @Column()
-  summary: string;
+  reason: string;
+
+  @Column({ name: 'reservation_date' })
+  reservationDate: string;
 }

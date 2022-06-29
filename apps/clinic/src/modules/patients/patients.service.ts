@@ -3,9 +3,9 @@ import { InjectRepository } from '@nestjs/typeorm';
 
 import { JwtPayload } from '@vp-clients-app/common-pkg';
 
-import { PatientsRepository } from 'src/patients/patients.repository';
-import { PatientEntity } from 'src/patients/patient.entity';
-import { PatientCreateDto, PatientDto } from 'src/patients/dtos/patient.dto';
+import { PatientsRepository } from 'src/modules/patients/patients.repository';
+import { PatientEntity } from 'src/modules/patients/patient.entity';
+import { PatientCreateDto, PatientDto } from 'src/modules/patients/dtos/patient.dto';
 
 @Injectable()
 export class PatientsService {

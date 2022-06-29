@@ -1,11 +1,8 @@
 import { Module } from '@nestjs/common';
 
-import { PassportModule } from '@nestjs/passport';
-import { JwtModule } from '@nestjs/jwt';
-import { ConfigService } from '@nestjs/config';
-
 import { TypeOrmExModule } from '@vp-clients-app/common-pkg';
-import { JwtStrategy } from '@vp-clients-app/common-pkg';
+
+import { ProfilesSharedModule } from 'src/shared/profiles.shared.module';
 
 import { ProfilesController } from 'src/profiles/profiles.controller';
 import { ProfilesService } from 'src/profiles/profiles.service';
@@ -18,20 +15,10 @@ import { ProfilesRepository } from 'src/profiles/profiles.repository';
 
 @Module({
   imports: [
-    PassportModule.register({ defaultStrategy: 'jwt' }),
-    JwtModule.registerAsync({
-      useFactory: (config: ConfigService) => ({
-        secret: config.get('AUTH_SECRET_KEY'),
-        signOptions: {
-          expiresIn: +config.get('AUTH_TOKEN_EXPIRE_TIME'),
-        },
-      }),
-      inject: [ConfigService],
-    }),
+    ProfilesSharedModule,
     TypeOrmExModule.forCustomRepository([ProfilesRepository]),
   ],
   controllers: [ProfilesController],
-  providers: [JwtStrategy, ProfilesService],
-  exports: [JwtStrategy, PassportModule],
+  providers: [ProfilesService],
 })
 export class ProfilesModule {}

@@ -9,10 +9,10 @@ import {
   Query,
   UseGuards,
 } from '@nestjs/common';
-import { DoctorsService } from 'src/doctors/doctors.service';
+import { DoctorsService } from 'src/modules/doctors/doctors.service';
 import { AuthGuard } from '@nestjs/passport';
-import { DoctorEntity } from 'src/doctors/doctor.entity';
-import { DoctorDto } from 'src/doctors/dtos/doctor.dto';
+import { DoctorEntity } from 'src/modules/doctors/doctor.entity';
+import { DoctorDto } from 'src/modules/doctors/dtos/doctor.dto';
 import {
   ApiBearerAuth,
   ApiOkResponse,
@@ -21,7 +21,7 @@ import {
 } from '@nestjs/swagger';
 import { AUTH_BEARER_DEFAULT } from '@vp-clients-app/common-pkg';
 import { SwaggerApiErrorResponse } from '@vp-clients-app/common-pkg';
-import { DoctorQueryDto } from 'src/doctors/dtos/doctor-query.dto';
+import { DoctorQueryDto } from 'src/modules/doctors/dtos/doctor-query.dto';
 
 @ApiBearerAuth(AUTH_BEARER_DEFAULT)
 @ApiTags('Doctors')

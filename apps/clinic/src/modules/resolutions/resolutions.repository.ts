@@ -1,8 +1,8 @@
 import { Repository } from 'typeorm';
 import { CustomRepository } from '@vp-clients-app/common-pkg';
 
-import { ResolutionEntity } from 'src/resolutions/resolution.entity';
-import { ResolutionDto } from 'src/resolutions/dtos/resolution.dto';
+import { ResolutionEntity } from 'src/modules/resolutions/resolution.entity';
+import { ResolutionDto } from 'src/modules/resolutions/dtos/resolution.dto';
 
 // @EntityRepository is deprecated, see module description
 @CustomRepository(ResolutionEntity)

@@ -2,17 +2,17 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 
-import { ResolutionsModule } from 'src/resolutions/resolutions.module';
-import { ResolutionEntity } from 'src/resolutions/resolution.entity';
+import { ResolutionsModule } from 'src/modules/resolutions/resolutions.module';
+import { ResolutionEntity } from 'src/modules/resolutions/resolution.entity';
 
-import { DoctorsModule } from 'src/doctors/doctors.module';
-import { DoctorEntity } from 'src/doctors/doctor.entity';
+import { DoctorsModule } from 'src/modules/doctors/doctors.module';
+import { DoctorEntity } from 'src/modules/doctors/doctor.entity';
 
-import { PatientsModule } from 'src/patients/patients.module';
-import { PatientEntity } from 'src/patients/patient.entity';
+import { PatientsModule } from 'src/modules/patients/patients.module';
+import { PatientEntity } from 'src/modules/patients/patient.entity';
 
-import { AppointmentsModule } from 'src/appointments/appointments.module';
-import { AppointmentEntity } from 'src/appointments/appointment.entity';
+import { AppointmentsModule } from 'src/modules/appointments/appointments.module';
+import { AppointmentEntity } from 'src/modules/appointments/appointment.entity';
 
 @Module({
   imports: [

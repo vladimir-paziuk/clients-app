@@ -3,12 +3,12 @@ import { InjectRepository } from '@nestjs/typeorm';
 
 import { JwtPayload } from '@vp-clients-app/common-pkg';
 
-import { ResolutionEntity } from 'src/resolutions/resolution.entity';
-import { ResolutionDto } from 'src/resolutions/dtos/resolution.dto';
-import { ResolutionsRepository } from 'src/resolutions/resolutions.repository';
+import { ResolutionEntity } from 'src/modules/resolutions/resolution.entity';
+import { ResolutionDto } from 'src/modules/resolutions/dtos/resolution.dto';
+import { ResolutionsRepository } from 'src/modules/resolutions/resolutions.repository';
 
-import { DoctorsService } from 'src/doctors/doctors.service';
-import { AppointmentsService } from 'src/appointments/appointments.service';
+import { DoctorsService } from 'src/modules/doctors/doctors.service';
+import { AppointmentsService } from 'src/modules/appointments/appointments.service';
 
 @Injectable()
 export class ResolutionsService {

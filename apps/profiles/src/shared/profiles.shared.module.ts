@@ -4,11 +4,12 @@ import { PassportModule } from '@nestjs/passport';
 import { JwtModule } from '@nestjs/jwt';
 import { ConfigService } from '@nestjs/config';
 
-import { JwtStrategy, TypeOrmExModule } from '@vp-clients-app/common-pkg';
+import { JwtStrategy } from '@vp-clients-app/common-pkg';
 
-import { PatientsService } from 'src/patients/patients.service';
-import { PatientsController } from 'src/patients/patients.controller';
-import { PatientsRepository } from 'src/patients/patients.repository';
+// TypeOrmExModule.forCustomRepository uses instead TypeOrmExModule.forFeature for
+// resolve @EntityRepository deprecated issue, instead use @CustomRepository
+// Implement solution from https://gist.github.com/anchan828/9e569f076e7bc18daf21c652f7c3d012
+// Also install @nestjs/typeorm@next
 
 @Module({
   imports: [
@@ -22,10 +23,8 @@ import { PatientsRepository } from 'src/patients/patients.repository';
       }),
       inject: [ConfigService],
     }),
-    TypeOrmExModule.forCustomRepository([PatientsRepository]),
   ],
-  controllers: [PatientsController],
-  providers: [JwtStrategy, PatientsService],
+  providers: [JwtStrategy],
   exports: [JwtStrategy, PassportModule],
 })
-export class PatientsModule {}
+export class ProfilesSharedModule {}

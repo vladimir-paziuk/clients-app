@@ -1,7 +1,7 @@
 import { Repository } from 'typeorm';
 import { CustomRepository } from '@vp-clients-app/common-pkg';
-import { AppointmentEntity } from 'src/appointments/appointment.entity';
-import { AppointmentDto } from 'src/appointments/dtos/appointment.dto';
+import { AppointmentEntity } from 'src/modules/appointments/appointment.entity';
+import { AppointmentDto } from 'src/modules/appointments/dtos/appointment.dto';
 
 // @EntityRepository is deprecated, see module description
 @CustomRepository(AppointmentEntity)
