@@ -54,8 +54,8 @@ export class AuthService {
     );
     const access = await this.getAccess(user);
 
-    await this.clinicService.createPatient({ userId: user.id }, access);
-    await this.profilesService.createProfile({ userId: user.id }, access);
+    this.clinicService.createPatient({ userId: user.id }, access);
+    this.profilesService.createProfile({ userId: user.id }, access);
 
     return access;
   }
