@@ -12,4 +12,7 @@ export const getValidationSchema = () =>
     DATABASE_NAME: Joi.string(),
 
     APP_PORT: Joi.number(),
+
+    PROFILES_APP_PORT: Joi.number(),
+    CLINIC_APP_PORT: Joi.number(),
   });
