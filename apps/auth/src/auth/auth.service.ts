@@ -52,12 +52,12 @@ export class AuthService {
       },
       [role],
     );
-    const access = await this.getAccess(user);
+    const token = await this.getAccess(user);
 
-    this.clinicService.createPatient({ userId: user.id }, access);
-    this.profilesService.createProfile({ userId: user.id }, access);
+    this.clinicService.createPatient({ userId: user.id }, token);
+    this.profilesService.createProfile({ userId: user.id }, token);
 
-    return access;
+    return token;
   }
 
   async signIn(credentials: AuthCredentialsDto): Promise<JwtToken> {

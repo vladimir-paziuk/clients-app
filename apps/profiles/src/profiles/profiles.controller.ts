@@ -30,14 +30,7 @@ import { ProfileCreateDto, ProfileDto } from 'src/profiles/dtos/profile.dto';
 @UseGuards(AuthGuard())
 export class ProfilesController {
   constructor(private profilesService: ProfilesService) {}
-  @ApiOperation({
-    summary: 'Create profile instance.',
-    description: 'Create and returns profile instance based userId.',
-  })
-  @ApiOkResponse({
-    type: ProfileEntity,
-  })
-  @SwaggerApiErrorResponse()
+
   @Post('')
   createProfile(@Body() profile: ProfileCreateDto): Promise<ProfileEntity> {
     return this.profilesService.createProfile(profile);

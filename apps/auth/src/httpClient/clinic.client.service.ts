@@ -5,11 +5,10 @@ import { Method } from 'axios';
 
 import { JwtToken } from '@vp-clients-app/common-pkg';
 
-const clinicClientAPI = {
-  createPatient: 'patients',
-};
-const baseUrl = `http://localhost`;
-const getPrefixedToken = (token: string) => `Bearer ${token}`;
+import {
+  clinicClientAPI,
+  getPrefixedToken,
+} from 'src/httpClient/api.client.enum';
 
 @Injectable()
 export class ClinicClientService {
@@ -24,8 +23,8 @@ export class ClinicClientService {
     data: any,
     token: JwtToken,
   ): any {
-    const port = this.configService.get('CLINIC_APP_PORT');
-    const url = `${baseUrl}:${port}/${path}`;
+    const baseUrl = this.configService.get('CLINIC_APP_URL');
+    const url = `${baseUrl}/${path}`;
     return this.httpService.request({
       method,
       url,

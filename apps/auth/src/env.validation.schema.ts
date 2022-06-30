@@ -13,6 +13,6 @@ export const getValidationSchema = () =>
 
     APP_PORT: Joi.number().required(),
 
-    PROFILES_APP_PORT: Joi.number().required(),
-    CLINIC_APP_PORT: Joi.number().required(),
+    PROFILES_APP_URL: Joi.string().required(),
+    CLINIC_APP_URL: Joi.string().required(),
   });

@@ -5,11 +5,10 @@ import { Method } from 'axios';
 
 import { JwtToken } from '@vp-clients-app/common-pkg';
 
-const profilesClientAPI = {
-  createProfile: 'profiles',
-};
-const baseUrl = `http://localhost`;
-const getPrefixedToken = (token: string) => `Bearer ${token}`;
+import {
+  getPrefixedToken,
+  profilesClientAPI,
+} from 'src/httpClient/api.client.enum';
 
 @Injectable()
 export class ProfilesClientService {
@@ -24,8 +23,8 @@ export class ProfilesClientService {
     data: any,
     token: JwtToken,
   ): any {
-    const port = this.configService.get('PROFILES_APP_PORT');
-    const url = `${baseUrl}:${port}/${path}`;
+    const baseUrl = this.configService.get('PROFILES_APP_URL');
+    const url = `${baseUrl}/${path}`;
     return this.httpService.request({
       method,
       url,

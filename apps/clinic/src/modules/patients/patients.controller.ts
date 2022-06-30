@@ -31,14 +31,7 @@ import { JwtPayload } from '@vp-clients-app/common-pkg';
 @UseGuards(AuthGuard())
 export class PatientsController {
   constructor(private patientsService: PatientsService) {}
-  @ApiOperation({
-    summary: 'Create patient instance.',
-    description: 'Create and returns patient instance based userId.',
-  })
-  @ApiOkResponse({
-    type: PatientEntity,
-  })
-  @SwaggerApiErrorResponse()
+
   @Post('/')
   createPatient(@Body() body: PatientCreateDto): Promise<PatientEntity> {
     return this.patientsService.createPatient(body);
