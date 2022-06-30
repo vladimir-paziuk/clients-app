@@ -1,4 +1,12 @@
-import { Body, Controller, Get, Param, Patch, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  Patch,
+  Post,
+  UseGuards,
+} from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import {
   ApiBearerAuth,
@@ -9,7 +17,10 @@ import {
 import { SwaggerApiErrorResponse } from '@vp-clients-app/common-pkg';
 import { PatientEntity } from 'src/modules/patients/patient.entity';
 import { PatientsService } from 'src/modules/patients/patients.service';
-import { PatientDto } from 'src/modules/patients/dtos/patient.dto';
+import {
+  PatientCreateDto,
+  PatientDto,
+} from 'src/modules/patients/dtos/patient.dto';
 import { AUTH_BEARER_DEFAULT } from '@vp-clients-app/common-pkg';
 import { GetUser } from '@vp-clients-app/common-pkg';
 import { JwtPayload } from '@vp-clients-app/common-pkg';
@@ -20,6 +31,19 @@ import { JwtPayload } from '@vp-clients-app/common-pkg';
 @UseGuards(AuthGuard())
 export class PatientsController {
   constructor(private patientsService: PatientsService) {}
+  @ApiOperation({
+    summary: 'Create patient instance.',
+    description: 'Create and returns patient instance based userId.',
+  })
+  @ApiOkResponse({
+    type: PatientEntity,
+  })
+  @SwaggerApiErrorResponse()
+  @Post('/')
+  createPatient(@Body() body: PatientCreateDto): Promise<PatientEntity> {
+    return this.patientsService.createPatient(body);
+  }
+
   @ApiOperation({
     summary: 'Get my profile patient data.',
     description: 'Returns patient data based on logged user credentials.',
