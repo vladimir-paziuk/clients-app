@@ -23,8 +23,9 @@ export class ClinicClientService {
     data: any,
     token: JwtToken,
   ): any {
-    const baseUrl = this.configService.get('CLINIC_APP_URL');
-    const url = `${baseUrl}/${path}`;
+    const host = this.configService.get('CLINIC_SERVICE_HOST');
+    const port = this.configService.get('CLINIC_SERVICE_PORT');
+    const url = `${host}:${port}/${path}`;
     return this.httpService.request({
       method,
       url,

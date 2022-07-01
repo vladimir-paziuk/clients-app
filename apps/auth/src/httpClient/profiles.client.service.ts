@@ -23,8 +23,9 @@ export class ProfilesClientService {
     data: any,
     token: JwtToken,
   ): any {
-    const baseUrl = this.configService.get('PROFILES_APP_URL');
-    const url = `${baseUrl}/${path}`;
+    const host = this.configService.get('PROFILES_SERVICE_HOST');
+    const port = this.configService.get('PROFILES_SERVICE_PORT');
+    const url = `${host}:${port}/${path}`;
     return this.httpService.request({
       method,
       url,

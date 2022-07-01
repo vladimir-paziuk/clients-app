@@ -1,0 +1,52 @@
+version: '3.8'
+
+services:
+  auth:
+    container_name: auth
+    build: ./apps/auth
+    command: npm start
+    environment:
+      PORT: ${AUTH_SERVICE_PORT}
+      DB_HOST: database
+      CLINIC_SERVICE_HOST: ${CLINIC_SERVICE_HOST}
+      CLINIC_SERVICE_PORT: ${CLINIC_SERVICE_PORT}
+      PROFILES_SERVICE_HOST: ${PROFILES_SERVICE_HOST}
+      PROFILES_SERVICE_PORT: ${PROFILES_SERVICE_PORT}
+    ports:
+      - ${AUTH_SERVICE_PORT}:${AUTH_SERVICE_PORT}
+    depends_on:
+      - database
+
+  clinic:
+    container_name: clinic
+    build: ./apps/clinic
+    command: npm start
+    environment:
+      PORT: ${CLINIC_SERVICE_PORT}
+      DB_HOST: database
+    ports:
+      - ${CLINIC_SERVICE_PORT}:${CLINIC_SERVICE_PORT}
+    depends_on:
+      - database
+
+  profiles:
+    container_name: profiles
+    build: ./apps/profiles
+    command: npm start
+    environment:
+      PORT: ${PROFILES_SERVICE_PORT}
+      DB_HOST: database
+    ports:
+      - ${PROFILES_SERVICE_PORT}:${PROFILES_SERVICE_PORT}
+    depends_on:
+      - database
+
+  database:
+    container_name: pg
+    image: postgres:14-alpine
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: clients-management

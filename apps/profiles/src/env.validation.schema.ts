@@ -10,5 +10,5 @@ export const getValidationSchema = () =>
     DATABASE_PASSWORD: Joi.string().required(),
     DATABASE_NAME: Joi.string().required(),
 
-    APP_PORT: Joi.number().required(),
+    PROFILES_SERVICE_PORT: Joi.number().required(),
   });

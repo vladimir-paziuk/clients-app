@@ -11,8 +11,11 @@ export const getValidationSchema = () =>
     DATABASE_PASSWORD: Joi.string().required(),
     DATABASE_NAME: Joi.string().required(),
 
-    APP_PORT: Joi.number().required(),
+    AUTH_SERVICE_PORT: Joi.number().required(),
 
-    PROFILES_APP_URL: Joi.string().required(),
-    CLINIC_APP_URL: Joi.string().required(),
+    PROFILES_SERVICE_HOST: Joi.string().required(),
+    PROFILES_SERVICE_PORT: Joi.number().required(),
+
+    CLINIC_SERVICE_HOST: Joi.string().required(),
+    CLINIC_SERVICE_PORT: Joi.number().required(),
   });
