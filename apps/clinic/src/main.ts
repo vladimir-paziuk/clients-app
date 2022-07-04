@@ -15,6 +15,6 @@ async function bootstrap() {
   app.useGlobalInterceptors(new TransformInterceptor());
   initSwagger(app);
 
-  await app.listen(config.get('APP_PORT'));
+  await app.listen(config.get('CLINIC_SERVICE_PORT'));
 }
 bootstrap();

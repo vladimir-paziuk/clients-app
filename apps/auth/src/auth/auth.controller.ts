@@ -1,14 +1,16 @@
 import { Body, Controller, Post } from '@nestjs/common';
-import { AuthService } from 'src/auth/auth.service';
-import { JwtToken } from '@vp-clients-app/common-pkg';
-import { AuthCredentialsDto } from 'src/auth/dtos/auth-credentials.dto';
 import {
   ApiConflictResponse,
   ApiOkResponse,
   ApiOperation,
   ApiTags,
 } from '@nestjs/swagger';
+
 import { SwaggerApiErrorResponse } from '@vp-clients-app/common-pkg';
+import { JwtToken } from '@vp-clients-app/common-pkg';
+
+import { AuthService } from 'src/auth/auth.service';
+import { AuthCredentialsDto } from 'src/auth/dtos/auth-credentials.dto';
 
 @ApiTags('Auth')
 @Controller('auth')

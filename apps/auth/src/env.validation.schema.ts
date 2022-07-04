@@ -2,14 +2,20 @@ import * as Joi from 'joi';
 
 export const getValidationSchema = () =>
   Joi.object({
-    AUTH_SECRET_KEY: Joi.string(),
-    AUTH_TOKEN_EXPIRE_TIME: Joi.number(),
+    AUTH_SECRET_KEY: Joi.string().required(),
+    AUTH_TOKEN_EXPIRE_TIME: Joi.number().required(),
 
-    DATABASE_HOST: Joi.string(),
-    DATABASE_PORT: Joi.number(),
-    DATABASE_USERNAME: Joi.string(),
-    DATABASE_PASSWORD: Joi.string(),
-    DATABASE_NAME: Joi.string(),
+    DATABASE_HOST: Joi.string().required(),
+    DATABASE_PORT: Joi.number().required(),
+    DATABASE_USERNAME: Joi.string().required(),
+    DATABASE_PASSWORD: Joi.string().required(),
+    DATABASE_NAME: Joi.string().required(),
 
-    APP_PORT: Joi.number(),
+    AUTH_SERVICE_PORT: Joi.number().required(),
+
+    PROFILES_SERVICE_HOST: Joi.string().required(),
+    PROFILES_SERVICE_PORT: Joi.number().required(),
+
+    CLINIC_SERVICE_HOST: Joi.string().required(),
+    CLINIC_SERVICE_PORT: Joi.number().required(),
   });

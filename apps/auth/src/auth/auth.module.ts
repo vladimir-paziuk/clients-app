@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { PassportModule } from '@nestjs/passport';
 import { JwtModule } from '@nestjs/jwt';
+import { HttpModule } from '@nestjs/axios';
 
 import { TypeOrmExModule } from '@vp-clients-app/common-pkg';
 import { JwtStrategy } from '@vp-clients-app/common-pkg';
@@ -16,6 +17,9 @@ import { UsersRepository } from 'src/users/users.repository';
 import { RolesService } from 'src/roles/roles.service';
 import { RolesRepository } from 'src/roles/roles.repository';
 
+import { ClinicClientService } from 'src/httpClient/clinic.client.service';
+import { ProfilesClientService } from 'src/httpClient/profiles.client.service';
+
 @Module({
   imports: [
     PassportModule.register({ defaultStrategy: 'jwt' }),
@@ -28,12 +32,8 @@ import { RolesRepository } from 'src/roles/roles.repository';
       }),
       inject: [ConfigService],
     }),
-    TypeOrmExModule.forCustomRepository([
-      UsersRepository,
-      RolesRepository,
-      // ProfilesRepository,
-      // PatientsRepository,
-    ]),
+    HttpModule,
+    TypeOrmExModule.forCustomRepository([UsersRepository, RolesRepository]),
   ],
   controllers: [AuthController],
   providers: [
@@ -41,8 +41,8 @@ import { RolesRepository } from 'src/roles/roles.repository';
     AuthService,
     UsersService,
     RolesService,
-    // ProfilesService,
-    // PatientsService,
+    ClinicClientService,
+    ProfilesClientService,
     CryptService,
   ],
   exports: [JwtStrategy, PassportModule],

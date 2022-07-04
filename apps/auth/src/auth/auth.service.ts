@@ -7,8 +7,8 @@ import { CryptService } from '@vp-clients-app/common-pkg';
 import { UserEntity } from 'src/users/user.entity';
 import { AuthCredentialsDto } from 'src/auth/dtos/auth-credentials.dto';
 
-// import { ProfilesService } from '../profiles/profiles.service';
-// import { PatientsService } from '../clinic/patients/patients.service';
+import { ClinicClientService } from 'src/httpClient/clinic.client.service';
+import { ProfilesClientService } from 'src/httpClient/profiles.client.service';
 import { UsersService } from 'src/users/users.service';
 
 import { RolesService } from 'src/roles/roles.service';
@@ -24,6 +24,8 @@ export class AuthService {
     // private patientsService: PatientsService,
     private jwtService: JwtService,
     private cryptService: CryptService,
+    private clinicService: ClinicClientService,
+    private profilesService: ProfilesClientService,
   ) {}
 
   async getAccess(user: UserEntity): Promise<JwtToken> {
@@ -50,10 +52,12 @@ export class AuthService {
       },
       [role],
     );
-    // await this.profilesService.createProfile({ userId: user.id });
-    // await this.patientsService.createPatient({ userId: user.id });
+    const token = await this.getAccess(user);
 
-    return this.getAccess(user);
+    this.clinicService.createPatient({ userId: user.id }, token);
+    this.profilesService.createProfile({ userId: user.id }, token);
+
+    return token;
   }
 
   async signIn(credentials: AuthCredentialsDto): Promise<JwtToken> {
