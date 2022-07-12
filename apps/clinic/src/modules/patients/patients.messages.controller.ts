@@ -6,6 +6,8 @@ import {
   Payload,
 } from '@nestjs/microservices';
 
+import { IKafkaMessage } from '@vp-clients-app/common-pkg';
+
 import { PatientEntity } from 'src/modules/patients/patient.entity';
 import { PatientsService } from 'src/modules/patients/patients.service';
 import { PatientCreateDto } from 'src/modules/patients/dtos/patient.dto';
@@ -16,12 +18,8 @@ export class PatientsMessagesController {
 
   @MessagePattern('auth.user.created')
   async createPatient(
-    @Payload() payload: any,
-    @Ctx() context: KafkaContext,
+    @Payload() payload: IKafkaMessage<PatientCreateDto>,
   ): Promise<PatientEntity> {
-    // const msg = context.getMessage();
-    return await this.patientsService.createPatient(
-      payload.value as PatientCreateDto,
-    );
+    return await this.patientsService.createPatient(payload.value);
   }
 }
