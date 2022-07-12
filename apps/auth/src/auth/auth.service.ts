@@ -1,5 +1,13 @@
-import { Injectable, UnauthorizedException, HttpStatus } from '@nestjs/common';
+import {
+  Injectable,
+  UnauthorizedException,
+  HttpStatus,
+  Inject,
+  OnModuleInit,
+  OnModuleDestroy,
+} from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
+import { ClientKafka } from '@nestjs/microservices';
 
 import { JwtPayload, JwtToken } from '@vp-clients-app/common-pkg';
 import { CryptService } from '@vp-clients-app/common-pkg';
@@ -16,7 +24,7 @@ import { ROLES_ENUM } from '@vp-clients-app/common-pkg';
 import { ROLES_KEY } from '@vp-clients-app/common-pkg';
 
 @Injectable()
-export class AuthService {
+export class AuthService implements OnModuleInit, OnModuleDestroy {
   constructor(
     private usersService: UsersService,
     private rolesService: RolesService,
@@ -26,7 +34,16 @@ export class AuthService {
     private cryptService: CryptService,
     private clinicService: ClinicClientService,
     private profilesService: ProfilesClientService,
+    @Inject('AUTH_SERVICE') private readonly client: ClientKafka,
   ) {}
+
+  onModuleInit() {
+    this.client.subscribeToResponseOf('auth.user.created');
+  }
+
+  onModuleDestroy() {
+    this.client.close();
+  }
 
   async getAccess(user: UserEntity): Promise<JwtToken> {
     const payload: JwtPayload = {
@@ -54,8 +71,10 @@ export class AuthService {
     );
     const token = await this.getAccess(user);
 
-    this.clinicService.createPatient({ userId: user.id }, token);
-    this.profilesService.createProfile({ userId: user.id }, token);
+    this.client.emit('auth.user.created', { userId: user.id });
+
+    // this.clinicService.createPatient({ userId: user.id }, token);
+    // this.profilesService.createProfile({ userId: user.id }, token);
 
     return token;
   }

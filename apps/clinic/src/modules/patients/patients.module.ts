@@ -5,8 +5,9 @@ import { TypeOrmExModule } from '@vp-clients-app/common-pkg';
 import { ClinicSharedModule } from 'src/shared/clinic.shared.module';
 
 import { PatientsService } from 'src/modules/patients/patients.service';
-import { PatientsController } from 'src/modules/patients/patients.controller';
 import { PatientsRepository } from 'src/modules/patients/patients.repository';
+import { PatientsController } from 'src/modules/patients/patients.controller';
+import { PatientsMessagesController } from 'src/modules/patients/patients.messages.controller';
 
 // TypeOrmExModule.forCustomRepository uses instead TypeOrmExModule.forFeature for
 // resolve @EntityRepository deprecated issue, instead use @CustomRepository
@@ -18,7 +19,7 @@ import { PatientsRepository } from 'src/modules/patients/patients.repository';
     ClinicSharedModule,
     TypeOrmExModule.forCustomRepository([PatientsRepository]),
   ],
-  controllers: [PatientsController],
+  controllers: [PatientsController, PatientsMessagesController],
   providers: [PatientsService],
 })
 export class PatientsModule {}
