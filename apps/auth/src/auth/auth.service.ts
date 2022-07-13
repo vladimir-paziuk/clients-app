@@ -3,8 +3,6 @@ import {
   UnauthorizedException,
   HttpStatus,
   Inject,
-  OnModuleInit,
-  OnModuleDestroy,
 } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { ClientKafka } from '@nestjs/microservices';
@@ -24,7 +22,7 @@ import { ROLES_ENUM } from '@vp-clients-app/common-pkg';
 import { ROLES_KEY } from '@vp-clients-app/common-pkg';
 
 @Injectable()
-export class AuthService implements OnModuleInit, OnModuleDestroy {
+export class AuthService {
   constructor(
     private usersService: UsersService,
     private rolesService: RolesService,
@@ -36,14 +34,6 @@ export class AuthService implements OnModuleInit, OnModuleDestroy {
     private profilesService: ProfilesClientService,
     @Inject('AUTH_SERVICE') private readonly client: ClientKafka,
   ) {}
-
-  onModuleInit() {
-    this.client.subscribeToResponseOf('auth.user.created');
-  }
-
-  onModuleDestroy() {
-    this.client.close();
-  }
 
   async getAccess(user: UserEntity): Promise<JwtToken> {
     const payload: JwtPayload = {
