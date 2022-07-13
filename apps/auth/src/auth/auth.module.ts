@@ -30,10 +30,10 @@ import { ProfilesClientService } from 'src/httpClient/profiles.client.service';
         options: {
           client: {
             clientId: 'AUTH_SERVICE_CLIENT_ID',
-            brokers: ['kafka:29092'],
+            brokers: ['kafka:9092'],
           },
           consumer: {
-            groupId: 'CLIENTS_APP-CONSUMER',
+            groupId: 'CLIENTS_APP_CONSUMER',
           },
         },
       },
