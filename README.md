@@ -9,7 +9,7 @@
 - Go to directory with .pem file
 ```bash
 $ chmod 0400 {KeyPairName}.pem
-$ ssh -i EC2Course.pem ec2-user@52.7.101.73
+$ ssh -i EC2Course.pem ec2-user@{PublicIPv4}
 ```
 
 ## Installation

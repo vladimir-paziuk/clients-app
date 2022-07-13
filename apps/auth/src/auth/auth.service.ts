@@ -1,5 +1,11 @@
-import { Injectable, UnauthorizedException, HttpStatus } from '@nestjs/common';
+import {
+  Injectable,
+  UnauthorizedException,
+  HttpStatus,
+  Inject,
+} from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
+import { ClientKafka } from '@nestjs/microservices';
 
 import { JwtPayload, JwtToken } from '@vp-clients-app/common-pkg';
 import { CryptService } from '@vp-clients-app/common-pkg';
@@ -26,6 +32,7 @@ export class AuthService {
     private cryptService: CryptService,
     private clinicService: ClinicClientService,
     private profilesService: ProfilesClientService,
+    @Inject('AUTH_SERVICE') private readonly client: ClientKafka,
   ) {}
 
   async getAccess(user: UserEntity): Promise<JwtToken> {
@@ -54,8 +61,10 @@ export class AuthService {
     );
     const token = await this.getAccess(user);
 
-    this.clinicService.createPatient({ userId: user.id }, token);
-    this.profilesService.createProfile({ userId: user.id }, token);
+    this.client.emit('auth.user.created', { userId: user.id });
+
+    // this.clinicService.createPatient({ userId: user.id }, token);
+    // this.profilesService.createProfile({ userId: user.id }, token);
 
     return token;
   }

@@ -4,9 +4,10 @@ import { TypeOrmExModule } from '@vp-clients-app/common-pkg';
 
 import { ProfilesSharedModule } from 'src/shared/profiles.shared.module';
 
-import { ProfilesController } from 'src/profiles/profiles.controller';
 import { ProfilesService } from 'src/profiles/profiles.service';
 import { ProfilesRepository } from 'src/profiles/profiles.repository';
+import { ProfilesController } from 'src/profiles/profiles.controller';
+import { ProfilesMessagesController } from 'src/profiles/profiles.messages.controller';
 
 // TypeOrmExModule.forCustomRepository uses instead TypeOrmExModule.forFeature for
 // resolve @EntityRepository deprecated issue, instead use @CustomRepository
@@ -18,7 +19,7 @@ import { ProfilesRepository } from 'src/profiles/profiles.repository';
     ProfilesSharedModule,
     TypeOrmExModule.forCustomRepository([ProfilesRepository]),
   ],
-  controllers: [ProfilesController],
+  controllers: [ProfilesController, ProfilesMessagesController],
   providers: [ProfilesService],
 })
 export class ProfilesModule {}

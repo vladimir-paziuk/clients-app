@@ -1,12 +1,4 @@
-import {
-  Body,
-  Controller,
-  Get,
-  Param,
-  Patch,
-  Post,
-  UseGuards,
-} from '@nestjs/common';
+import { Body, Controller, Get, Param, Patch, UseGuards } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import {
   ApiBearerAuth,
@@ -22,7 +14,7 @@ import { JwtPayload } from '@vp-clients-app/common-pkg';
 
 import { ProfilesService } from 'src/profiles/profiles.service';
 import { ProfileEntity } from 'src/profiles/profile.entity';
-import { ProfileCreateDto, ProfileDto } from 'src/profiles/dtos/profile.dto';
+import { ProfileDto } from 'src/profiles/dtos/profile.dto';
 
 @ApiBearerAuth(AUTH_BEARER_DEFAULT)
 @ApiTags('Profiles')
@@ -30,11 +22,6 @@ import { ProfileCreateDto, ProfileDto } from 'src/profiles/dtos/profile.dto';
 @UseGuards(AuthGuard())
 export class ProfilesController {
   constructor(private profilesService: ProfilesService) {}
-
-  @Post('')
-  createProfile(@Body() profile: ProfileCreateDto): Promise<ProfileEntity> {
-    return this.profilesService.createProfile(profile);
-  }
 
   @ApiOperation({
     summary: 'Get my profile.',
