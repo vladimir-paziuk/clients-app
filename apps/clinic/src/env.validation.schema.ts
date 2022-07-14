@@ -10,5 +10,6 @@ export const getValidationSchema = () =>
     DATABASE_PASSWORD: Joi.string().required(),
     DATABASE_NAME: Joi.string().required(),
 
+    KAFKA_BROKER: Joi.string().required(),
     CLINIC_SERVICE_PORT: Joi.number().required(),
   });

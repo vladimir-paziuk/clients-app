@@ -12,12 +12,13 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   const config = app.get(ConfigService);
   const appPort = config.get('PROFILES_SERVICE_PORT');
+  const kafkaBroker = config.get('KAFKA_BROKER');
 
   app.connectMicroservice({
     transport: Transport.KAFKA,
     options: {
       client: {
-        brokers: ['kafka:9092'],
+        brokers: [kafkaBroker],
       },
       consumer: {
         groupId: 'CLIENTS_APP_CONSUMER-1',

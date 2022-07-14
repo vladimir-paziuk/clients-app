@@ -8,6 +8,7 @@ services:
     environment:
       PORT: ${AUTH_SERVICE_PORT}
       DB_HOST: database
+      KAFKA_BROKER: ${KAFKA_BROKER}
       CLINIC_SERVICE_HOST: ${CLINIC_SERVICE_HOST}
       CLINIC_SERVICE_PORT: ${CLINIC_SERVICE_PORT}
       PROFILES_SERVICE_HOST: ${PROFILES_SERVICE_HOST}
@@ -24,6 +25,7 @@ services:
     environment:
       PORT: ${CLINIC_SERVICE_PORT}
       DB_HOST: database
+      KAFKA_BROKER: ${KAFKA_BROKER}
     ports:
       - ${CLINIC_SERVICE_PORT}:${CLINIC_SERVICE_PORT}
     depends_on:
@@ -36,6 +38,7 @@ services:
     environment:
       PORT: ${PROFILES_SERVICE_PORT}
       DB_HOST: database
+      KAFKA_BROKER: ${KAFKA_BROKER}
     ports:
       - ${PROFILES_SERVICE_PORT}:${PROFILES_SERVICE_PORT}
     depends_on:
