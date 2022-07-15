@@ -3,7 +3,6 @@ import { ConfigService } from '@nestjs/config';
 import { PassportModule } from '@nestjs/passport';
 import { JwtModule } from '@nestjs/jwt';
 import { HttpModule } from '@nestjs/axios';
-import { ClientsModule, Transport } from '@nestjs/microservices';
 
 import {
   CryptService,
@@ -25,24 +24,6 @@ import { ProfilesClientService } from 'src/httpClient/profiles.client.service';
 
 @Module({
   imports: [
-    ClientsModule.registerAsync([
-      {
-        name: 'AUTH_SERVICE',
-        useFactory: (config: ConfigService) => ({
-          transport: Transport.KAFKA,
-          options: {
-            client: {
-              clientId: 'AUTH_SERVICE_CLIENT_ID',
-              brokers: [config.get('KAFKA_BROKER')],
-            },
-            consumer: {
-              groupId: 'CLIENTS_APP_CONSUMER',
-            },
-          },
-        }),
-        inject: [ConfigService],
-      },
-    ]),
     PassportModule.register({ defaultStrategy: 'jwt' }),
     JwtModule.registerAsync({
       useFactory: (config: ConfigService) => ({
