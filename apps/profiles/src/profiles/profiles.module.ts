@@ -7,7 +7,8 @@ import { ProfilesSharedModule } from 'src/shared/profiles.shared.module';
 import { ProfilesService } from 'src/profiles/profiles.service';
 import { ProfilesRepository } from 'src/profiles/profiles.repository';
 import { ProfilesController } from 'src/profiles/profiles.controller';
-import { ProfilesMessagesController } from 'src/profiles/profiles.messages.controller';
+import { ProfilesPrivateController } from 'src/profiles/profiles.private.controller';
+import { ProfilesConsumer } from 'src/profiles/profiles.consumer';
 
 // TypeOrmExModule.forCustomRepository uses instead TypeOrmExModule.forFeature for
 // resolve @EntityRepository deprecated issue, instead use @CustomRepository
@@ -19,7 +20,11 @@ import { ProfilesMessagesController } from 'src/profiles/profiles.messages.contr
     ProfilesSharedModule,
     TypeOrmExModule.forCustomRepository([ProfilesRepository]),
   ],
-  controllers: [ProfilesController, ProfilesMessagesController],
+  controllers: [
+    ProfilesController,
+    ProfilesPrivateController,
+    ProfilesConsumer,
+  ],
   providers: [ProfilesService],
 })
 export class ProfilesModule {}

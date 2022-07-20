@@ -6,17 +6,17 @@ import {
   Payload,
 } from '@nestjs/microservices';
 
-import { IKafkaMessage } from '@vp-clients-app/common-pkg';
+import { EventsEnum, IKafkaMessage } from '@vp-clients-app/common-pkg';
 
 import { ProfilesService } from 'src/profiles/profiles.service';
 import { ProfileEntity } from 'src/profiles/profile.entity';
 import { ProfileCreateDto } from 'src/profiles/dtos/profile.dto';
 
 @Controller('profiles')
-export class ProfilesMessagesController {
+export class ProfilesConsumer {
   constructor(private profilesService: ProfilesService) {}
 
-  @MessagePattern('auth.user.created')
+  @MessagePattern(EventsEnum.authUserCreated)
   async createProfile(
     @Payload() payload: IKafkaMessage<ProfileCreateDto>,
     @Ctx() context: KafkaContext,

@@ -7,7 +7,8 @@ import { ClinicSharedModule } from 'src/shared/clinic.shared.module';
 import { PatientsService } from 'src/modules/patients/patients.service';
 import { PatientsRepository } from 'src/modules/patients/patients.repository';
 import { PatientsController } from 'src/modules/patients/patients.controller';
-import { PatientsMessagesController } from 'src/modules/patients/patients.messages.controller';
+import { PatientsPrivateController } from 'src/modules/patients/patients.private.controller';
+import { PatientsConsumer } from 'src/modules/patients/patients.consumer';
 
 // TypeOrmExModule.forCustomRepository uses instead TypeOrmExModule.forFeature for
 // resolve @EntityRepository deprecated issue, instead use @CustomRepository
@@ -19,7 +20,11 @@ import { PatientsMessagesController } from 'src/modules/patients/patients.messag
     ClinicSharedModule,
     TypeOrmExModule.forCustomRepository([PatientsRepository]),
   ],
-  controllers: [PatientsController, PatientsMessagesController],
+  controllers: [
+    PatientsController,
+    PatientsPrivateController,
+    PatientsConsumer,
+  ],
   providers: [PatientsService],
 })
 export class PatientsModule {}
