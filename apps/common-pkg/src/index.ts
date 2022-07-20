@@ -23,3 +23,6 @@ export * from './roles.guard';
 
 // Types
 export * from './types/IKafkaMessage';
+
+// Events
+export * from './constants/events.enum';

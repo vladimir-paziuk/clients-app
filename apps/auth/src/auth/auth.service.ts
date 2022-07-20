@@ -7,7 +7,7 @@ import {
 import { JwtService } from '@nestjs/jwt';
 import { ClientKafka } from '@nestjs/microservices';
 
-import { JwtPayload, JwtToken } from '@vp-clients-app/common-pkg';
+import { EventsEnum, JwtPayload, JwtToken } from '@vp-clients-app/common-pkg';
 import { CryptService } from '@vp-clients-app/common-pkg';
 
 import { UserEntity } from 'src/users/user.entity';
@@ -26,8 +26,6 @@ export class AuthService {
   constructor(
     private usersService: UsersService,
     private rolesService: RolesService,
-    // private profilesService: ProfilesService,
-    // private patientsService: PatientsService,
     private jwtService: JwtService,
     private cryptService: CryptService,
     private clinicService: ClinicClientService,
@@ -61,7 +59,7 @@ export class AuthService {
     );
     const token = await this.getAccess(user);
 
-    this.client.emit('auth.user.created', { userId: user.id });
+    this.client.emit(EventsEnum.authUserCreated, { userId: user.id });
 
     // this.clinicService.createPatient({ userId: user.id }, token);
     // this.profilesService.createProfile({ userId: user.id }, token);
