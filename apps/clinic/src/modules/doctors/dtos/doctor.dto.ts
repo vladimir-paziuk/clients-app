@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsString, MaxLength, MinLength } from 'class-validator';
+import { IsString, IsUUID, MaxLength, MinLength } from 'class-validator';
 
 export class DoctorDto {
   @ApiProperty()
@@ -7,4 +7,7 @@ export class DoctorDto {
   @MinLength(4)
   @MaxLength(32)
   specialization: string;
+  @ApiProperty()
+  @IsUUID()
+  userId: string;
 }
