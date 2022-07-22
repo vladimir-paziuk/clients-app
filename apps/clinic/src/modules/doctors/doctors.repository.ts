@@ -15,13 +15,21 @@ export class DoctorsRepository extends Repository<DoctorEntity> {
 
   async getDoctors(params: DoctorQueryDto): Promise<DoctorEntity[]> {
     const query = this.createQueryBuilder('doctor');
-    const { search } = params;
+    const { search, offset, limit, sortBy, sortDirection = 'ASC' } = params;
 
     if (search) {
-      query.andWhere(
-        '(LOWER(doctor.name) LIKE LOWER(:search) OR LOWER(doctor.desc) LIKE LOWER(:search))',
-        { search: `%${search}%` },
-      );
+      query.andWhere('(LOWER(doctor.specialization) LIKE LOWER(:search))', {
+        search: `%${search}%`,
+      });
+    }
+    if (sortBy) {
+      query.orderBy(`doctor.${sortBy}`, sortDirection);
+    }
+    if (offset) {
+      query.offset(offset);
+    }
+    if (limit) {
+      query.limit(limit);
     }
     return await query.getMany();
   }
