@@ -27,16 +27,16 @@ import { ProfilesClientService } from 'src/httpClient/profiles.client.service';
   imports: [
     ClientsModule.registerAsync([
       {
-        name: 'AUTH_SERVICE',
+        name: 'AUTH_KAFKA_CLIENT',
         useFactory: (config: ConfigService) => ({
           transport: Transport.KAFKA,
           options: {
             client: {
-              clientId: 'AUTH_SERVICE_CLIENT_ID',
+              clientId: 'AUTH_KAFKA_CLIENT_ID',
               brokers: [config.get('KAFKA_BROKER')],
             },
             consumer: {
-              groupId: 'CLIENTS_APP_CONSUMER',
+              groupId: 'AUTH_APP_CONSUMER',
             },
           },
         }),

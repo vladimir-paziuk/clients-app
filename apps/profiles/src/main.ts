@@ -21,7 +21,7 @@ async function bootstrap() {
         brokers: [kafkaBroker],
       },
       consumer: {
-        groupId: 'CLIENTS_APP_CONSUMER-1',
+        groupId: 'AUTH_APP_CONSUMER-1',
       },
     },
   });
