@@ -1,14 +1,20 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { ClientKafka } from '@nestjs/microservices';
 
-import { JwtPayload } from '@vp-clients-app/common-pkg';
+import {
+  EventsEnum,
+  JwtPayload,
+  NotificationsEnum,
+} from '@vp-clients-app/common-pkg';
 
 import { ResolutionEntity } from 'src/modules/resolutions/resolution.entity';
 import { ResolutionDto } from 'src/modules/resolutions/dtos/resolution.dto';
 import { ResolutionsRepository } from 'src/modules/resolutions/resolutions.repository';
 
-import { DoctorsService } from 'src/modules/doctors/doctors.service';
 import { AppointmentsService } from 'src/modules/appointments/appointments.service';
+import { DoctorsService } from 'src/modules/doctors/doctors.service';
+import { PatientsService } from 'src/modules/patients/patients.service';
 
 @Injectable()
 export class ResolutionsService {
@@ -16,7 +22,9 @@ export class ResolutionsService {
     @InjectRepository(ResolutionsRepository)
     private resolutionsRepository: ResolutionsRepository,
     private doctorsService: DoctorsService,
+    private patientsService: PatientsService,
     private appointmentsService: AppointmentsService,
+    @Inject('CLINIC_KAFKA_CLIENT') private readonly client: ClientKafka,
   ) {}
 
   async createResolution(
@@ -27,11 +35,20 @@ export class ResolutionsService {
     const appointment = await this.appointmentsService.getAppointmentById(
       dto.appointmentId,
     );
-
-    return this.resolutionsRepository.createResolution(
+    const payload = await this.resolutionsRepository.createResolution(
       dto,
       doctor.id,
       appointment.patientId,
     );
+    const patient = await this.patientsService.getPatientById(
+      payload.patientId,
+    );
+    this.client.emit(EventsEnum.notificationCreated, {
+      type: NotificationsEnum.resolution,
+      userId: patient.userId,
+      payload,
+    });
+
+    return payload;
   }
 }
