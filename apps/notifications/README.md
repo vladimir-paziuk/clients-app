@@ -1,3 +1,10 @@
+## TODO:
+* Resolve Doctor record creation with User record relation issue
+* Web sockets for notifications
+* Read [] notifications endpoint (toggle isRead field)
+* Get my notifications endpoint (based on role)
+* Get only resolution or appointments notifications endpoint
+
 ## Installation
 
 ```bash

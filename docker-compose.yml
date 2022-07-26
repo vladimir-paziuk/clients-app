@@ -44,6 +44,19 @@ services:
     depends_on:
       - database
 
+  notifications:
+    container_name: notifications
+    build: ./apps/notifications
+    command: npm start
+    environment:
+      PORT: ${NOTIFICATIONS_SERVICE_PORT}
+      DB_HOST: database
+      KAFKA_BROKER: ${KAFKA_BROKER}
+    ports:
+      - ${NOTIFICATIONS_SERVICE_PORT}:${NOTIFICATIONS_SERVICE_PORT}
+    depends_on:
+      - database
+
   database:
     container_name: database
     image: postgres:14-alpine

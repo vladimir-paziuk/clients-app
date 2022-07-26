@@ -9,7 +9,7 @@ export class CreateNotificationsTable1658763104951
       CREATE TABLE notifications.notifications (
         id uuid DEFAULT uuid_generate_v4(), 
         user_id uuid NOT NULL, 
-        type notifications_type,
+        type character varying NOT NULL,
         is_read BOOLEAN DEFAULT FALSE,
         payload JSONB,
         created_at timestamp DEFAULT current_timestamp, 
