@@ -36,7 +36,7 @@ export class AppointmentsService {
     );
     const doctor = await this.doctorsService.getDoctorById(payload.doctorId);
 
-    this.client.emit(EventsEnum.notificationCreated, {
+    this.client.emit(EventsEnum.clinicAppointmentCreated, {
       type: NotificationsEnum.appointment,
       userId: doctor.userId,
       payload,

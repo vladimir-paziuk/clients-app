@@ -16,7 +16,8 @@ import { NotificationEntity } from 'src/notifications/notification.entity';
 export class NotificationsConsumer {
   constructor(private notificationsService: NotificationsService) {}
 
-  @MessagePattern(EventsEnum.notificationCreated)
+  @MessagePattern(EventsEnum.clinicAppointmentCreated)
+  @MessagePattern(EventsEnum.clinicNotificationCreated)
   async createNotification(
     @Payload() payload: IKafkaMessage<NotificationDto>,
     @Ctx() context: KafkaContext,

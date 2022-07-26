@@ -43,7 +43,7 @@ export class ResolutionsService {
     const patient = await this.patientsService.getPatientById(
       payload.patientId,
     );
-    this.client.emit(EventsEnum.notificationCreated, {
+    this.client.emit(EventsEnum.clinicNotificationCreated, {
       type: NotificationsEnum.resolution,
       userId: patient.userId,
       payload,
