@@ -18,4 +18,4 @@ import { JwtStrategy } from '@vp-clients-app/common-pkg';
   providers: [JwtStrategy],
   exports: [JwtStrategy, PassportModule],
 })
-export class ProfilesSharedModule {}
+export class NotificationsSharedModule {}

@@ -12,8 +12,4 @@ export class ProfilesRepository extends Repository<ProfileEntity> {
     const entity = this.create(profile);
     return this.save(entity);
   }
-
-  // async getProfileByUser(user: UserEntity): Promise<ProfileEntity> {
-  //   return this.createQueryBuilder('profile').where({ user }).getOne();
-  // }
 }

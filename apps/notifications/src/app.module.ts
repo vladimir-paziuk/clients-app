@@ -5,9 +5,11 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { getValidationSchema } from './env.validation.schema';
 
 import { NotificationsModule } from './notifications/notifications.module';
+import { NotificationEntity } from './notifications/notification.entity';
 
 @Module({
   imports: [
+    NotificationsModule,
     ConfigModule.forRoot({
       isGlobal: true,
       validationSchema: getValidationSchema(),
@@ -21,7 +23,7 @@ import { NotificationsModule } from './notifications/notifications.module';
         password: config.get('DATABASE_PASSWORD'),
         database: config.get('DATABASE_NAME'),
         autoLoadEntities: true,
-        entities: [],
+        entities: [NotificationEntity],
         synchronize: false,
         migrationsRun: true,
         logging: true,
@@ -33,7 +35,6 @@ import { NotificationsModule } from './notifications/notifications.module';
       }),
       inject: [ConfigService],
     }),
-    NotificationsModule,
   ],
   controllers: [],
   providers: [],
