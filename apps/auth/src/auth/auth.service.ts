@@ -30,7 +30,7 @@ export class AuthService {
     private cryptService: CryptService,
     private clinicService: ClinicClientService,
     private profilesService: ProfilesClientService,
-    @Inject('AUTH_SERVICE') private readonly client: ClientKafka,
+    @Inject('AUTH_KAFKA_CLIENT') private readonly client: ClientKafka,
   ) {}
 
   async getAccess(user: UserEntity): Promise<JwtToken> {

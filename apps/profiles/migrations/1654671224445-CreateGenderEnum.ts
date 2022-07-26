@@ -7,6 +7,6 @@ export class CreateGenderEnum1654671224445 implements MigrationInterface {
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.query(`    DROP TYPE gender;    `);
+    await queryRunner.query(`DROP TYPE gender;`);
   }
 }

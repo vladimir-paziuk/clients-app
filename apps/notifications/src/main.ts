@@ -11,7 +11,7 @@ import { TransformInterceptor } from '@vp-clients-app/common-pkg';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   const config = app.get(ConfigService);
-  const appPort = config.get('CLINIC_SERVICE_PORT');
+  const appPort = config.get('NOTIFICATIONS_SERVICE_PORT');
   const kafkaBroker = config.get('KAFKA_BROKER');
 
   app.connectMicroservice({
@@ -21,7 +21,7 @@ async function bootstrap() {
         brokers: [kafkaBroker],
       },
       consumer: {
-        groupId: 'AUTH_APP_CONSUMER',
+        groupId: 'CLINIC_APP_CONSUMER',
       },
     },
   });

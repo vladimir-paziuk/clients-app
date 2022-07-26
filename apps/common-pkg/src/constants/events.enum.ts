@@ -3,4 +3,6 @@
 
 export enum EventsEnum {
   authUserCreated = 'auth.user.created',
+  clinicAppointmentCreated = 'clinic.appointment.created',
+  clinicNotificationCreated = 'clinic.notification.created',
 }
