@@ -9,6 +9,7 @@ import { AppointmentsRepository } from 'src/modules/appointments/appointments.re
 
 import { AppointmentsController } from 'src/modules/appointments/appointments.controller';
 import { AppointmentsService } from 'src/modules/appointments/appointments.service';
+import { AppointmentsPublisher } from 'src/modules/appointments/appointments.publisher';
 
 import { DoctorsService } from 'src/modules/doctors/doctors.service';
 import { DoctorsRepository } from 'src/modules/doctors/doctors.repository';
@@ -25,7 +26,7 @@ import { PatientsRepository } from 'src/modules/patients/patients.repository';
   imports: [
     ClientsModule.registerAsync([
       {
-        name: 'CLINIC_KAFKA_CLIENT',
+        name: 'APPOINTMENTS_CLIENT_KAFKA',
         useFactory: (config: ConfigService) => ({
           transport: Transport.KAFKA,
           options: {
@@ -49,6 +50,11 @@ import { PatientsRepository } from 'src/modules/patients/patients.repository';
     ]),
   ],
   controllers: [AppointmentsController],
-  providers: [AppointmentsService, DoctorsService, PatientsService],
+  providers: [
+    AppointmentsService,
+    DoctorsService,
+    PatientsService,
+    AppointmentsPublisher,
+  ],
 })
 export class AppointmentsModule {}

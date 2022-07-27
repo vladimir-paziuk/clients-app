@@ -1,12 +1,7 @@
-import { Inject, Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { ClientKafka } from '@nestjs/microservices';
 
-import {
-  EventsEnum,
-  JwtPayload,
-  NotificationsEnum,
-} from '@vp-clients-app/common-pkg';
+import { JwtPayload } from '@vp-clients-app/common-pkg';
 
 import { AppointmentEntity } from 'src/modules/appointments/appointment.entity';
 import { AppointmentDto } from 'src/modules/appointments/dtos/appointment.dto';
@@ -14,6 +9,7 @@ import { AppointmentsRepository } from 'src/modules/appointments/appointments.re
 
 import { DoctorsService } from 'src/modules/doctors/doctors.service';
 import { PatientsService } from 'src/modules/patients/patients.service';
+import { AppointmentsPublisher } from 'src/modules/appointments/appointments.publisher';
 
 @Injectable()
 export class AppointmentsService {
@@ -22,7 +18,7 @@ export class AppointmentsService {
     private appointmentsRepository: AppointmentsRepository,
     private doctorsService: DoctorsService,
     private patientsService: PatientsService,
-    @Inject('CLINIC_KAFKA_CLIENT') private readonly client: ClientKafka,
+    private appointmentsPublisher: AppointmentsPublisher,
   ) {}
 
   async createAppointment(
@@ -35,12 +31,7 @@ export class AppointmentsService {
       patient.id,
     );
     const doctor = await this.doctorsService.getDoctorById(payload.doctorId);
-
-    this.client.emit(EventsEnum.clinicAppointmentCreated, {
-      type: NotificationsEnum.appointment,
-      userId: doctor.userId,
-      payload,
-    });
+    this.appointmentsPublisher.create(doctor.userId, payload);
     return payload;
   }
 

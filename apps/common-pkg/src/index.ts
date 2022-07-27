@@ -26,6 +26,3 @@ export * from './types/IKafkaMessage';
 
 // Events
 export * from './constants/events.enum';
-
-// Notifications
-export * from './constants/notifications.enum';

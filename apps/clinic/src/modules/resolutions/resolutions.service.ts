@@ -1,12 +1,7 @@
-import { Inject, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { ClientKafka } from '@nestjs/microservices';
 
-import {
-  EventsEnum,
-  JwtPayload,
-  NotificationsEnum,
-} from '@vp-clients-app/common-pkg';
+import { JwtPayload } from '@vp-clients-app/common-pkg';
 
 import { ResolutionEntity } from 'src/modules/resolutions/resolution.entity';
 import { ResolutionDto } from 'src/modules/resolutions/dtos/resolution.dto';
@@ -15,6 +10,7 @@ import { ResolutionsRepository } from 'src/modules/resolutions/resolutions.repos
 import { AppointmentsService } from 'src/modules/appointments/appointments.service';
 import { DoctorsService } from 'src/modules/doctors/doctors.service';
 import { PatientsService } from 'src/modules/patients/patients.service';
+import { ResolutionsPublisher } from 'src/modules/resolutions/resolutions.publisher';
 
 @Injectable()
 export class ResolutionsService {
@@ -24,7 +20,7 @@ export class ResolutionsService {
     private doctorsService: DoctorsService,
     private patientsService: PatientsService,
     private appointmentsService: AppointmentsService,
-    @Inject('CLINIC_KAFKA_CLIENT') private readonly client: ClientKafka,
+    private resolutionsPublisher: ResolutionsPublisher,
   ) {}
 
   async createResolution(
@@ -43,12 +39,7 @@ export class ResolutionsService {
     const patient = await this.patientsService.getPatientById(
       payload.patientId,
     );
-    this.client.emit(EventsEnum.clinicNotificationCreated, {
-      type: NotificationsEnum.resolution,
-      userId: patient.userId,
-      payload,
-    });
-
+    this.resolutionsPublisher.create(patient.userId, payload);
     return payload;
   }
 }

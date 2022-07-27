@@ -1,6 +1,6 @@
 {
   "name": "@vp-clients-app/common-pkg",
-  "version": "1.0.40",
+  "version": "1.0.41",
   "description": "Common repository published to npm and use as package. vp-clients-app-common",
   "main": "dist/index.js",
   "scripts": {

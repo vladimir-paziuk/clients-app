@@ -13,6 +13,7 @@ import {
 
 import { AuthController } from 'src/auth/auth.controller';
 import { AuthService } from 'src/auth/auth.service';
+import { AuthPublisher } from 'src/auth/auth.publisher';
 
 import { UsersService } from 'src/users/users.service';
 import { UsersRepository } from 'src/users/users.repository';
@@ -23,11 +24,16 @@ import { RolesRepository } from 'src/roles/roles.repository';
 import { ClinicClientService } from 'src/httpClient/clinic.client.service';
 import { ProfilesClientService } from 'src/httpClient/profiles.client.service';
 
+// TypeOrmExModule.forCustomRepository uses instead TypeOrmExModule.forFeature for
+// resolve @EntityRepository deprecated issue, instead use @CustomRepository
+// Implement solution from https://gist.github.com/anchan828/9e569f076e7bc18daf21c652f7c3d012
+// Also install @nestjs/typeorm@next
+
 @Module({
   imports: [
     ClientsModule.registerAsync([
       {
-        name: 'AUTH_KAFKA_CLIENT',
+        name: 'AUTH_CLIENT_KAFKA',
         useFactory: (config: ConfigService) => ({
           transport: Transport.KAFKA,
           options: {
@@ -65,6 +71,7 @@ import { ProfilesClientService } from 'src/httpClient/profiles.client.service';
     ClinicClientService,
     ProfilesClientService,
     CryptService,
+    AuthPublisher,
   ],
   exports: [JwtStrategy, PassportModule],
 })

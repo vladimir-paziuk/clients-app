@@ -8,6 +8,7 @@ import { ClinicSharedModule } from 'src/shared/clinic.shared.module';
 import { ResolutionsService } from 'src/modules/resolutions/resolutions.service';
 import { ResolutionsRepository } from 'src/modules/resolutions/resolutions.repository';
 import { ResolutionsController } from 'src/modules/resolutions/resolutions.controller';
+import { ResolutionsPublisher } from 'src/modules/resolutions/resolutions.publisher';
 
 import { AppointmentsService } from 'src/modules/appointments/appointments.service';
 import { AppointmentsRepository } from 'src/modules/appointments/appointments.repository';
@@ -18,12 +19,13 @@ import { PatientsRepository } from 'src/modules/patients/patients.repository';
 import { DoctorsService } from 'src/modules/doctors/doctors.service';
 import { DoctorsRepository } from 'src/modules/doctors/doctors.repository';
 import { ClientsModule, Transport } from '@nestjs/microservices';
+import { AppointmentsPublisher } from 'src/modules/appointments/appointments.publisher';
 
 @Module({
   imports: [
     ClientsModule.registerAsync([
       {
-        name: 'CLINIC_KAFKA_CLIENT',
+        name: 'RESOLUTIONS_CLIENT_KAFKA',
         useFactory: (config: ConfigService) => ({
           transport: Transport.KAFKA,
           options: {
@@ -50,7 +52,9 @@ import { ClientsModule, Transport } from '@nestjs/microservices';
   controllers: [ResolutionsController],
   providers: [
     ResolutionsService,
+    ResolutionsPublisher,
     AppointmentsService,
+    AppointmentsPublisher,
     DoctorsService,
     PatientsService,
   ],
