@@ -40,3 +40,12 @@ $ sudo chmod +x /usr/local/bin/docker-compose
 $ sudo usermod -a -G docker ec2-user
 $ id ec2-user
 ```
+
+### TODO:
+* Resolve Doctor record creation with User record relation issue
+* Web sockets for notifications
+* Read [] notifications endpoint (toggle isRead field)
+* Get my notifications endpoint (based on role)
+* Get only resolution or appointments notifications endpoint
+* Move to .env all kafka client-ids and consumer-ids
+* Move to set_timestamp migration to public schema for reusing
