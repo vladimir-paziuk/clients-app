@@ -6,12 +6,12 @@ import { Method } from 'axios';
 import { JwtToken } from '@vp-clients-app/common-pkg';
 
 import {
-  clinicClientAPI,
   getPrefixedToken,
-} from 'src/httpClient/api.client.enum';
+  profilesClientAPI,
+} from 'src/http-client/api.client.enum';
 
 @Injectable()
-export class ClinicClientService {
+export class ProfilesClientService {
   constructor(
     private readonly httpService: HttpService,
     private readonly configService: ConfigService,
@@ -23,8 +23,8 @@ export class ClinicClientService {
     data: any,
     token: JwtToken,
   ): any {
-    const host = this.configService.get('CLINIC_SERVICE_HOST');
-    const port = this.configService.get('CLINIC_SERVICE_PORT');
+    const host = this.configService.get('PROFILES_SERVICE_HOST');
+    const port = this.configService.get('PROFILES_SERVICE_PORT');
     const url = `${host}:${port}/${path}`;
     return this.httpService.request({
       method,
@@ -36,10 +36,10 @@ export class ClinicClientService {
     });
   }
 
-  createPatient(data: { userId: string }, token: JwtToken): any {
+  createProfile(data: { userId: string }, token: JwtToken): any {
     return this.createRequest(
       'POST',
-      clinicClientAPI.createPatient,
+      profilesClientAPI.createProfile,
       data,
       token,
     ).subscribe();

@@ -8,8 +8,8 @@ import { UserEntity } from 'src/users/user.entity';
 import { AuthCredentialsDto } from 'src/auth/dtos/auth-credentials.dto';
 import { AuthPublisher } from 'src/auth/auth.publisher';
 
-import { ClinicClientService } from 'src/httpClient/clinic.client.service';
-import { ProfilesClientService } from 'src/httpClient/profiles.client.service';
+import { ClinicClientService } from 'src/http-client/clinic.client.service';
+import { ProfilesClientService } from 'src/http-client/profiles.client.service';
 import { UsersService } from 'src/users/users.service';
 
 import { RolesService } from 'src/roles/roles.service';

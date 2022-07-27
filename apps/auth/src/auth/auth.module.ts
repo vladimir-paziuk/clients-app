@@ -21,8 +21,8 @@ import { UsersRepository } from 'src/users/users.repository';
 import { RolesService } from 'src/roles/roles.service';
 import { RolesRepository } from 'src/roles/roles.repository';
 
-import { ClinicClientService } from 'src/httpClient/clinic.client.service';
-import { ProfilesClientService } from 'src/httpClient/profiles.client.service';
+import { ClinicClientService } from 'src/http-client/clinic.client.service';
+import { ProfilesClientService } from 'src/http-client/profiles.client.service';
 
 // TypeOrmExModule.forCustomRepository uses instead TypeOrmExModule.forFeature for
 // resolve @EntityRepository deprecated issue, instead use @CustomRepository
