@@ -2,8 +2,8 @@ import { Module } from '@nestjs/common';
 import { ClientsModule, Transport } from '@nestjs/microservices';
 import { ConfigService } from '@nestjs/config';
 
-import { KAFKA_CLIENT } from 'src/modules/kafka-client/kafka-client.constants';
-import { KafkaClientService } from 'src/modules/kafka-client/kafka-client.service';
+import { KAFKA_CLIENT } from './kafka-client.constants';
+import { KafkaClientService } from './kafka-client.service';
 
 @Module({
   imports: [

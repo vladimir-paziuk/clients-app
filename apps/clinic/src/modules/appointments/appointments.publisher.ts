@@ -1,7 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { EventsEnum } from '@vp-clients-app/common-pkg';
-
-import { KafkaClientService } from 'src/modules/kafka-client/kafka-client.service';
+import { EventsEnum, KafkaClientService } from '@vp-clients-app/common-pkg';
 
 @Injectable()
 export class AppointmentsPublisher {

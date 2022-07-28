@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common';
 
 import { ClinicSharedModule } from 'src/shared/clinic.shared.module';
 
-import { TypeOrmExModule } from '@vp-clients-app/common-pkg';
+import { KafkaClientModule, TypeOrmExModule } from '@vp-clients-app/common-pkg';
 import { AppointmentsRepository } from 'src/modules/appointments/appointments.repository';
 
 import { AppointmentsController } from 'src/modules/appointments/appointments.controller';
@@ -14,8 +14,6 @@ import { DoctorsRepository } from 'src/modules/doctors/doctors.repository';
 
 import { PatientsService } from 'src/modules/patients/patients.service';
 import { PatientsRepository } from 'src/modules/patients/patients.repository';
-
-import { KafkaClientModule } from 'src/modules/kafka-client/kafka-client.module';
 
 // TypeOrmExModule.forCustomRepository uses instead TypeOrmExModule.forFeature for
 // resolve @EntityRepository deprecated issue, instead use @CustomRepository
