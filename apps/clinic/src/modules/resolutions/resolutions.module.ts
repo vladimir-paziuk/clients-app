@@ -1,5 +1,4 @@
 import { Module } from '@nestjs/common';
-import { ConfigService } from '@nestjs/config';
 
 import { TypeOrmExModule } from '@vp-clients-app/common-pkg';
 
@@ -12,35 +11,24 @@ import { ResolutionsPublisher } from 'src/modules/resolutions/resolutions.publis
 
 import { AppointmentsService } from 'src/modules/appointments/appointments.service';
 import { AppointmentsRepository } from 'src/modules/appointments/appointments.repository';
+import { AppointmentsPublisher } from 'src/modules/appointments/appointments.publisher';
 
 import { PatientsService } from 'src/modules/patients/patients.service';
 import { PatientsRepository } from 'src/modules/patients/patients.repository';
 
 import { DoctorsService } from 'src/modules/doctors/doctors.service';
 import { DoctorsRepository } from 'src/modules/doctors/doctors.repository';
-import { ClientsModule, Transport } from '@nestjs/microservices';
-import { AppointmentsPublisher } from 'src/modules/appointments/appointments.publisher';
+
+import { KafkaClientModule } from 'src/modules/kafka-client/kafka-client.module';
+
+// TypeOrmExModule.forCustomRepository uses instead TypeOrmExModule.forFeature for
+// resolve @EntityRepository deprecated issue, instead use @CustomRepository
+// Implement solution from https://gist.github.com/anchan828/9e569f076e7bc18daf21c652f7c3d012
+// Also install @nestjs/typeorm@next
 
 @Module({
   imports: [
-    ClientsModule.registerAsync([
-      {
-        name: 'RESOLUTIONS_CLIENT_KAFKA',
-        useFactory: (config: ConfigService) => ({
-          transport: Transport.KAFKA,
-          options: {
-            client: {
-              clientId: 'CLINIC_RESOLUTIONS_KAFKA_CLIENT_ID',
-              brokers: [config.get('KAFKA_BROKER')],
-            },
-            consumer: {
-              groupId: 'CLINIC_APP_CONSUMER',
-            },
-          },
-        }),
-        inject: [ConfigService],
-      },
-    ]),
+    KafkaClientModule,
     ClinicSharedModule,
     TypeOrmExModule.forCustomRepository([
       ResolutionsRepository,

@@ -11,17 +11,19 @@ import { TransformInterceptor } from '@vp-clients-app/common-pkg';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   const config = app.get(ConfigService);
+
   const appPort = config.get('CLINIC_SERVICE_PORT');
-  const kafkaBroker = config.get('KAFKA_BROKER');
+  const kafkaBrokers = config.get('KAFKA_BROKERS').split(' ');
+  const kafkaGroupId = config.get('KAFKA_GROUP_CONSUMER');
 
   app.connectMicroservice({
     transport: Transport.KAFKA,
     options: {
       client: {
-        brokers: [kafkaBroker],
+        brokers: kafkaBrokers,
       },
       consumer: {
-        groupId: 'AUTH_APP_CONSUMER',
+        groupId: kafkaGroupId,
       },
     },
   });

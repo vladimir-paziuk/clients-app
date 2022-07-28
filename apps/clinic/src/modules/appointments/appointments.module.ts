@@ -1,6 +1,4 @@
 import { Module } from '@nestjs/common';
-import { ConfigService } from '@nestjs/config';
-import { ClientsModule, Transport } from '@nestjs/microservices';
 
 import { ClinicSharedModule } from 'src/shared/clinic.shared.module';
 
@@ -17,6 +15,8 @@ import { DoctorsRepository } from 'src/modules/doctors/doctors.repository';
 import { PatientsService } from 'src/modules/patients/patients.service';
 import { PatientsRepository } from 'src/modules/patients/patients.repository';
 
+import { KafkaClientModule } from 'src/modules/kafka-client/kafka-client.module';
+
 // TypeOrmExModule.forCustomRepository uses instead TypeOrmExModule.forFeature for
 // resolve @EntityRepository deprecated issue, instead use @CustomRepository
 // Implement solution from https://gist.github.com/anchan828/9e569f076e7bc18daf21c652f7c3d012
@@ -24,24 +24,7 @@ import { PatientsRepository } from 'src/modules/patients/patients.repository';
 
 @Module({
   imports: [
-    ClientsModule.registerAsync([
-      {
-        name: 'APPOINTMENTS_CLIENT_KAFKA',
-        useFactory: (config: ConfigService) => ({
-          transport: Transport.KAFKA,
-          options: {
-            client: {
-              clientId: 'CLINIC_APPOINTMENTS_KAFKA_CLIENT_ID',
-              brokers: [config.get('KAFKA_BROKER')],
-            },
-            consumer: {
-              groupId: 'CLINIC_APP_CONSUMER',
-            },
-          },
-        }),
-        inject: [ConfigService],
-      },
-    ]),
+    KafkaClientModule,
     ClinicSharedModule,
     TypeOrmExModule.forCustomRepository([
       AppointmentsRepository,

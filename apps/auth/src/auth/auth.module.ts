@@ -38,11 +38,11 @@ import { ProfilesClientService } from 'src/http-client/profiles.client.service';
           transport: Transport.KAFKA,
           options: {
             client: {
-              clientId: 'AUTH_KAFKA_CLIENT_ID',
-              brokers: [config.get('KAFKA_BROKER')],
+              clientId: config.get('KAFKA_CLIENT'),
+              brokers: config.get('KAFKA_BROKERS').split(' '),
             },
             consumer: {
-              groupId: 'AUTH_APP_CONSUMER',
+              groupId: config.get('KAFKA_GROUP'),
             },
           },
         }),
