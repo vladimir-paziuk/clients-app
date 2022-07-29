@@ -2,7 +2,7 @@ import { IsBoolean, IsEnum, IsJSON, IsUUID } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 import { NotificationsEnum } from 'src/constants/notifications.enum';
 
-export class NotificationDto {
+export class NotificationDto<T = Record<string, any>> {
   @ApiProperty()
   @IsUUID()
   id: string;
@@ -21,5 +21,5 @@ export class NotificationDto {
 
   @ApiProperty()
   @IsJSON()
-  payload: Record<string, any>;
+  payload: T;
 }

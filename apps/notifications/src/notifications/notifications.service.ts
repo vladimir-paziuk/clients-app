@@ -2,6 +2,11 @@ import { Injectable } from '@nestjs/common';
 
 import { InjectRepository } from '@nestjs/typeorm';
 
+import {
+  AppointmentAbstract,
+  ResolutionAbstract,
+} from '@vp-clients-app/common-pkg';
+
 import { NotificationEntity } from 'src/notifications/notification.entity';
 import { NotificationDto } from 'src/notifications/dtos/notification.dto';
 import { NotificationsRepository } from 'src/notifications/notifications.repository';
@@ -15,7 +20,7 @@ export class NotificationsService {
   ) {}
 
   async createAppointmentNotification(
-    dto: NotificationDto,
+    dto: NotificationDto<AppointmentAbstract>,
   ): Promise<NotificationEntity> {
     return await this.notificationsRepository.createNotification({
       ...dto,
@@ -24,7 +29,7 @@ export class NotificationsService {
   }
 
   async createResolutionNotification(
-    dto: NotificationDto,
+    dto: NotificationDto<ResolutionAbstract>,
   ): Promise<NotificationEntity> {
     return await this.notificationsRepository.createNotification({
       ...dto,

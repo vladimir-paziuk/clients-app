@@ -21,6 +21,10 @@ export * from './swagger/swagger-api-error-response';
 export * from './transform.interceptor';
 export * from './roles.guard';
 
+// Interfaces
+export * from './interfaces/appointment.abstract';
+export * from './interfaces/resolution.abstract';
+
 // Types
 export * from './types/IKafkaMessage';
 

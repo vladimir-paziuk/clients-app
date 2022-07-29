@@ -7,13 +7,14 @@ import {
 } from 'typeorm';
 import { Exclude } from 'class-transformer';
 
+import { BaseEntity, ResolutionAbstract } from '@vp-clients-app/common-pkg';
+
 import { PatientEntity } from 'src/modules/patients/patient.entity';
 import { DoctorEntity } from 'src/modules/doctors/doctor.entity';
 import { AppointmentEntity } from 'src/modules/appointments/appointment.entity';
-import { BaseEntity } from '@vp-clients-app/common-pkg';
 
 @Entity('resolutions', { schema: 'clinic' })
-export class ResolutionEntity extends BaseEntity {
+export class ResolutionEntity extends BaseEntity implements ResolutionAbstract {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 

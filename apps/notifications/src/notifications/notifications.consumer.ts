@@ -1,7 +1,12 @@
 import { Controller } from '@nestjs/common';
-
-import { EventsEnum, IKafkaMessage } from '@vp-clients-app/common-pkg';
 import { MessagePattern, Payload } from '@nestjs/microservices';
+
+import {
+  AppointmentAbstract,
+  EventsEnum,
+  IKafkaMessage,
+  ResolutionAbstract,
+} from '@vp-clients-app/common-pkg';
 
 import { NotificationsService } from 'src/notifications/notifications.service';
 import { NotificationDto } from 'src/notifications/dtos/notification.dto';
@@ -13,7 +18,7 @@ export class NotificationsConsumer {
 
   @MessagePattern(EventsEnum.clinicAppointmentCreated)
   async createAppointmentNotification(
-    @Payload() payload: IKafkaMessage<NotificationDto>,
+    @Payload() payload: IKafkaMessage<NotificationDto<AppointmentAbstract>>,
   ): Promise<NotificationEntity> {
     return await this.notificationsService.createAppointmentNotification(
       payload.value,
@@ -22,7 +27,7 @@ export class NotificationsConsumer {
 
   @MessagePattern(EventsEnum.clinicResolutionCreated)
   async createResolutionNotification(
-    @Payload() payload: IKafkaMessage<NotificationDto>,
+    @Payload() payload: IKafkaMessage<NotificationDto<ResolutionAbstract>>,
   ): Promise<NotificationEntity> {
     return await this.notificationsService.createResolutionNotification(
       payload.value,
