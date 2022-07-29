@@ -3,13 +3,14 @@ import { InjectRepository } from '@nestjs/typeorm';
 
 import { JwtPayload } from '@vp-clients-app/common-pkg';
 
+import { ClinicPublisher } from 'src/shared/clinic.publisher';
+
 import { AppointmentEntity } from 'src/modules/appointments/appointment.entity';
 import { AppointmentDto } from 'src/modules/appointments/dtos/appointment.dto';
 import { AppointmentsRepository } from 'src/modules/appointments/appointments.repository';
 
 import { DoctorsService } from 'src/modules/doctors/doctors.service';
 import { PatientsService } from 'src/modules/patients/patients.service';
-import { AppointmentsPublisher } from 'src/modules/appointments/appointments.publisher';
 
 @Injectable()
 export class AppointmentsService {
@@ -18,7 +19,7 @@ export class AppointmentsService {
     private appointmentsRepository: AppointmentsRepository,
     private doctorsService: DoctorsService,
     private patientsService: PatientsService,
-    private appointmentsPublisher: AppointmentsPublisher,
+    private clinicPublisher: ClinicPublisher,
   ) {}
 
   async createAppointment(
@@ -31,7 +32,7 @@ export class AppointmentsService {
       patient.id,
     );
     const doctor = await this.doctorsService.getDoctorById(payload.doctorId);
-    this.appointmentsPublisher.create(doctor.userId, payload);
+    this.clinicPublisher.createAppointment(doctor.userId, payload);
     return payload;
   }
 

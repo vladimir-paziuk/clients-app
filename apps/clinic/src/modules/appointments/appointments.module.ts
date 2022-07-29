@@ -1,13 +1,13 @@
 import { Module } from '@nestjs/common';
 
-import { ClinicSharedModule } from 'src/shared/clinic.shared.module';
-
 import { KafkaClientModule, TypeOrmExModule } from '@vp-clients-app/common-pkg';
-import { AppointmentsRepository } from 'src/modules/appointments/appointments.repository';
 
+import { ClinicSharedModule } from 'src/shared/clinic.shared.module';
+import { ClinicPublisher } from 'src/shared/clinic.publisher';
+
+import { AppointmentsRepository } from 'src/modules/appointments/appointments.repository';
 import { AppointmentsController } from 'src/modules/appointments/appointments.controller';
 import { AppointmentsService } from 'src/modules/appointments/appointments.service';
-import { AppointmentsPublisher } from 'src/modules/appointments/appointments.publisher';
 
 import { DoctorsService } from 'src/modules/doctors/doctors.service';
 import { DoctorsRepository } from 'src/modules/doctors/doctors.repository';
@@ -35,7 +35,7 @@ import { PatientsRepository } from 'src/modules/patients/patients.repository';
     AppointmentsService,
     DoctorsService,
     PatientsService,
-    AppointmentsPublisher,
+    ClinicPublisher,
   ],
 })
 export class AppointmentsModule {}

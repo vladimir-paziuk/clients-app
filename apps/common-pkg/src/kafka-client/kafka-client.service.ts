@@ -4,6 +4,7 @@ import {
   OnModuleDestroy,
   OnModuleInit,
 } from '@nestjs/common';
+import { Observable } from 'rxjs';
 import { ClientKafka } from '@nestjs/microservices';
 
 import { KAFKA_CLIENT } from './kafka-client.constants';
@@ -24,11 +25,11 @@ export class KafkaClientService implements OnModuleInit, OnModuleDestroy {
     this.client.subscribeToResponseOf(pattern);
   }
 
-  emit(pattern: string, payload: any) {
-    this.client.emit(pattern, payload);
+  emit(pattern: string, payload: any): Observable<any> {
+    return this.client.emit(pattern, payload);
   }
 
-  send(pattern: string, payload: any) {
-    this.client.send(pattern, payload);
+  send(pattern: string, payload: any): Observable<any> {
+    return this.client.send(pattern, payload);
   }
 }

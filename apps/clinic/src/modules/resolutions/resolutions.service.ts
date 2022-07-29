@@ -3,6 +3,8 @@ import { InjectRepository } from '@nestjs/typeorm';
 
 import { JwtPayload } from '@vp-clients-app/common-pkg';
 
+import { ClinicPublisher } from 'src/shared/clinic.publisher';
+
 import { ResolutionEntity } from 'src/modules/resolutions/resolution.entity';
 import { ResolutionDto } from 'src/modules/resolutions/dtos/resolution.dto';
 import { ResolutionsRepository } from 'src/modules/resolutions/resolutions.repository';
@@ -10,7 +12,6 @@ import { ResolutionsRepository } from 'src/modules/resolutions/resolutions.repos
 import { AppointmentsService } from 'src/modules/appointments/appointments.service';
 import { DoctorsService } from 'src/modules/doctors/doctors.service';
 import { PatientsService } from 'src/modules/patients/patients.service';
-import { ResolutionsPublisher } from 'src/modules/resolutions/resolutions.publisher';
 
 @Injectable()
 export class ResolutionsService {
@@ -20,7 +21,7 @@ export class ResolutionsService {
     private doctorsService: DoctorsService,
     private patientsService: PatientsService,
     private appointmentsService: AppointmentsService,
-    private resolutionsPublisher: ResolutionsPublisher,
+    private clinicPublisher: ClinicPublisher,
   ) {}
 
   async createResolution(
@@ -39,7 +40,7 @@ export class ResolutionsService {
     const patient = await this.patientsService.getPatientById(
       payload.patientId,
     );
-    this.resolutionsPublisher.create(patient.userId, payload);
+    this.clinicPublisher.createResolution(patient.userId, payload);
     return payload;
   }
 }

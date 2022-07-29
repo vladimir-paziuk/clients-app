@@ -3,15 +3,14 @@ import { Module } from '@nestjs/common';
 import { KafkaClientModule, TypeOrmExModule } from '@vp-clients-app/common-pkg';
 
 import { ClinicSharedModule } from 'src/shared/clinic.shared.module';
+import { ClinicPublisher } from 'src/shared/clinic.publisher';
 
 import { ResolutionsService } from 'src/modules/resolutions/resolutions.service';
 import { ResolutionsRepository } from 'src/modules/resolutions/resolutions.repository';
 import { ResolutionsController } from 'src/modules/resolutions/resolutions.controller';
-import { ResolutionsPublisher } from 'src/modules/resolutions/resolutions.publisher';
 
 import { AppointmentsService } from 'src/modules/appointments/appointments.service';
 import { AppointmentsRepository } from 'src/modules/appointments/appointments.repository';
-import { AppointmentsPublisher } from 'src/modules/appointments/appointments.publisher';
 
 import { PatientsService } from 'src/modules/patients/patients.service';
 import { PatientsRepository } from 'src/modules/patients/patients.repository';
@@ -38,9 +37,8 @@ import { DoctorsRepository } from 'src/modules/doctors/doctors.repository';
   controllers: [ResolutionsController],
   providers: [
     ResolutionsService,
-    ResolutionsPublisher,
+    ClinicPublisher,
     AppointmentsService,
-    AppointmentsPublisher,
     DoctorsService,
     PatientsService,
   ],
