@@ -7,12 +7,15 @@ import {
 } from 'typeorm';
 import { Exclude } from 'class-transformer';
 
-import { BaseEntity } from '@vp-clients-app/common-pkg';
+import { AppointmentAbstract, BaseEntity } from '@vp-clients-app/common-pkg';
 import { DoctorEntity } from 'src/modules/doctors/doctor.entity';
 import { PatientEntity } from 'src/modules/patients/patient.entity';
 
 @Entity('appointments', { schema: 'clinic' })
-export class AppointmentEntity extends BaseEntity {
+export class AppointmentEntity
+  extends BaseEntity
+  implements AppointmentAbstract
+{
   @PrimaryGeneratedColumn('uuid')
   id: string;
 

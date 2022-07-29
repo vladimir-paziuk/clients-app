@@ -1,0 +1,1 @@
+## Public package published in here: https://www.npmjs.com/package/@vp-clients-app/common-pkg

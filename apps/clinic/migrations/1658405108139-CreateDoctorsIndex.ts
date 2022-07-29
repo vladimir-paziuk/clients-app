@@ -9,6 +9,6 @@ export class CreateDoctorsIndex1658405108139 implements MigrationInterface {
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.query(`DROP INDEX doctors_specialization;`);
+    await queryRunner.query(`DROP INDEX doctors_specialization_idx;`);
   }
 }

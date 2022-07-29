@@ -1,16 +1,15 @@
 import { IsBoolean, IsEnum, IsJSON, IsUUID } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
+import { NotificationsEnum } from 'src/constants/notifications.enum';
 
-import { NotificationsEnum } from '@vp-clients-app/common-pkg';
-
-export class NotificationDto {
+export class NotificationDto<T = Record<string, any>> {
   @ApiProperty()
   @IsUUID()
   id: string;
 
   @ApiProperty()
   @IsEnum(NotificationsEnum)
-  type: string;
+  type: NotificationsEnum;
 
   @ApiProperty()
   @IsUUID()
@@ -18,9 +17,9 @@ export class NotificationDto {
 
   @ApiProperty()
   @IsBoolean()
-  isRead: string;
+  isRead: boolean;
 
   @ApiProperty()
   @IsJSON()
-  payload: string;
+  payload: T;
 }

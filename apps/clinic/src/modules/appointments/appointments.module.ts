@@ -1,12 +1,11 @@
 import { Module } from '@nestjs/common';
-import { ConfigService } from '@nestjs/config';
-import { ClientsModule, Transport } from '@nestjs/microservices';
+
+import { KafkaClientModule, TypeOrmExModule } from '@vp-clients-app/common-pkg';
 
 import { ClinicSharedModule } from 'src/shared/clinic.shared.module';
+import { ClinicPublisher } from 'src/shared/clinic.publisher';
 
-import { TypeOrmExModule } from '@vp-clients-app/common-pkg';
 import { AppointmentsRepository } from 'src/modules/appointments/appointments.repository';
-
 import { AppointmentsController } from 'src/modules/appointments/appointments.controller';
 import { AppointmentsService } from 'src/modules/appointments/appointments.service';
 
@@ -23,24 +22,7 @@ import { PatientsRepository } from 'src/modules/patients/patients.repository';
 
 @Module({
   imports: [
-    ClientsModule.registerAsync([
-      {
-        name: 'CLINIC_KAFKA_CLIENT',
-        useFactory: (config: ConfigService) => ({
-          transport: Transport.KAFKA,
-          options: {
-            client: {
-              clientId: 'CLINIC_APPOINTMENTS_KAFKA_CLIENT_ID',
-              brokers: [config.get('KAFKA_BROKER')],
-            },
-            consumer: {
-              groupId: 'CLINIC_APP_CONSUMER',
-            },
-          },
-        }),
-        inject: [ConfigService],
-      },
-    ]),
+    KafkaClientModule,
     ClinicSharedModule,
     TypeOrmExModule.forCustomRepository([
       AppointmentsRepository,
@@ -49,6 +31,11 @@ import { PatientsRepository } from 'src/modules/patients/patients.repository';
     ]),
   ],
   controllers: [AppointmentsController],
-  providers: [AppointmentsService, DoctorsService, PatientsService],
+  providers: [
+    AppointmentsService,
+    DoctorsService,
+    PatientsService,
+    ClinicPublisher,
+  ],
 })
 export class AppointmentsModule {}

@@ -1,9 +1,9 @@
 import { Module } from '@nestjs/common';
-import { ConfigService } from '@nestjs/config';
 
-import { TypeOrmExModule } from '@vp-clients-app/common-pkg';
+import { KafkaClientModule, TypeOrmExModule } from '@vp-clients-app/common-pkg';
 
 import { ClinicSharedModule } from 'src/shared/clinic.shared.module';
+import { ClinicPublisher } from 'src/shared/clinic.publisher';
 
 import { ResolutionsService } from 'src/modules/resolutions/resolutions.service';
 import { ResolutionsRepository } from 'src/modules/resolutions/resolutions.repository';
@@ -17,28 +17,15 @@ import { PatientsRepository } from 'src/modules/patients/patients.repository';
 
 import { DoctorsService } from 'src/modules/doctors/doctors.service';
 import { DoctorsRepository } from 'src/modules/doctors/doctors.repository';
-import { ClientsModule, Transport } from '@nestjs/microservices';
+
+// TypeOrmExModule.forCustomRepository uses instead TypeOrmExModule.forFeature for
+// resolve @EntityRepository deprecated issue, instead use @CustomRepository
+// Implement solution from https://gist.github.com/anchan828/9e569f076e7bc18daf21c652f7c3d012
+// Also install @nestjs/typeorm@next
 
 @Module({
   imports: [
-    ClientsModule.registerAsync([
-      {
-        name: 'CLINIC_KAFKA_CLIENT',
-        useFactory: (config: ConfigService) => ({
-          transport: Transport.KAFKA,
-          options: {
-            client: {
-              clientId: 'CLINIC_RESOLUTIONS_KAFKA_CLIENT_ID',
-              brokers: [config.get('KAFKA_BROKER')],
-            },
-            consumer: {
-              groupId: 'CLINIC_APP_CONSUMER',
-            },
-          },
-        }),
-        inject: [ConfigService],
-      },
-    ]),
+    KafkaClientModule,
     ClinicSharedModule,
     TypeOrmExModule.forCustomRepository([
       ResolutionsRepository,
@@ -50,6 +37,7 @@ import { ClientsModule, Transport } from '@nestjs/microservices';
   controllers: [ResolutionsController],
   providers: [
     ResolutionsService,
+    ClinicPublisher,
     AppointmentsService,
     DoctorsService,
     PatientsService,

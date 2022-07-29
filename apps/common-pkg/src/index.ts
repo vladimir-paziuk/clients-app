@@ -21,11 +21,16 @@ export * from './swagger/swagger-api-error-response';
 export * from './transform.interceptor';
 export * from './roles.guard';
 
+// Interfaces
+export * from './interfaces/appointment.abstract';
+export * from './interfaces/resolution.abstract';
+
 // Types
 export * from './types/IKafkaMessage';
 
 // Events
 export * from './constants/events.enum';
 
-// Notifications
-export * from './constants/notifications.enum';
+// Kafka client
+export * from './kafka-client/kafka-client.module';
+export * from './kafka-client/kafka-client.service';

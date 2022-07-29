@@ -1,7 +1,6 @@
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
-import { Exclude } from 'class-transformer';
-
-import { BaseEntity, NotificationsEnum } from '@vp-clients-app/common-pkg';
+import { BaseEntity } from '@vp-clients-app/common-pkg';
+import { NotificationsEnum } from 'src/constants/notifications.enum';
 
 @Entity('notifications', { schema: 'notifications' })
 export class NotificationEntity extends BaseEntity {
@@ -15,8 +14,8 @@ export class NotificationEntity extends BaseEntity {
   userId: string;
 
   @Column({ name: 'is_read' })
-  isRead: string;
+  isRead: boolean;
 
-  @Column()
-  payload: string;
+  @Column({ type: 'jsonb' })
+  payload: Record<string, any>;
 }
