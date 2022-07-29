@@ -16,6 +16,6 @@ export class NotificationEntity extends BaseEntity {
   @Column({ name: 'is_read' })
   isRead: boolean;
 
-  @Column()
-  payload: string;
+  @Column({ type: 'jsonb' })
+  payload: Record<string, any>;
 }

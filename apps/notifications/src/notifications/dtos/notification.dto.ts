@@ -21,5 +21,5 @@ export class NotificationDto {
 
   @ApiProperty()
   @IsJSON()
-  payload: string;
+  payload: Record<string, any>;
 }
