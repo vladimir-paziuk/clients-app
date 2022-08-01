@@ -1,61 +1,61 @@
 version: '3.8'
 
 services:
-#  auth:
-#    container_name: auth
-#    build: ./apps/auth
-#    command: npm start
-#    environment:
-#      PORT: ${AUTH_SERVICE_PORT}
-#      DB_HOST: database
-#      KAFKA_BROKER: ${KAFKA_BROKER}
-#      CLINIC_SERVICE_HOST: ${CLINIC_SERVICE_HOST}
-#      CLINIC_SERVICE_PORT: ${CLINIC_SERVICE_PORT}
-#      PROFILES_SERVICE_HOST: ${PROFILES_SERVICE_HOST}
-#      PROFILES_SERVICE_PORT: ${PROFILES_SERVICE_PORT}
-#    ports:
-#      - ${AUTH_SERVICE_PORT}:${AUTH_SERVICE_PORT}
-#    depends_on:
-#      - database
-#
-#  clinic:
-#    container_name: clinic
-#    build: ./apps/clinic
-#    command: npm start
-#    environment:
-#      PORT: ${CLINIC_SERVICE_PORT}
-#      DB_HOST: database
-#      KAFKA_BROKER: ${KAFKA_BROKER}
-#    ports:
-#      - ${CLINIC_SERVICE_PORT}:${CLINIC_SERVICE_PORT}
-#    depends_on:
-#      - database
-#
-#  profiles:
-#    container_name: profiles
-#    build: ./apps/profiles
-#    command: npm start
-#    environment:
-#      PORT: ${PROFILES_SERVICE_PORT}
-#      DB_HOST: database
-#      KAFKA_BROKER: ${KAFKA_BROKER}
-#    ports:
-#      - ${PROFILES_SERVICE_PORT}:${PROFILES_SERVICE_PORT}
-#    depends_on:
-#      - database
-#
-#  notifications:
-#    container_name: notifications
-#    build: ./apps/notifications
-#    command: npm start
-#    environment:
-#      PORT: ${NOTIFICATIONS_SERVICE_PORT}
-#      DB_HOST: database
-#      KAFKA_BROKER: ${KAFKA_BROKER}
-#    ports:
-#      - ${NOTIFICATIONS_SERVICE_PORT}:${NOTIFICATIONS_SERVICE_PORT}
-#    depends_on:
-#      - database
+  auth:
+    container_name: auth
+    build: ./apps/auth
+    command: npm start
+    environment:
+      PORT: ${AUTH_SERVICE_PORT}
+      DB_HOST: database
+      KAFKA_BROKER: ${KAFKA_BROKER}
+      CLINIC_SERVICE_HOST: ${CLINIC_SERVICE_HOST}
+      CLINIC_SERVICE_PORT: ${CLINIC_SERVICE_PORT}
+      PROFILES_SERVICE_HOST: ${PROFILES_SERVICE_HOST}
+      PROFILES_SERVICE_PORT: ${PROFILES_SERVICE_PORT}
+    ports:
+      - ${AUTH_SERVICE_PORT}:${AUTH_SERVICE_PORT}
+    depends_on:
+      - database
+
+  clinic:
+    container_name: clinic
+    build: ./apps/clinic
+    command: npm start
+    environment:
+      PORT: ${CLINIC_SERVICE_PORT}
+      DB_HOST: database
+      KAFKA_BROKER: ${KAFKA_BROKER}
+    ports:
+      - ${CLINIC_SERVICE_PORT}:${CLINIC_SERVICE_PORT}
+    depends_on:
+      - database
+
+  profiles:
+    container_name: profiles
+    build: ./apps/profiles
+    command: npm start
+    environment:
+      PORT: ${PROFILES_SERVICE_PORT}
+      DB_HOST: database
+      KAFKA_BROKER: ${KAFKA_BROKER}
+    ports:
+      - ${PROFILES_SERVICE_PORT}:${PROFILES_SERVICE_PORT}
+    depends_on:
+      - database
+
+  notifications:
+    container_name: notifications
+    build: ./apps/notifications
+    command: npm start
+    environment:
+      PORT: ${NOTIFICATIONS_SERVICE_PORT}
+      DB_HOST: database
+      KAFKA_BROKER: ${KAFKA_BROKER}
+    ports:
+      - ${NOTIFICATIONS_SERVICE_PORT}:${NOTIFICATIONS_SERVICE_PORT}
+    depends_on:
+      - database
 
   database:
     container_name: database
