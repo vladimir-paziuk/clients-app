@@ -34,3 +34,6 @@ export * from './constants/events.enum';
 // Kafka client
 export * from './kafka-client/kafka-client.module';
 export * from './kafka-client/kafka-client.service';
+
+// AWS
+export * from './aws/logger.service';

@@ -9,6 +9,7 @@ import {
   JwtStrategy,
   TypeOrmExModule,
   KafkaClientModule,
+  Logger,
 } from '@vp-clients-app/common-pkg';
 
 import { AuthController } from 'src/auth/auth.controller';
@@ -55,6 +56,7 @@ import { ProfilesClientService } from 'src/http-client/profiles.client.service';
     ProfilesClientService,
     CryptService,
     AuthPublisher,
+    Logger,
   ],
   exports: [JwtStrategy, PassportModule],
 })
