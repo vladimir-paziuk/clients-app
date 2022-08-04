@@ -1,7 +1,7 @@
 import { Injectable, UnauthorizedException, HttpStatus } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 
-import { JwtPayload, JwtToken } from '@vp-clients-app/common-pkg';
+import { JwtPayload, JwtToken, Logger } from '@vp-clients-app/common-pkg';
 import { CryptService } from '@vp-clients-app/common-pkg';
 
 import { UserEntity } from 'src/users/user.entity';
@@ -26,6 +26,7 @@ export class AuthService {
     private clinicService: ClinicClientService,
     private profilesService: ProfilesClientService,
     private authPublisher: AuthPublisher,
+    private logger: Logger,
   ) {}
 
   async getAccess(user: UserEntity): Promise<JwtToken> {
@@ -67,8 +68,13 @@ export class AuthService {
 
     try {
       user = await this.usersService.getUser(credentials, [ROLES_KEY]);
-    } catch (err) {
-      if (err.status === HttpStatus.NOT_FOUND) {
+    } catch (error) {
+      if (error.status === HttpStatus.NOT_FOUND) {
+        await this.logger.error({
+          name: 'Unauthorized',
+          stack: error.stack,
+          error,
+        });
         throw new UnauthorizedException('Unauthorized');
       }
     }

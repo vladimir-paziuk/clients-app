@@ -47,5 +47,5 @@ $ id ec2-user
 * Read [] notifications endpoint (toggle isRead field)
 * Get my notifications endpoint (based on role)
 * Get only resolution or appointments notifications endpoint
-* Move to .env all kafka client-ids and consumer-ids
 * Move to set_timestamp migration to public schema for reusing
+* SSM parameter store, for fetch .env config

@@ -6,7 +6,7 @@ import {
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 
-import { POSTGRESQL_CODES } from '@vp-clients-app/common-pkg';
+import { Logger, POSTGRESQL_CODES } from '@vp-clients-app/common-pkg';
 
 import { UserEntity } from 'src/users/user.entity';
 import { RoleEntity } from 'src/roles/role.entity';
@@ -19,6 +19,7 @@ export class UsersService {
   constructor(
     @InjectRepository(UsersRepository)
     private usersRepository: UsersRepository,
+    private logger: Logger,
   ) {}
 
   async createUser(
@@ -27,8 +28,13 @@ export class UsersService {
   ): Promise<UserEntity> {
     try {
       return await this.usersRepository.createUser(credentials, roles);
-    } catch (err) {
-      if (err.code === POSTGRESQL_CODES.userExists) {
+    } catch (error) {
+      if (error.code === POSTGRESQL_CODES.userExists) {
+        await this.logger.error({
+          name: 'User name already exist',
+          stack: error.stack,
+          error,
+        });
         throw new ConflictException('User name already exist');
       } else {
         throw new InternalServerErrorException();
